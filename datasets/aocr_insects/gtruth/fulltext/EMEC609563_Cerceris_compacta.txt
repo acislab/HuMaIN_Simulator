@@ -1,14 +1,16 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,563
 
 Joseph City
 Navajo Co.
-Ariz VIII-6-50
+ArizVIII-6-50
 
 J. W. MacSwain
 Collector
 
-Cerceris {male}
+Cerceris
 compacta Cr.
 Det.by '58
 H.A.Scullen

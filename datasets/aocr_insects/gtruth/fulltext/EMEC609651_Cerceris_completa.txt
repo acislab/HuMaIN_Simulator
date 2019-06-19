@@ -1,15 +1,19 @@
+3 4 5
+
 U.C. Berkeley
 EMEC 609,651
 
 Calif:Sta.Clara
 Co.,SanAntonio
 Vy.RangerSta.
-V1-27-53
+VI-27-53
 
 C.D.MacNeill
 Collector
 
-Cerceris {male}
+Cerceris
 completa Bks.
-Det.by '66
+Det. by '66
 H.A.Scullen
+
+Cerceris completa

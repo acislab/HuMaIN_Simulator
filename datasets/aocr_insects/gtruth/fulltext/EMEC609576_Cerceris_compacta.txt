@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,576
 
@@ -6,9 +8,9 @@ Collector
 
 LosMochis
 Sinaloa Mex.
-VII-7-1922
+VII -7 -1922
 
-Cerceris {male}
+Cerceris
 compacta Cr.
 Det.by '60
 H.A.Scullen

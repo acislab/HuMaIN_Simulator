@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,523
 
@@ -8,7 +10,7 @@ VII-4-54
 J. W. MacSwain
 Collector
 
-Cerceris {male}
+Cerceris
 compacta
 compacta Cr.
 Det.by '62

@@ -1,3 +1,5 @@
+3 4 5
+
 U.C. Berkeley
 EMEC 609,504
 
@@ -8,7 +10,9 @@ oacan,Mex.
 P. D. Hurd
 Collector
 
-Cerceris {female}
+Cerceris
 compacta Cr.
 Det.by '60
 H.A.Scullen
+
+Cerceris compacta

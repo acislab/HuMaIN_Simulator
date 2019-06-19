@@ -1,3 +1,5 @@
+3 4 5
+
 U.C. Berkeley
 EMEC 609,488
 
@@ -9,7 +11,9 @@ Mich.,Mex.
 P.D. Hurd
 Collector
 
-Cerceris {female}
+Cerceris
 compacta Cr.
 Det.by '58
 H.A.Scullen
+
+Cerceris compacta

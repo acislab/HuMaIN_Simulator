@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,643
 
@@ -9,7 +11,7 @@ mi.S.Livermore
 Alameda Co.
 Calif. VI-6-59
 
-Cerceris {male}
+Cerceris
 completa Bks.
 Det.by '62
 H.A.Scullen
