@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,782
 
@@ -8,7 +10,9 @@ Morelos,Mex.
 P. D. Hurd
 Collector
 
-Cerceris {male}
+Cerceris
 convergens '55
 Det.by V.& C.
 H.A.Scullen
+
+Cerceris convergens

@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,705
 
@@ -5,7 +7,7 @@ Hotevilla
 Navajo Co.Ariz
 7000' VI-28-66
 
-Paraeyella
+Parryella
 filifolia
 Torr.&Gray
 
@@ -14,6 +16,8 @@ M.A. Cazier
 Collectors
 
 Cerceris
-conifrons {female}
+conifrons
 '68 Mickel
 Det. JM Davidson
+
+Cerceris conifrons

@@ -1,16 +1,20 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,800
 
 Borrego
 San Diego Co.
-Calif. V-3-56
+Calif.V-3-56
 
 Eriogonum
 
 M. Wasbauer
 Collector
 
-Cerceris {male}
+Cerceris
 convergens
 Det.by V.& C.
-H.A.Scullen '60
+H.A.Scullen'60
+
+Cerceris convergens

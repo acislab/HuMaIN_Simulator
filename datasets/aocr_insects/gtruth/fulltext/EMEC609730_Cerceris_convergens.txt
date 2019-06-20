@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,730
 
@@ -8,7 +10,9 @@ VII-3-1964
 F.D.Parker
 Collector
 
-Cerceris	{male}
+Cerceris
 convergens 71
-Det. by V.&C.
+Det. by V.& C.
 H.A.Scullen
+
+Cerceris convergens

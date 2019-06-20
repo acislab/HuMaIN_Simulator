@@ -1,12 +1,16 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,785
 
-1.5mi,NE,Portal,
+1.5mi,NE,Portal
 8-8 59ARIZ 5000'
 E.G Linsley
 on Acacia
 
-Cerceris {male}
+Cerceris
 convergens
-Det.by V.& C.
-H.A.Scullen '61
+Det. by V.& C.
+H.A.Scullen'61
+
+Cerceris convergens

@@ -1,14 +1,18 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,780
 
 Palm Canyon
 Riverside Co., Calif
-V-13-1939
+V - 13 - 1939
 
 E. S. Ross
 Collector
 
-Cerceris {male}
+Cerceris
 convergens
-Det.by V.& C.
-H.A.Scullen '58
+Det. by V.& C.
+H.A.Scullen'58
+
+Cerceris convergens

@@ -1,14 +1,18 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,758
 
 Altadena, Calif.
 9-30-34
 
-C. D. Michener
+C.D.Michener
 Collector
 
-Cerceris {female}
+Cerceris
 convergens
 V.& C.
 Det. by	'38
 H.A.Scullen
+
+Cerceris convergens

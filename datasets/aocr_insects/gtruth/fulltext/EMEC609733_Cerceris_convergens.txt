@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,733
 
@@ -8,7 +10,9 @@ VI-14 1937
 N.W.Frazier
 Collector
 
-Cerceris {male}
-convergens 71
-Det. by V.&C.
+Cerceris
+convergens'71
+Det. by V.& C.
 H.A.Scullen
+
+Cerceris convergens

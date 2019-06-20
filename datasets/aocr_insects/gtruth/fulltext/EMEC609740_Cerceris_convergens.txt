@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,740
 
@@ -8,7 +10,9 @@ Calif. IV-26-52
 J. G. Rozen
 Collector
 
-Cerceris {male}
+Cerceris
 convergens
-Viereck & CKll
+Viereck & Ckll.
 T.Griswold det
+
+Cerceris convergens

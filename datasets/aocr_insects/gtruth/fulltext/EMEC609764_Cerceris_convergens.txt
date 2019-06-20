@@ -1,3 +1,5 @@
+2 3 4 5
+
 U.C. Berkeley
 EMEC 609,764
 
@@ -8,7 +10,9 @@ VII-2-53
 J. W. MacSwain
 Collector
 
-Cerceris {female}
-convergens 57
+Cerceris
+convergens '57
 Det.by V.& C.
 H.A.Scullen
+
+Cerceris convergens
