@@ -1,7 +1,7 @@
-0 1 2 3 4 5 6 7 8 9 10		
-cm	copyright reserved	
-The New York
-Botanical Garden
+0 1 2 3 4 5 6 7 8 9 10
+cm	copyright reserved
+THE NEW YORK
+BOTANICAL GARDEN
 
 
 REPORT ANY REIDENTIFICATION OF THIS VOUCHER
@@ -12,7 +12,7 @@ WI
 38
 
 
-sheet 1 of 3
+sheet 1 of 3 38
 The New York Botanical Garden
 INSTITUTE OF ECONOMIC BOTANY
 Plants of Commonwealth of Dominica
@@ -21,9 +21,9 @@ ARACEAE
 Anthurium ?acante det. H.T. Beck 93
 hookeri Kunth -det. T. Croat, 93
 
-WEST INDIES, Dominica. St. George. Above new 
+WEST INDIES, Dominica. St.George. Above new 
 steel bridge on road to Freshwater Lake.
-15º19'N, 61º19'W.  765m. Advanced secondary
+15°19'N, 61°19'W.  765m. Advanced secondary
 montane rainforest.
 
 Herb, terrestrial, forming a rosette; leaves

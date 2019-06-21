@@ -1,10 +1,10 @@
-0 1 2 3 4 5 6 7 8 9 10		
-cm	copyright reserved	
-The New York
-Botanical Garden
+0 1 2 3 4 5 6 7 8 9 10
+cm	copyright reserved
+THE NEW YORK
+BOTANICAL GARDEN
 
 
-267
+269
 WI
 
 
@@ -13,7 +13,7 @@ INSTITUTE OF ECONOMIC BOTANY
 Plants of Commonwealth of Dominca
 SAPOTACEAE
 Manilkara bidentata (A.L. Candolle) Chevalier
--!Hans T. Beck '93
+-!HANS T. BECK '93
 WEST INDIES, Dominica. Carib Territory. Land
 of Wilbur Rabbaes, Atkinson. In field 0.9km
 downhill from top of ridge. 15°13'N, 61°16'W.
@@ -22,7 +22,7 @@ downhill from top of ridge. 15°13'N, 61°16'W.
 Tree to 20m with dbh 1.5m; bark rough, thick;
 mature leaves mottled and scarred.
 
-n.v.: Bullet Wood [English].
+n.v.: Bullet Wood [Enlish].
 Balata [Creole-Patois].
 USE:	Material for construction {wood]. Used in housebuilding
 

@@ -1,7 +1,7 @@
-0 1 2 3 4 5 6 7 8 9 10		
-cm	copyright reserved	
-The New York
-Botanical Garden
+0 1 2 3 4 5 6 7 8 9 10
+cm	copyright reserved
+THE NEW YORK
+BOTANICAL GARDEN
 
 
 273
@@ -27,7 +27,12 @@ Daniel Atha 711	November 4, 1994
 with Thomas A. Zanoni, José Cedeño
 
 Fieldwork supported by Pfizer, Inc.
-Voucher for pharmeceutical screening
+Voucher for pharmaceutical screening
+
+
+NEW YORK
+BOTANICAL
+GARDEN
 
 
 NEW YORK BOTANICAL GARDEN
@@ -35,11 +40,6 @@ NEW YORK BOTANICAL GARDEN
 
 
 NY IMAGED
-
-
-NEW YORK
-BOTANICAL
-GARDEN
 
 
 REPORT ANY REIDENTIFICATION OF THIS VOUCHER
