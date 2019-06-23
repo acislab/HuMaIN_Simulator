@@ -1,11 +1,11 @@
-0 1 2 3 4 5 6 7 8 9 10		
-cm	copyright reserved	
-The New York
-Botanical Garden
+0 1 2 3 4 5 6 7 8 9 10
+cm	copyright reserved
+THE NEW YORK
+BOTANICAL GARDEN
 
 
 254
-WI
+wI
 
 
 JARDIN BOTANICO NACIONAL "DR. RAFAEL M. MOSCOSO"
@@ -13,12 +13,12 @@ SANTO DOMINGO, REPUBLICA DOMINICANA
 
 31160	Araliaceae
 
-Dendropanax arboreus (L.) Dcne & PL.
+Dendropanax arboreus (L.)Dcne & 
+PL.
 7m; Fr. blanco, pero negro al madurar,
 5-6mm. diam.
 
 Rep. Dominicana: Península y Prov. Samaná
-
 en el paso y en la cara al viento (N) de 
 Loma Pan de Azúcar, subiendo del poblado
 de La Laguna; potreros, conucos, vegetación

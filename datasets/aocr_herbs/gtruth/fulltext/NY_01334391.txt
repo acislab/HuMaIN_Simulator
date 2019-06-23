@@ -1,7 +1,7 @@
-0 1 2 3 4 5 6 7 8 9 10		
-cm	copyright reserved	
-The New York
-Botanical Garden
+0 1 2 3 4 5 6 7 8 9 10
+cm	copyright reserved
+THE NEW YORK
+BOTANICAL GARDEN
 
 
 The University of Texas Herbarium (LL, TEX)
@@ -17,9 +17,8 @@ Capraria biflora L.
 
 Woods: Sierra del Jíbaro, El Ancón Estate, Viñales.
 
-No. 4295	Fecha: May 20, 1955
-Bro. Alain
-Col.:
+No. 4295	 Fecha: May 20, 1955
+Col.: Bro. Alain
 
 
 NEW YORK

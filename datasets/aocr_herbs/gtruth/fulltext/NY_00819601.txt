@@ -1,12 +1,12 @@
-0 1 2 3 4 5 6 7 8 9 10		
-cm	copyright reserved	
-The New York
-Botanical Garden
+0 1 2 3 4 5 6 7 8 9 10
+cm	copyright reserved
+THE NEW YORK
+BOTANICAL GARDEN
 
 
 NEW YORK
 BOTANICAL
-GARDEN
+..GARDEN..
 
 
 Ludwigia peploides (HBK.) Raven subsp. peploides
@@ -16,18 +16,18 @@ Missouri Botanical Garden-
 
 REVISION OF JUSSIAEA
 J. repens L. var. peploides (HBK) Griseb.
-Philip A. Munz	, 1939
+Philip A. Munz	    , 1939
 
 
 NEW YORK BOTANICAL GARDEN
 CARNEGIE INSTITUTION OF WASHINGTON
 UNITED STATES NATIONAL MUSEUM
 WEST INDIAN EXPLORATION 1913
-Guayanilla to Tallahoa, Porto Rico
-NO. 1971.	|
+GUAYANILLA TO TALLAHOA, PORTO RICO
+NO.1971.	|
 Jussiaea diffusa Forssk
 In water.
-J. A. Shafer, Collector	MARCH 13, 1913
+J. A. SHAFER, COLLECTOR	MARCH 13, 1913
 
 
 NY IMAGED
@@ -40,3 +40,4 @@ Missouri Botanical Garden
 
 NEW YORK BOTANICAL GARDEN
 00819601
+535
