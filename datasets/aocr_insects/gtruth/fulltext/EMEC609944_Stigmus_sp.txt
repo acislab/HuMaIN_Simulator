@@ -1,3 +1,4 @@
+2 13 14 15
 U.C. Berkeley
 EMEC 609,944
 
@@ -7,3 +8,5 @@ M.Wasbauer
 COSTA RICA: Cartago
 Turrialba IICA
 31-VI-1976
+
+Stigmus sp.

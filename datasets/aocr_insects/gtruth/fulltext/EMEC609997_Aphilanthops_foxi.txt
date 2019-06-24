@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,997
 
@@ -10,3 +11,5 @@ Melilotus
 6 mi.W. Indio
 Riverside Co.,
 Calif,IV-30-49
+
+Aphilanthops foxi

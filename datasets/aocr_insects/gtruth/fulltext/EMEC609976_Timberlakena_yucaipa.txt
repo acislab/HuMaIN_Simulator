@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,976
 
@@ -6,3 +7,5 @@ Wildl. Pres. (LC),
 Contra Costa Co.
 VIII-21-81 Powell
 Eriogonum nudum
+
+Timberlakena yucaipa

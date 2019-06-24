@@ -1,3 +1,4 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,836
 
@@ -8,7 +9,9 @@ Calif. IV-29-52
 G. A. Marsh
 Collector
 
-Cerceris {male}
+Cerceris
 convergens
 Det. by V. & C.
 H.A.Scullen 55
+
+Cerceris convergens

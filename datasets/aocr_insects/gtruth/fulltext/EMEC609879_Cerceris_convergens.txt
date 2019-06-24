@@ -1,12 +1,15 @@
+4 5
 U.C. Berkeley
 EMEC 609,879
 
 Ariz:Cochise Co.	PD Hurd
 Sierra Vista,		AE&MM
-IX-15-1974			Michelbacher
+IX-15-1974 10mi. E		Michelbacher
 Isocoma tenuisecta
 
-Cerceris {male}
+Cerceris
 convergens
 Det V. & C.
 Ferguson '81
+
+erceris convergens

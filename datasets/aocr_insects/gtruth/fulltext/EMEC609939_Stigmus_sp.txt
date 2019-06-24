@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,939
 
@@ -6,3 +7,5 @@ with Klamath River
 Humboldt Co. Sept 14
 16,1992 flight trap
 W.Middlekauff,coll.
+
+Stigmus sp.

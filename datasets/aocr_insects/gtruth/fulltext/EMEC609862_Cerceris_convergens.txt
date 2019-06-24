@@ -1,3 +1,4 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,862
 
@@ -6,7 +7,9 @@ Los Angeles Co.Calif.
 August 17 1954
 R. R. Snelling
 
-Cerceris {male}
+Cerceris
 convergens
 Det. by V. & C.
 H.A.Scullen '62
+
+Cerceris convergens

@@ -1,3 +1,4 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,828
 
@@ -11,7 +12,9 @@ inflatum
 P. D. Hurd
 Collector
 
-Cerceris {male}
+Cerceris
 convergens '57
 Det. by V. & C.
 H.A.Scullen
+
+Cerceris convergens

@@ -1,3 +1,4 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,857
 
@@ -8,7 +9,7 @@ Nev. VIII-17-60
 J.W.MacSwain
 Collector
 
-Cerceris {male}
+Cerceris
 convergens
 Det. by V. & C.
 H.A.Scullen '62

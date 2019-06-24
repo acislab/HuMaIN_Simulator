@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,916
 
@@ -7,5 +8,7 @@ trap
 CALIF:Monterey Co.
 5 air mi SW Green-
 field,Arroyo Seco
-River 400'
+River 400' V-5-75
 R. Wharton V-8-75
+
+Stigmus sp.

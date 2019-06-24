@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,900
 
@@ -8,3 +9,5 @@ Moorhead, Minn.
 Clay County
 V-22-1980
 J.R.Powers,Collr.
+
+Stigmus sp.

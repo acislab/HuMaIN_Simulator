@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,933
 
@@ -9,3 +10,5 @@ Stewart Camp, 2mi SW
 Portal 4800' el.
 R. Coville collr.
 VIII-2/3-1973
+
+Stigmus sp.

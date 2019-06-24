@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,934
 
@@ -8,3 +9,5 @@ Collectors
 COSTA RICA
 Turrialba
 VIII-7/9-65
+
+Stiomus sp

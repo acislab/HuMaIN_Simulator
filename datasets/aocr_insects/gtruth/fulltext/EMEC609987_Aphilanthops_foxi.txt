@@ -1,3 +1,4 @@
+12 13 14 15
 U.C. Berkeley
 EMEC 609,987
 
@@ -7,3 +8,5 @@ Collector
 Hopkins Well
 Riverside Co.
 Calif. IV-29-52
+
+Aphilanthops foxi

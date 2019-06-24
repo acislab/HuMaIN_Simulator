@@ -1,3 +1,4 @@
+2 13 14 15
 U.C. Berkeley
 EMEC 609,914
 
@@ -8,3 +9,5 @@ Juarez III-20-67
 
 J.Powell
 Collector
+
+Stigmus sp.

@@ -1,7 +1,8 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,880
 
-Ariz.:Cochise Co.
+Ariz.:Cochise Co.,
 Stateline Rd.,1 mi.
 NW Rodeo, N. Mex.,
 4100', 4-IX-1978

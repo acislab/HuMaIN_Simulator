@@ -1,3 +1,4 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,816
 
@@ -11,7 +12,9 @@ hartwegi
 E.G. Linsley
 Collector
 
-Cerceris {male}
+Cerceris
 convergens '59
 Det. by V. & C.
 H.A.Scullen
+
+Cerceris convergens

@@ -1,3 +1,4 @@
+3 4 5
 U.C. Berkeley
 EMEC 609,848
 
@@ -8,7 +9,9 @@ IV-24-1955
 P. D. Hurd
 Collector
 
-Cerceris {male}
+Cerceris
 convergens
 Det. by V. & C.
 H.A.Scullen 58
+
+Cerceris convergens
