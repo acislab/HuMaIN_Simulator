@@ -1,6 +1,6 @@
-		FLORA OF CANADA
-No.
-			Lichens
+FLORA OF T
+No.		 	CANADA
+Lichens
 Actinogyra mühlenbergii
 Ontario					Co
 Substratum
@@ -8,7 +8,7 @@ Loc. Chippewa Falls
 Coll. A.J. Sharp			Alt.
 Det. vidi ISAO YOSHIMURA	Date 23 July 1955
 
-	HERBARIUM OF THE UNIVERSITY OF TENNESSEE
+HERBARIUM OF THE UNIVERSITY OF TENNESSEE
 
 University of Tennessee (TENN)
 TENN-L-0000022

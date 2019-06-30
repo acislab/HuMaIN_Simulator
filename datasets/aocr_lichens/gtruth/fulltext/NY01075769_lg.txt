@@ -1,6 +1,6 @@
-	HERBARIUM OF 
-	THE NEW YORK BOTANICAL GARDEN
-	lichens of CALIFORNIA
+HERBARIUM OF 
+THE NEW YORK BOTANICAL GARDEN
+LICHENS OF CALIFORNIA
 
 Pyrenocollema halodytes (Nyl.) R. C. Harris
 
@@ -8,7 +8,7 @@ SAN DIEGO COUNTY: Point Loma, tidepool area of
 Cabrillo Nat. Monument, on granitic boulders in 
 middle intertidal (barnacle) zone. 20 Dec 1991.
 
-	COLLECTED BY Wayne P. Armstrong
+COLLECTED BY Wayne P. Armstrong
 
-	NEW YORK BOTANICAL GARDEN
-	01075769
+NEW YORK BOTANICAL GARDEN
+01075769
