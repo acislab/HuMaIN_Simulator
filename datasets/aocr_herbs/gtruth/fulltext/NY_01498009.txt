@@ -1,7 +1,7 @@
 0 1 2 3 4 5 6 7 8 9 10
 cm	copyright reserved	
-The New York
-Botanical Garden
+The NEW YORK
+BOTANICAL GARDEN
 
 
 273
@@ -32,7 +32,7 @@ Other notes:
 
 Local name:		Collector:Elbert L. Little, Jr.
 Date of collection:July 2, 1950		Collector's No.13188
-Specimens Collected Under teh Auspices of the
+Specimens Collected Under the Auspices of the
 U. S. Department of Agriculture, Forest Service;
 Tropical Forest Experiment Station, Rio Piedras, Puerto Rico
 

@@ -1,7 +1,7 @@
 0 1 2 3 4 5 6 7 8 9 10
 cm	copyright reserved	
-The New York
-Botanical Garden
+THE NEW YORK
+BOTANICAL GARDEN
 
 
 Spigelia anthelmia L., Sp. pl. 1: 149/150 n°1(1753)
@@ -34,5 +34,5 @@ Spigelia anthelmia L.
 det. Homer Hurley 12/68
 
 
-COLL. H. H. & G. W. SMITH.
+ST. VINCENTS: COLL. H. H. & G. W. SMITH.
 COMM. F. D. GODMAN, F.R.S., March, 1890.

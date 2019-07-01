@@ -1,7 +1,20 @@
 0 1 2 3 4 5 6 7 8 9 10
 cm	copyright reserved	
-The New York
-Botanical Garden
+THE NEW YORK
+BOTANICAL GARDEN
+
+NICHOLL'S TOWN
+N.P.
+A STANIARD CREEK
+N FRESH CREEK
+D
+LISBON CREEK
+R
+CROW HILL
+SMITH HILL
+DEEP CREEK
+O
+S
 
 
 NEW YORK
@@ -9,8 +22,7 @@ BOTANICAL
 GARDEN
 
 
-WI
-275
+
 
 
 Spigelia anthelmia L., Sp. pl. 1: 149/150 n°1(1753)
