@@ -2,7 +2,7 @@
 
 Alectoria nigricans (Ach.) Nyl.
 
-from clip quadrat b 15+ (10), 
+from clip quadrat b 15+ 10, 
 Barrow area
 
 coll John Koranda	24 Aug 1956

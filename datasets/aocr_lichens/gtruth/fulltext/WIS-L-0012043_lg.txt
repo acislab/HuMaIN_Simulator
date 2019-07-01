@@ -1,3 +1,4 @@
+038 - 23A
 		AKFWS HERBARIUM
 		FLORA OF ALASKA
 	Cetraria laevigata Rass.
@@ -11,3 +12,5 @@ Elevation:	1300 ft
 Collector:	Stephen & Sandra Talbot # 88038-23A
 Map/Quad.: Kenai (A-7) Quad. 	Date: 5 Sept 1988
 	Det.: John W. Thomson
+
+University

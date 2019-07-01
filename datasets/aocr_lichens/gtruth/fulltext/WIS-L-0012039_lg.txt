@@ -1,3 +1,4 @@
+8
 							845
 			FLORA OF ALASKA
 Cetraria laevigata Rass.
@@ -9,4 +10,5 @@ Site:			Low herb snowbed
 Coll:			Stephen Talbot & Sandra Looman
 			#845 		3 September 1987
 			U.S. Fish and Wildlife Service, Anchorage, AK
-Det:
+Det:               Kt2
+		   Ippale
