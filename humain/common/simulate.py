@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 import argparse, networkx as nx
-
-from humain.common.constants import *
-from humain.common.utils import *
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+
+# from humain.common.constants import *
+# from humain.common.utils import *
+from constants import *
+from utils import *
 
 class Workflow:
 	'Sequence of actions to execute'
-
+	######################################################################################################################################
 	# Constructor
 	def __init__(self, prj_name, wfw_name):
 		# Project's Directory
@@ -28,10 +31,12 @@ class Workflow:
 		# Action(s) to be executed next
 		self.next_action = []
 
+	######################################################################################################################################
 	# Load the nodes (actions) and structure of the IE workflow
 	def load_structure(self):
 		with open( self.workflow_pathfilename, "r+" ) as wf:
 			for line in wf:
+				line = line[:-1].replace(' ', '')
 				actions = line.split(',')
 				n_a = len(actions)
 				if n_a == 1:
@@ -46,21 +51,19 @@ class Workflow:
 							self.workflow.add_node( actions[i], run = False )
 						self.workflow.add_edge( actions[i], actions[0] )
 						i = i + 1
-
-		# Need to create a layout when doing
-		# separate calls to draw nodes and edges
-		pos = nx.spring_layout(G)
-		nx.draw_networkx_nodes(G, pos, cmap=plt.get_cmap('jet'), 
-							node_color = values, node_size = 500)
-		nx.draw_networkx_labels(G, pos)
-		nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='r', arrows=True)
-		nx.draw_networkx_edges(G, pos, edgelist=black_edges, arrows=False)
+	
+	######################################################################################################################################
+	# Draw the graph of actions and the order of execution
+	def draw_workflow(self):
+		pos = nx.circular_layout(self.workflow)    
+		nx.draw(self.workflow, pos, with_labels = True, edge_color = 'b')   
 		plt.show()
 
-		
+
 class Simulation:
 	'Workflow and the simulation parameters'
-
+	######################################################################################################################################
+	# Constructor
 	def __init__(self, proj_name, wfw_name, sim_param):
 		# Workflow Structure: Sequence of Actions
 		self.workflow = Workflow( proj_name, wfw_name )
@@ -75,6 +78,12 @@ class Simulation:
 
 		# Load the structure of the workflow
 		self.workflow.load_structure()
+		#self.workflow.draw_workflow()
+		self.workflow.load_actions
+	
+	######################################################################################################################################
+	# Constructor
+
 
 
 
@@ -92,4 +101,3 @@ if __name__ == '__main__':
 
 	# wfw = Workflow(args.project, args.workflow)
 	sim = Simulation( args.project, args.workflow, args.simulation )
-
