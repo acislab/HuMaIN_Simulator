@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys, networkx as nx
 import matplotlib.pyplot as plt
+import ntpath
 
 from constants import *
 from utils import *
@@ -22,7 +23,7 @@ class Simulation:
 		verify_dir( self.workflows_dir, 'The workflows directory (' + self.workflows_dir + ') was not found: ', None, 2 )
 
 		# Workflow Definition File
-		self.workflow_pathfilename = self.workflows_dir + "/" + wfw_name.replace('.csv', '') + ".csv"
+		self.workflow_pathfilename = self.workflows_dir + "/" + ntpath.basename( wfw_name ).replace('.csv', '') + ".csv"
 		verify_file( self.workflow_pathfilename, 'The workflow file (' + self.workflow_pathfilename + ') was not found.', None, 3 )
 
 		# Actions Directory 
@@ -34,13 +35,22 @@ class Simulation:
 		verify_dir( self.simulations_dir, 'The simulations directory (' + self.simulations_dir + ') was not found: ', None, 5 )
 
 		# File with the simulation parameters of the workflow
-		self.params_pathfilename = self.simulations_dir + "/" + sim_par_name.replace('.csv', '') + ".csv"
+		self.params_pathfilename = self.simulations_dir + "/" + ntpath.basename( sim_par_name ).replace('.csv', '') + ".csv"
 		verify_file( self.params_pathfilename, 'The simulation parameters file (' + self.params_pathfilename + ') was not found.', None, 6 )
 
+		# Results directory: self.project_results
+		results_dir = self.project_dir + "/results"
+		verify_create_dir( results_dir, 'The results directory (' + results_dir + ') was not found and could not be created.', None, 7 )
+		self.project_results = results_dir + "/" + ntpath.basename(sim_par_name).replace('.csv', '')
+		verify_create_dir( self.project_results, 'The directory to store the execution results(' + self.project_results + ') and could not be created.', None, 8 )
+
+		# Execution Log 
+		self.log_pathfilename = self.project_results + "/" + ntpath.basename( sim_par_name ) + ".log"
+
 		##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##--
 		##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##-------##--
 
-		# Workflow
+		# Workflow = Graph
 		self.workflow = nx.DiGraph()
 
 		# Action(s) to be executed next
@@ -53,7 +63,7 @@ class Simulation:
 		self.load_parameters()
 
 		# Load the values for each of the Actions' parameters
-		self.load_values(self.params_pathfilename)
+		self.load_values( self.params_pathfilename )
 
 	######################################################################################################################################
 	# Load the nodes (actions) and structure of the IE workflow
@@ -80,16 +90,18 @@ class Simulation:
 	# Draw the graph of actions and the order of execution
 	def draw_workflow(self):
 		pos = nx.circular_layout(self.workflow)    
-		nx.draw(self.workflow, pos, with_labels = True, edge_color = 'b')   
+		nx.draw(self.workflow, pos, with_labels = True, edge_color = 'b')  
+		#node_labels = nx.get_node_attributes(self.workflow, 'param_types')
+		node_labels = nx.get_node_attributes(self.workflow, 'param_values')
+		nx.draw_networkx_labels(self.workflow, pos, labels = node_labels)
 		plt.show()
-
 	
 	######################################################################################################################################
 	# Load inputs and outputs of every (actions) and save them as nodes' attributes in the graph
 	def load_parameters(self):
 		# Load the content of the actions.csv file
 		actions_csv = self.project_dir + "/actions.csv"
-		verify_file( actions_csv, "The actions' description file (" + actions_csv + ") was not found.", None, 7 )
+		verify_file( actions_csv, "The actions' description file (" + actions_csv + ") was not found.", None, 9 )
 
 		# Create a dictionary with the list of parameters for each Action
 		params_dict = {}
@@ -104,55 +116,154 @@ class Simulation:
 		for act_name in list(self.workflow):
 			# Python script for the action
 			script_name = self.actions_dir + "/" + act_name + ".py"
-			verify_file( script_name, 'The Python script for the  action (' + act_name + ') was not found.', None, 8 )
+			verify_file( script_name, 'The Python script for the  action (' + act_name + ') was not found.', None, 10 )
 			# The script is added as attribute for the node
 			self.workflow.node[act_name]['script'] = script_name
 
 			# Veryfication of the list of parameters for the Action under study
 			if not(act_name in params_dict):
 				print( "\nERROR: There is not definition, in Actions.csv, for the parameters of the Action " + act_name + ".\n" )
-				sys.exit( 9 )
-			params_list = params_dict[ act_name ]
-			for parameter_string in params_list:
-				param_segments = parameter_string.split(':')
-				p_name, p_datatype, p_DS = "", "", ""
-				if len(param_segments) == 2:
-					p_name, p_datatype = param_segments[0], param_segments[1]
+				sys.exit( 11 )
+
+			# Dictionaries of (parameter, datatype) and (parameter, value) pairs
+			param_datatype_dict = {}
+			param_value_dict = {}
+			# Processing of each of the parameters
+			params_line = params_dict[ act_name ]
+			for parameter_definition in params_line:
+				p_name, p_datatype = "", ""
+
+				param_parts = parameter_definition.split(':')
+				if len(param_parts) == 2:
+					p_name, p_datatype = param_parts[0], param_parts[1]
 					if not(p_datatype in DATATYPES):
 						print( "\nERROR: In definition of Action " + act_name + ", datatype " + p_datatype + " does not exist.\n" )
-						sys.exit( 10 )
-				elif len(param_segments) == 3:
-					p_name, p_datatype, p_DS = param_segments[0], param_segments[1], param_segments[2]
-					if not(p_datatype in DATATYPES):
-						print( "\nERROR: In definition of Action " + act_name + ", datatype " + p_datatype + " does not exist.\n" )
-						sys.exit( 10 )
-					if not(p_DS in DATASET_TYPES):
-						print( "\nERROR: In definition of Action " + act_name + ", dataset type " + p_datatype + " does not exist.\n" )
-						sys.exit( 11 )
+						sys.exit( 12 )
+					# We save the datatype, but we do not know yet the value
+					param_datatype_dict[ p_name ] = p_datatype
+					param_value_dict[ p_name ] = None
+
 				else:
 					print( "\nERROR: In definition of Action " + act_name + ", parameter " + p_name + " has a wrong type specification.\n" )
-					sys.exit( 12 )
+					sys.exit( 13 )
 
-			# The validated list of parameters id added as an attribute to the node
-			self.workflow.node[act_name]['parameters'] = params_list
+			# The validated list of parameters is added as an attribute to the node
+			self.workflow.node[act_name]['param_types'] = param_datatype_dict
+			self.workflow.node[act_name]['param_values'] = param_value_dict
+
+			#self.draw_workflow()
+			break
 
 	
 	######################################################################################################################################
 	# Load the values for each of the Actions' parameters
 	def load_values(self, sim_fname):
-		# Load the content of the actions.csv file
-		actions_csv = self.project_dir + "/actions.csv"
-		verify_file( actions_csv, "The actions' description file (" + actions_csv + ") was not found.", None, 7 )
+		# Create a dictionary with the list of parameters for each Action
+		params_dict = {}
+		with open(self.params_pathfilename, "r+") as par_f:
+			for line in par_f:
+				line = line[:-1].replace(' ', '')
+				list_segments = line.split(',')
+				if len(list_segments) > 0:
+					params_dict[ list_segments[0] ] = list_segments[1:]
+		
+		# Process, one by one, the actions and their parameters:		
+		for act_name in list(self.workflow):
+			# Veryfication of the list of parameters for the Action under study
+			if not(act_name in params_dict):
+				print( "\nERROR: There is not definition, in " + self.params_pathfilename + ", for the parameters of the Action " + act_name + ".\n" )
+				sys.exit( 14 )
+
+			# Processing of each of the parameters
+			params_line = params_dict[ act_name ]
+			for parameter_definition in params_line:
+				p_name, p_value = "", ""
+				param_parts = parameter_definition.split('=')
+				if len(param_parts) == 2:
+					p_name, p_value = param_parts[0], param_parts[1]
+					if not( p_name in self.workflow.node[act_name]['param_values'] ):
+						print( "\nERROR: Parameter " + p_name + " has not been defined in Action " + act_name + ".\n" )
+						sys.exit( 15 )
+					# We assign the value to the parameter
+					self.workflow.node[act_name]['param_values'][ p_name ] = p_value
+				else:
+					print( "\nERROR: In definition of Action " + act_name + ", parameter " + p_name + " has a wrong type specification.\n" )
+					sys.exit( 16 )
+
+			break
+
+	######################################################################################################################################
+	# Returns the parameters to run the especified Action
+	def get_execution_parameters(self, act_name ):
+		param_dict = {}
+		if act_name in list(self.workflow):
+			param_types = self.workflow.node[act_name]['param_types']
+			param_values = self.workflow.node[act_name]['param_values']
+			for p_name, p_type in param_types.items():
+				if p_type in INPUT_TYPES:
+					if (p_name in param_values.keys()) and (not (param_values[ p_name ] is None)):
+						p_value = param_values[ p_name ]
+						# Validation of the Input Sources
+						first_two = p_type[0:2]
+						ext = p_type.split('_')[-1]
+						if first_two == "D_":
+							if not( verify_dir_ext( p_value, ext ) ):
+								print( "\nERROR: Execution of " + act_name + ". Directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )
+						else:
+							if not( verify_file_ext( p_value, ext ) ):
+								print( "\nERROR: Execution of " + act_name + ". File " + p_value + " does not exist or does not have " + ext + " extension.\n" )
+						# Add the parameter to the execution line list
+						param_dict[ p_name ] = p_value
+					else:
+						print( "\nERROR: The parameter " + p_name + " has not been defined or assigned for Action " + act_name + ".\n" )
+						sys.exit( 17 )
+		else:
+			print( "\nERROR: The Action " + act_name + " has not been defined in the Graph.\n" )
+			sys.exit( 18 )
+		return(param_dict)
+
 
 	######################################################################################################################################
 	# Execution of the Simulation process
 	def run(self):
 		# Init log
+		write_log(self.log_pathfilename, "Simulation starts.", init = True)
 
-		# Start To_Run Actions
+		# Write in the log the parameters of the simulation
+		self.save_basic_info()
 
-		# While len(To_Run) > 0:
-		# 	verify_input
-		# 	run
-		# 	verify_output
-		pass
+		# Start To_Run Actions (TODO: This can be parallelized)
+		while len(self.next_action) > 0:
+			current_action = self.next_action[0]
+			print(current_action)
+			# Verify the required parameters and data sources of current_action
+			execution_parameters = self.get_execution_parameters( current_action )
+			print(execution_parameters)
+			# Run the Action
+			#run
+			# Verify the output data sources generated by the current action
+
+			# Update self.next_action
+			break
+
+		# Run the metrics scripts
+
+
+		# Finish log
+		write_log(self.log_pathfilename, "Simulation finishes.")
+
+	######################################################################################################################################
+	# Save in the log file the project, workflow, and simulation parameters file used in the simulation
+	def save_basic_info(self):
+		basic_info = "Simulation Parameters:\n\t\tProject Directory: " + self.project_dir + "\n\t\tWorkflow Definition File: " + self.workflow_pathfilename
+		basic_info += "\n\t\tSimulation Parameters File: " + self.params_pathfilename
+		basic_info += "\n\t\tParameters per Action: "
+
+		# Collect the information, one by one, of the actions and their parameters:		
+		for act_name in list(self.workflow):
+			param_values = self.workflow.node[act_name]['param_values']
+			basic_info += "\n\t\t\t" + act_name + ": " + str(param_values) + "\n"
+
+			break
+		# Write in the log
+		write_log(self.log_pathfilename, basic_info)

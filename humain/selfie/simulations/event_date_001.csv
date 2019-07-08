@@ -1,1 +1,1 @@
-ocr_dataset, ocropus, aocr_insects, duration, selfie/results/event_date_001
+ocr_dataset, engine = ocropus, dataset = aocr_insects, metric = duration, out_dir = selfie/results/event_date_001
