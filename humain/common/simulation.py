@@ -206,12 +206,21 @@ class Simulation:
 						# Validation of the Input Sources
 						first_two = p_type[0:2]
 						ext = p_type.split('_')[-1]
+						# Directory
 						if first_two == "D_":
 							if not( verify_dir_ext( p_value, ext ) ):
 								print( "\nERROR: Execution of " + act_name + ". Directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )
-						else:
+								sys.exit( 17 )
+						# File
+						elif p_type in ['TXT', 'JPG']:
 							if not( verify_file_ext( p_value, ext ) ):
 								print( "\nERROR: Execution of " + act_name + ". File " + p_value + " does not exist or does not have " + ext + " extension.\n" )
+								sys.exit( 18 )
+						elif p_type in ['INT', 'FLOAT']:
+							if not (p_value.replace('.','',1).isdigit()):
+								
+								sys.exit( 19 )
+
 						# Add the parameter to the execution line list
 						param_dict[ p_name ] = p_value
 					else:

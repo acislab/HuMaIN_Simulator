@@ -1,2 +1,2 @@
-ocr_dataset, engine:STRING, dataset:D_JPG, metric:LIST, out_dir:O_D_TXT
+ocr_dataset, engine:STRING, dataset:D_TXT, metric:LIST, out_dir:O_D_TXT
 

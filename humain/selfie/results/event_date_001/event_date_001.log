@@ -1,9 +1,9 @@
-[2019-07-07 19:03:15] Simulation starts.
-[2019-07-07 19:03:15] Simulation Parameters:
+[2019-07-08 18:11:56] Simulation starts.
+[2019-07-08 18:11:56] Simulation Parameters:
 		Project Directory: /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie
 		Workflow Definition File: /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/workflows/event_date.csv
 		Simulation Parameters File: /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/simulations/event_date_001.csv
 		Parameters per Action: 
 			ocr_dataset: {'engine': 'ocropus', 'dataset': 'aocr_insects', 'metric': 'duration', 'out_dir': 'selfie/results/event_date_001'}
 
-[2019-07-07 19:03:15] Simulation finishes.
+[2019-07-08 18:11:56] Simulation finishes.
