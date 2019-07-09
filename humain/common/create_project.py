@@ -1,17 +1,71 @@
 #!/usr/bin/env python3
-import argparse
+import argparse, os, shutil, errno, csv
 
-from humain.common.constants import *
-from humain.common.utils import *
+# Create files inside "path" folder
+def create_file(path, filename):
+    open(os.path.join(path, filename), 'wb')
+
+
+# Create a new Project
+def create_new_folder(dirname):
+    print("Creating a new folder!")
+    try:
+        os.mkdir(dirname)
+        print("Project: ", args.project, "created!")
+        os.mkdir(dirname+"/actions")
+        os.mkdir(dirname+"/workflows")
+        os.mkdir(dirname+"/simulations")
+        os.mkdir(dirname+"/results")
+        create_file(dirname, "actions.csv")
+        create_file(dirname, "file_formats.csv")
+        create_file(dirname, "__init__.py")
+        create_file(dirname+"/actions", "__init__.py")
+    except FileExistsError:
+        print("Project" , args.project ,  "already exists! Try a different Project Name!")
+
+
+# Copy Folders and Files 
+def copyanything(src, dst):
+    try:
+        shutil.copytree(src, dst)
+    except OSError as exc:
+        if exc.errno == errno.ENOTDIR:
+            shutil.copy(src, dst)
+        else: raise
+
+
+# Delete files and subdirectories of specified folders
+def delete_files_folders(folder):
+    for root, dirs, files in os.walk(folder):
+        for f in files:
+            os.unlink(os.path.join(root, f))
+        for d in dirs:
+            shutil.rmtree(os.path.join(root, d))
+
 
 if __name__ == '__main__':
-	""" Runs the workflow's execution definition, validating I/O, and logging the progress events.
+	""" Creates a new file and copies into a new file if required.
 	"""
-	parser = argparse.ArgumentParser("Runs the workflow's execution definition, validating I/O, and logging the progress events.")
-	parser.add_argument('-p', '--project', action="store", required=True, help="Project name (directory name of the project).")
-	parser.add_argument('-w', '--workflow', action="store", required=True, help="Workflow name (directory name of the workflow).")
-	parser.add_argument('-e', '--execution', action="store", required=True, help="csv execution file (do not incldue the extension)")
+	parser = argparse.ArgumentParser("Creates a new project file.")
+	parser.add_argument('-n', '--project', action="store", required=True, help="New Project's name")
+	parser.add_argument('-c', '--copy', action="store", required=False, help="Copy from existing project")
 	args = parser.parse_args()
-	
-	# Usage example
-	python3 
+
+print("New Project name: ", args.project)
+dirname = os.path.pardir+"/"+args.project
+
+if args.copy is not None:
+    try: 
+        print("Copying from: ", args.copy)
+        dircopy = os.path.pardir+"/"+args.copy
+        if os.path.isdir(dircopy): 
+            copyanything(dircopy, dirname)
+            # Remove the Result files
+            result_folder = dirname+"/results"
+            delete_files_folders(result_folder)
+        else: 
+            print("Folder", args.copy, "does not exist!")
+    except FileExistsError:
+        print("Project" , args.project ,  "already exists! Try a different name!")
+else:
+    create_new_folder(dirname)
