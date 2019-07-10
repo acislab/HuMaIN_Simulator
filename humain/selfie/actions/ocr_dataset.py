@@ -22,38 +22,36 @@ if __name__ == '__main__':
 	################################################################################################################################
 
 	# args.dataset
-	dataset_dir = BASE_DIR + "/" + args.dataset
-	verify_dir( dataset_dir, 'The dataset directory (' + dataset_dir + ') was not found: ', parser, 1 )
+	verify_dir( args.dataset, 'The dataset directory (' + args.dataset + ') was not found: ', parser, 1 )
 
 	# args.metric
 	metrics_dir = ""
 	if len(args.metric) > 0:
 		# Metric directory
-		metrics_dir = dataset_dir + "/metrics"
+		metrics_dir = args.dataset + "/metrics"
 		verify_dir( metrics_dir, 'The metrics directory was not found.', parser, 3 )
 		# Metric files
 		for m_name in args.metric:
 			verify_file( metrics_dir + "/" + m_name + ".csv", 'The file metric ' + m_name + ' was not found in the metrics directory.', parser, 4 )
 
 	# args.out_dir
-	output_dir = BASE_DIR + "/" + args.out_dir
-	verify_create_dir( output_dir, 'The destination directory, for the text file, was not found and could not be created.', parser, 5 )
-	output_metrics_dir = output_dir + "/metrics"
+	verify_create_dir( args.out_dir, 'The destination directory, for the text file, was not found and could not be created.', parser, 5 )
+	output_metrics_dir = args.out_dir + "/metrics"
 	verify_create_dir( output_metrics_dir, 'The destination metric directory was not found and could not be created.', parser, 6 )
 
 	################################################################################################################################
 	# COPY THE TEXT FILES TO THE EXPERIMENT'S RESULT FOLDER
 	################################################################################################################################
 	# Create the list of files to process
-	filenames = os.listdir(dataset_dir)
+	filenames = os.listdir(args.dataset)
 	filename_list = list(f for f in filenames if f.endswith('.txt'))
 	try:
 		pathfilename = ""
 		for filename in filename_list:
-			pathfilename = dataset_dir + "/" + filename
-			shutil.copy( pathfilename, output_dir)
+			pathfilename = args.dataset + "/" + filename
+			shutil.copy( pathfilename, args.out_dir)
 	except (OSError, IOError):
-		print('ERROR: The file ' + pathfilename + ' could not be copied to ' + output_dir + '.\n')
+		print('ERROR: The file ' + pathfilename + ' could not be copied to ' + args.out_dir + '.\n')
 		sys.exit(8)
 
 	################################################################################################################################
@@ -62,9 +60,11 @@ if __name__ == '__main__':
 	if len(args.metric) > 0:
 		# Metric files
 		for m_name in args.metric:
-			metric_filename_src = output_metrics_dir + "/" + m_name + ".csv"
+			metric_filename_src = metrics_dir + "/" + m_name + ".csv"
 			try:
 				shutil.copy( metric_filename_src, output_metrics_dir )	
 			except (OSError, IOError):
 				print('ERROR: The metric file ' + metric_filename_src + ' could not be found or copied to ' + output_metrics_dir + '.\n')
 				sys.exit(8)
+
+	sys.exit(0)

@@ -1,3 +1,3 @@
-ocr_dataset, dataset = datasets/aocr_insects/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001
+ocr_dataset, dataset = datasets/aocr_insects/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001/ocr_dataset
 
 # All the input and output directories and files are relative to the BASE_DIR
