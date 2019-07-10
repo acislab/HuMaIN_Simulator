@@ -21,7 +21,7 @@ def create_new_folder(dirname):
         create_file(dirname, "__init__.py")
         create_file(dirname+"/actions", "__init__.py")
     except FileExistsError:
-        print("Project" , args.project ,  "already exists! Try a different Project Name!")
+        print("ERROR: Project" , args.project ,  "already exists! Try a different Project Name!")
 
 
 # Copy Folders and Files 
@@ -51,21 +51,21 @@ if __name__ == '__main__':
 	parser.add_argument('-c', '--copy', action="store", required=False, help="Copy from existing project")
 	args = parser.parse_args()
 
-print("New Project name: ", args.project)
-dirname = os.path.pardir+"/"+args.project
+	print("New Project name: ", args.project)
+	dirname = os.path.pardir+"/"+args.project
 
-if args.copy is not None:
-    try: 
-        print("Copying from: ", args.copy)
-        dircopy = os.path.pardir+"/"+args.copy
-        if os.path.isdir(dircopy): 
-            copyanything(dircopy, dirname)
-            # Remove the Result files
-            result_folder = dirname+"/results"
-            delete_files_folders(result_folder)
-        else: 
-            print("Folder", args.copy, "does not exist!")
-    except FileExistsError:
-        print("Project" , args.project ,  "already exists! Try a different name!")
-else:
-    create_new_folder(dirname)
+	if args.copy is not None:
+		try: 
+			print("Copying from: ", args.copy)
+			dircopy = os.path.pardir+"/"+args.copy
+			if os.path.isdir(dircopy): 
+				copyanything(dircopy, dirname)
+				# Remove the Result files
+				result_folder = dirname+"/results"
+				delete_files_folders(result_folder)
+			else: 
+				print("ERROR: Folder", args.copy, "does not exist!")
+		except FileExistsError:
+			print("ERROR: Project" , args.project ,  "already exists! Try a different name!")
+	else:
+		create_new_folder(dirname)
