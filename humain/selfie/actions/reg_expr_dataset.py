@@ -6,35 +6,21 @@ from humain.common.utils import *
 
 
 if __name__ == '__main__':
-	""" Get the simulated execution result from an OCR engine
+	""" Simulated version of the regular expression Event Date extraction
 	"""
-	parser = argparse.ArgumentParser("Run the specified OCR engine over all the images of an specified collection.")
-	parser.add_argument('-e', '--engine', action="store", required=True, help="OCR engine: ocropus, tesseract, or gc-ocr.")
-	parser.add_argument('-d', '--dataset', action="store", required=True, help="Biocollection or dataset name.")
-	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected when executing the ocr.")
-	parser.add_argument('-o', '--out_dir', action="store", required=True, help="Directory where the ocr transcription of the image will be stored.")
+	parser = argparse.ArgumentParser("Run the simulated version of the regular expression Event Date extraction.")
+	parser.add_argument('-d', '--data_dir', action="store", required=True, help="Directory with the fulltext transcription files of the images.")
+	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected when running the regular expression extraction.")
+	parser.add_argument('-o', '--out_file', action="store", required=True, help="File with (image, event_date) pairs extracted using regular expression.")
 	args = parser.parse_args()
 	
-##########################################################################################
-# Developer: Icaro Alzuru         Project: HuMaIN (http://humain.acis.ula.ve)
-# Description: 
-#   Given a text file as input, this script scans extracting dates, following the 
-# format specified in the code. 
-##########################################################################################
-# Copyright 2017    Advanced Computing and Information Systems (ACIS) Lab - UF
-#                   (https://www.acis.ufl.edu/)
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-# http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-##########################################################################################
+	# Usage example
+	# python3 reg_expr_dataset.py -d humain/selfie/results/event_date_001/ocr_dataset -d aocr_insects -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results
+
+	################################################################################################################################
+	# ARGUMENTS VALIDATIONS
+	################################################################################################################################
+	
 
 import sys, os, re, codecs
 import pandas as pd
