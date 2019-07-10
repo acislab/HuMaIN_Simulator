@@ -12,7 +12,7 @@ You should get an answer similar to the following:
 ```bash
 Python 3.7.2
 ```
-<br/>
+
 The steps to install the simulator are the following:<br/>
 ### 1) Clone the HuMaIN Simulator repository. 
 From https://github.com/acislab/HuMaIN_Simulator, download the repository as a zip file and locally extract its content, or clone it with git:
