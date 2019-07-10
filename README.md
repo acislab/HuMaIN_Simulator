@@ -12,6 +12,7 @@ You should get an answer similar to the following:
 ```bash
 Python 3.7.2
 ```
+<br/>
 The steps to install the simulator are the following:<br/>
 ### 1) Clone the HuMaIN Simulator repository. 
 From https://github.com/acislab/HuMaIN_Simulator, download the repository as a zip file and locally extract its content, or clone it with git:
@@ -19,7 +20,7 @@ From https://github.com/acislab/HuMaIN_Simulator, download the repository as a z
 git clone https://github.com/acislab/HuMaIN_Simulator
 ```
 ### 2) Update the home directory of the simulator.
-In the [Installation_Path]/HuMaIN_Simulator/humain/common/constants.py file, update the value of BASE_DIR to indicated where this directory is located in your computer.
+In the [Installation_Path]/HuMaIN_Simulator/humain/common/constants.py file, update the value of BASE_DIR to the path of the HuMaIN_Simulator in your computer.
 ### 3) Update the PYTHONPATH value.
 Add the HuMaIN_Simulator directory to PYTHONPATH environment variable of your operating system. For example, in Ubuntu Linux, add the following line to the ~/.bashrc file:
 ```bash
