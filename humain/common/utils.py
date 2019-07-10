@@ -21,6 +21,18 @@ def verify_create_dir( dir_name, error_msg, parser, error_code ):
 				parser.print_help()
 			if error_code:
 				sys.exit( error_code )
+	
+#	
+def verify_create_file( filename, error_msg, parser, error_code ):
+	try:
+		f = open(filename, "w+") 
+		f.close() 
+	except:
+		print( "\nERROR: " + error_msg + "\n" )
+		if parser:
+			parser.print_help()
+		if error_code:
+			sys.exit( error_code )
         		
 #	
 def verify_file( filename, error_msg, parser, error_code ):
