@@ -12,7 +12,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser("Run the simulated version of the regular expression Event Date extraction.")
 	parser.add_argument('-d', '--fulltext_dir', action="store", required=True, help="Directory with the fulltext transcription files of the images.")
 	parser.add_argument('-f', '--regexp_file', action="store", required=True, help="File with the correspondent Event Date extracted using the regular expresion algorithm.")	
-	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected when running the regular expression extraction.")
+	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--out_file', action="store", required=True, help="File with (image, event_date) pairs extracted using regular expression.")
 	args = parser.parse_args()
 	

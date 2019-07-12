@@ -1,3 +1,15 @@
+[ACTIONS]
 ocr_dataset, dataset = datasets/aocr_insects/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001/ocr_dataset
 
 # All the input and output directories and files are relative to the BASE_DIR
+
+[METRICS]
+duration.py
+quality.py
+
+[POST-PROCESSING]
+box_whisker_table.py, duration_filename = , title = 
+box_whisker_table.py, quality_filename = , title =
+
+comparison_table.py, metric_filename = quality_file1, metric_filename = quality_file2, metric_filename = quality_file3, title = Quality, aggregation = average
+comparison_graph.py, metric_filename = duration_file1, metric_filename = duration_file2, metric_filename = duration_file3, title = Duration, aggregation = sum
