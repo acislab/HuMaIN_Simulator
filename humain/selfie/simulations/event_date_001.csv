@@ -1,5 +1,6 @@
 [ACTIONS]
 ocr_dataset, dataset = datasets/aocr_insects/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001/ocr_dataset
+reg_expr_data_dir, fulltext_dir = humain/selfie/results/event_date_001/ocr_dataset, regexp_file = datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv, metric = duration, accepted_file = humain/selfie/results/event_date_001/reg_expr_dataset/accepted.csv, unknown_file = humain/selfie/results/event_date_001/reg_expr_dataset/rejected.csv
 
 # All the input and output directories and files are relative to the BASE_DIR
 
@@ -10,6 +11,5 @@ quality.py
 [POST-PROCESSING]
 box_whisker_table.py, duration_filename = , title = 
 box_whisker_table.py, quality_filename = , title =
-
-comparison_table.py, metric_filename = quality_file1, metric_filename = quality_file2, metric_filename = quality_file3, title = Quality, aggregation = average
-comparison_graph.py, metric_filename = duration_file1, metric_filename = duration_file2, metric_filename = duration_file3, title = Duration, aggregation = sum
+# comparison_table.py, metric_filename = quality_file1, metric_filename = quality_file2, metric_filename = quality_file3, title = Quality, aggregation = average
+# comparison_graph.py, metric_filename = duration_file1, metric_filename = duration_file2, metric_filename = duration_file3, title = Duration, aggregation = sum

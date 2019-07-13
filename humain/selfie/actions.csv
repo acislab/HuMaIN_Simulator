@@ -1,2 +1,2 @@
 ocr_dataset, dataset:D_TXT, metric:LIST, out_dir:O_D_TXT
-reg_expr_data_dir,  dataset:D_TXT, metric:LIST, out_file:O_TXT
+reg_expr_data_dir, fulltext_dir:D_TXT, regexp_file:TXT, metric:LIST, accepted_file:O_TXT, unknown_file:O_TXT

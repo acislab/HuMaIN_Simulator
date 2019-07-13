@@ -13,16 +13,26 @@ if __name__ == '__main__':
 	parser.add_argument('-d', '--fulltext_dir', action="store", required=True, help="Directory with the fulltext transcription files of the images.")
 	parser.add_argument('-f', '--regexp_file', action="store", required=True, help="File with the correspondent Event Date extracted using the regular expresion algorithm.")	
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
-	parser.add_argument('-o', '--out_file', action="store", required=True, help="File with (image, event_date) pairs extracted using regular expression.")
+	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
+	#"File with (image, event_date) pairs extracted using regular expression.")
+	#parser.add_argument('-u', '--unknown_file', action="store", required=True, help="File with the list of text files for which no Event Date could be extracted.")
 	args = parser.parse_args()
 	
-	# Usage example
-	# python3 reg_expr_dataset.py -d humain/selfie/results/event_date_001/ocr_dataset -d aocr_insects -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results
+	# Usage example: python3 reg_expr_dataset.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset
+	# python3 reg_expr_dataset.py 
+	# -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset 
+	# -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration 
+	# -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset
+
+	# python3 reg_expr_dataset.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/accepted.csv -u /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/rejected.csv
+	# -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/accepted.csv
+	# -u /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/rejected.csv
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
 
+	#### INPUTS
 	# args.fulltext_dir
 	verify_dir( args.fulltext_dir, 'The fulltext transcription directory (' + args.fulltext_dir + ') was not found: ', parser, 1 )
 
@@ -37,46 +47,81 @@ if __name__ == '__main__':
 		verify_dir( metrics_dir, 'The metrics directory was not found.', parser, 3 )
 		# Metric files
 		for m_name in args.metric:
-			metric_file = args.regexp_file[:-4] + "/" + m_name + ".csv"
+			metric_file = metrics_dir + "/" + m_name + ".csv"
 			verify_file( metric_file, 'The file metric ' + metric_file + ' was not found in the metrics directory.', parser, 4 )
 
-	# args.out_file
-	verify_create_file( args.out_file, 'The output file, for the extracted event dates, could not be created.', parser, 5 )
-	output_metrics_dir = os.path.dirname( args.out_file ) + "/metrics" 
-	verify_create_dir( output_metrics_dir, 'The destination metric directory could not be created.', parser, 6 )
+	#### OUTPUTS
+	# Output directory: args.output_dir
+	verify_create_dir( args.output_dir, 'The output directory could not be created.', parser, 5 )
+	# Output subdirectories for the accepted values and rejected specimens
+	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the accepted event date values could not be created.', parser, 6 )
+	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the rejected specimens could not be created.', parser, 7 )
+	# Output files
+	accepted_file = args.output_dir + "/accepted/accepted.tsv"
+	rejected_file = args.output_dir + "/rejected/rejected.txt"
+	verify_create_file( accepted_file, 'The output file, for the extracted event dates, could not be created.', parser, 8 )
+	verify_create_file( rejected_file, 'The output file of rejected specimens, could not be created.', parser, 9 )
+	# Metric folders
+	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted event date values could not be created.', parser, 10 )
+	verify_create_dir( args.output_dir + "/rejected/metrics", 'The output metrics directory for the rejected specimens could not be created.', parser, 11 )
 
 	################################################################################################################################
 	# LOAD IN A DATAFRAME THE EXTRACTED EVENT DATE VALUES USING REGULAR EXPRESIONS
-	################################################################################################################################
 	df = pd.read_csv( args.regexp_file, sep='\t', names=['filename', 'value'] )
+	df = df.fillna('')
 
+	################################################################################################################################
+	# LOAD IN DIFFERENT STRUCTURES THE ACCEPTED (WITH EVENT DATE) AND REJECTED SPECIMENS
+	accepted_dict = {}
+	rejected_list = []
 
-	# ################################################################################################################################
-	# # COPY THE TEXT FILES TO THE EXPERIMENT'S RESULT FOLDER
-	# ################################################################################################################################
-	# # Create the list of files to process
-	# filenames = os.listdir(args.dataset)
-	# filename_list = list(f for f in filenames if f.endswith('.txt'))
-	# try:
-	# 	pathfilename = ""
-	# 	for filename in filename_list:
-	# 		pathfilename = args.dataset + "/" + filename
-	# 		shutil.copy( pathfilename, args.out_dir)
-	# except (OSError, IOError):
-	# 	print('ERROR: The file ' + pathfilename + ' could not be copied to ' + args.out_dir + '.\n')
-	# 	sys.exit(8)
+	for index, row in df.iterrows():
+		if row['value'] == '':
+			rejected_list.append( row['filename'] )
+		else:
+			accepted_dict[ row['filename'] ] = row['value']
 
-	# ################################################################################################################################
-	# # INSERT THE LINES WITH THE METRIC'S VALUES - FOR EACH METRIC
-	# ################################################################################################################################	
-	# if len(args.metric) > 0:
-	# 	# Metric files
-	# 	for m_name in args.metric:
-	# 		metric_filename_src = metrics_dir + "/" + m_name + ".csv"
-	# 		try:
-	# 			shutil.copy( metric_filename_src, output_metrics_dir )	
-	# 		except (OSError, IOError):
-	# 			print('ERROR: The metric file ' + metric_filename_src + ' could not be found or copied to ' + output_metrics_dir + '.\n')
-	# 			sys.exit(8)
+	################################################################################################################################
+	# CREATE THE METRIC FILES
+		
+	# For each metric, divide the values in Accepted and Rejected
+	for m_name in args.metric:
+		# Loads the metric values in a dataframe
+		metric_file = metrics_dir + "/" + m_name + ".csv"
+		df_metric = pd.read_csv( metric_file, names=['filename', 'value'] )
+		accepted_txt = ""
+		rejected_txt = ""
+		# Divide the metric value in Accepted and Rejected
+		for index, row in df_metric.iterrows():
+			if row['filename'] in accepted_dict.keys():
+				accepted_txt += row['filename'] + "," + str(row['value']) + "\n"
+			else:
+				rejected_txt += row['filename'] + "," + str(row['value']) + "\n"
+
+		# Create and fill the Accepted metric file
+		new_metric_filename = args.output_dir + "/accepted/metrics/" + m_name + ".csv"
+		with open(new_metric_filename, "w+") as f_m:
+			f_m.write( accepted_txt )
+		# Create and fill the Rejected metric file
+		new_metric_filename = args.output_dir + "/rejected/metrics/" + m_name + ".csv"
+		with open(new_metric_filename, "w+") as f_m:
+			f_m.write( rejected_txt )
+
+	################################################################################################################################
+	# SAVE THE ACCEPTED VALUES AND REJECTED SPECIMENS
+	
+	# Accepted Values
+	accepted_txt = ""
+	for filename, value in accepted_dict.items(): 
+		accepted_txt += filename + "\t" + value + "\n"
+	with open(accepted_file, "w+") as f_a:
+		f_a.write( accepted_txt )
+
+	# Rejected Specimens
+	rejected_txt = ""
+	for filename in rejected_list: 
+		rejected_txt += filename + "\n"
+	with open(rejected_file, "w+") as f_r:
+		f_r.write( rejected_txt )
 
 	sys.exit(0)

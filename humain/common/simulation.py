@@ -236,7 +236,6 @@ class Simulation:
 					args_list.append(p_value)
 				elif p_type in OUTPUT_TYPES:
 					# It is a file or a directory
-					
 					args_list.append(BASE_DIR + "/" + p_value)
 				else:
 					args_list.append(p_value)
@@ -246,8 +245,8 @@ class Simulation:
 
 		return(args_list)
 
-	############################For example, in Ubuntu Linux, add the following line to the ~/.bashrc file:#################################################################################
-	# Verify Output of an ActionFor example, in Ubuntu Linux, add the following line to the ~/.bashrc file:
+	#############################################################################################################
+	# Verify Output of an Action
 	def verifyActionOutput( self, act_name ):
 		if act_name in list(self.workflow):
 			param_types = self.workflow.node[act_name]['param_types']
