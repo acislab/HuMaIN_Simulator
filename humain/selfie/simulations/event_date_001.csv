@@ -1,8 +1,12 @@
-[ACTIONS]
-ocr_dataset, dataset = datasets/aocr_insects/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001/ocr_dataset
-reg_expr_data_dir, fulltext_dir = humain/selfie/results/event_date_001/ocr_dataset, regexp_file = datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv, metric = duration, accepted_file = humain/selfie/results/event_date_001/reg_expr_dataset/accepted.csv, unknown_file = humain/selfie/results/event_date_001/reg_expr_dataset/rejected.csv
-
+#######################################################################################
+# Execution value of the workflow's parameters 
 # All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+
+[ACTIONS]
+ocr_dataset, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001/ocr_dataset
+reg_expr_dataset, fulltext_dir = humain/selfie/results/event_date_001/ocr_dataset, regexp_file = datasets/aocr_mix100/reg_exp/gc-ocr/reg_expr.tsv, metric = duration, output_dir = humain/selfie/results/event_date_001/reg_expr_dataset
+crowd_event_date_dataset, specimens = humain/selfie/results/event_date_001/reg_expr_dataset/rejected/rejected.txt, crowd_data = datasets/aocr_mix100/crowd/terms/event_date.tsv, metric = duration, output_file = humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv
 
 [METRICS]
 duration.py

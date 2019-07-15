@@ -15,8 +15,8 @@ if __name__ == '__main__':
 
 	# Usage example
 	# python3 run_simulation.py -p selfie -w event_date -s event_date_001
-
+	
 	sim = Simulation( args.project, args.workflow, args.sim_params )
-	sim.draw_workflow()
+	#sim.draw_workflow()
 	
 	sim.run()

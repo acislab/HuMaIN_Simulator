@@ -14,20 +14,8 @@ if __name__ == '__main__':
 	parser.add_argument('-f', '--regexp_file', action="store", required=True, help="File with the correspondent Event Date extracted using the regular expresion algorithm.")	
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
-	#"File with (image, event_date) pairs extracted using regular expression.")
-	#parser.add_argument('-u', '--unknown_file', action="store", required=True, help="File with the list of text files for which no Event Date could be extracted.")
-	args = parser.parse_args()
-	
+	args = parser.parse_args()	
 	# Usage example: python3 reg_expr_dataset.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset
-	# python3 reg_expr_dataset.py 
-	# -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset 
-	# -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration 
-	# -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset
-
-	# python3 reg_expr_dataset.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/accepted.csv -u /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/rejected.csv
-	# -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/accepted.csv
-	# -u /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/rejected.csv
-
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

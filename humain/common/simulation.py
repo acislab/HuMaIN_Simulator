@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys, networkx as nx
 import matplotlib.pyplot as plt
-import ntpath, subprocess
+import ntpath, subprocess, re
 
 from constants import *
 from utils import *
@@ -104,8 +104,20 @@ class Simulation:
 
 		# Create a dictionary with the list of parameters for each Action
 		params_dict = {}
+		actions_csv_text = ""
 		with open(actions_csv, "r+") as act_f:
 			for line in act_f:
+		# 		actions_csv_text += line.replace('\n', '&&')
+		# print(actions_csv_text)
+		# # The ACTION section is loaded
+		# action_section = re.findall(r'\[ACTIONS\](.+?)\[.+\]', actions_csv_text)
+		# if len(action_section) == 0:
+		# 	print( "\nERROR: The ACTIONS section could not be read from actions.csv.\n" )
+		# 	sys.exit( 10 )
+		# lines = action_section.split('&&')
+		# print(lines)
+		# # Each line is processed and the parameters are extracted
+		# for line in lines:
 				line = line[:-1].replace(' ', '')
 				list_segments = line.split(',')
 				if len(list_segments) > 0:
@@ -121,7 +133,7 @@ class Simulation:
 
 			# Veryfication of the list of parameters for the Action under study
 			if not(act_name in params_dict):
-				print( "\nERROR: There is not definition, in Actions.csv, for the parameters of the Action " + act_name + ".\n" )
+				print( "\nERROR: There is not definition, in actions.csv, for the parameters of the Action " + act_name + ".\n" )
 				sys.exit( 11 )
 
 			# Dictionaries of (parameter, datatype) and (parameter, value) pairs
@@ -149,10 +161,6 @@ class Simulation:
 			# The validated list of parameters is added as an attribute to the node
 			self.workflow.node[act_name]['param_types'] = param_datatype_dict
 			self.workflow.node[act_name]['param_values'] = param_value_dict
-
-			#self.draw_workflow()
-			break
-
 	
 	######################################################################################################################################
 	# Load the values for each of the Actions' parameters
@@ -189,8 +197,6 @@ class Simulation:
 					print( "\nERROR: In definition of Action " + act_name + ", parameter " + p_name + " has a wrong type specification.\n" )
 					sys.exit( 16 )
 
-			break
-
 	######################################################################################################################################
 	# Returns the parameters to run the especified Action
 	def get_execution_parameters(self, act_name ):
@@ -215,16 +221,16 @@ class Simulation:
 					dir_name = BASE_DIR + "/" + p_value
 					ext = p_type.split('_')[-1]
 					if not( verify_dir_ext( dir_name, ext ) ):
-						print( "\nERROR: Execution of " + act_name + ". Directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )
+						print( "\nERROR: Execution of " + act_name + ". Directory " + dir_name + " does not exist or does not contain " + ext + " files.\n" )
 						sys.exit( 19 )
 					#
 					args_list.append(dir_name)
 				# File
-				elif p_type in ['TXT', 'JPG']:
+				elif p_type in ['TXT', 'JPG', 'TSV']:
 					filename = BASE_DIR + "/" + p_value
 					ext = p_type.split('_')[-1]
 					if not( verify_file_ext( filename, ext ) ):
-						print( "\nERROR: Execution of " + act_name + ". File " + p_value + " does not exist or does not have " + ext + " extension.\n" )
+						print( "\nERROR: Execution of " + act_name + ". File " + filename + " does not exist or does not have " + ext + " extension.\n" )
 						sys.exit( 20 )
 					# 
 					args_list.append(filename)
@@ -276,6 +282,16 @@ class Simulation:
 						if not( verify_file_ext( complete_value, ext ) ):
 							print( "\nERROR: Verification of " + act_name + ". Output file " + p_value + " does not exist or does not have " + ext + " extension.\n" )
 							sys.exit( 26 )
+					# Directory of Accepted and Rejected values
+					elif p_type in ['O_D_AR']:
+						accepted_dir = complete_value + "/accepted"
+						verify_dir( accepted_dir, "ERROR: The output accepted directory was not found (" + accepted_dir + ")", None, 27 )
+						rejected_dir = complete_value + "/rejected"
+						verify_dir( accepted_dir, "ERROR: The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
+						accepted_file = accepted_dir + "/accepted.tsv"
+						verify_file( accepted_file, "ERROR: The output accepted file was not found (" + accepted_file + ")", None, 29 )
+						rejected_file = rejected_dir + "/rejected.txt"
+						verify_file( rejected_file, "ERROR: The output rejected file was not found (" + rejected_file + ")", None, 30 )
 		else:
 			print( "\nERROR: The Action " + act_name + " has not been defined in the Graph.\n" )
 			sys.exit( 27 )
@@ -316,11 +332,11 @@ class Simulation:
 			current_action = self.next_action[0]
 			# Verify the required parameters and data sources of current_action
 			execution_parameters = self.get_execution_parameters( current_action )
-
 			# Run the Action
 			script_filename = self.workflow.node[ current_action ]['script']
 			cmd = [script_filename] + execution_parameters
 			output = subprocess.run(args=cmd)
+
 			if output.returncode == 0: # Success
 				msg = "Action " + current_action + " was sucessfully executed."
 				write_log(self.log_pathfilename, msg)
@@ -337,8 +353,6 @@ class Simulation:
 			# Update self.next_action
 			self.updateGraphAfterExecution( current_action )
 
-			break
-
 		# Run the metrics scripts
 		# TODO
 
@@ -350,13 +364,12 @@ class Simulation:
 	def save_basic_info(self):
 		basic_info = "Simulation Parameters:\n\t\tProject Directory: " + self.project_dir + "\n\t\tWorkflow Definition File: " + self.workflow_pathfilename
 		basic_info += "\n\t\tSimulation Parameters File: " + self.params_pathfilename
-		basic_info += "\n\t\tParameters per Action: "
+		basic_info += "\n\t\tParameters per Action:\n"
 
 		# Collect the information, one by one, of the actions and their parameters:		
 		for act_name in list(self.workflow):
 			param_values = self.workflow.node[act_name]['param_values']
-			basic_info += "\n\t\t\t" + act_name + ": " + str(param_values) + "\n"
+			basic_info += "\t\t\t" + act_name + ": " + str(param_values) + "\n"
 
-			break
 		# Write in the log
 		write_log(self.log_pathfilename, basic_info)

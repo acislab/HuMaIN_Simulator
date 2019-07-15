@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys
+import os, sys, re
 import datetime
 # 
 def verify_dir( dir_name, error_msg, parser, error_code ):
@@ -58,7 +58,7 @@ def write_log( log_pathfilename, msg, init = False ):
 
 #
 def verify_file_ext( pathfilename, ext ):
-	extracted_ext = pathfilename[:-(len(ext))].lower()
+	extracted_ext = pathfilename[-(len(ext)):].lower()
 	if ( extracted_ext != ext.lower() ):
 		return(False)
 	if ( not os.path.isfile( pathfilename ) ):
@@ -74,4 +74,3 @@ def verify_dir_ext( dir_name, ext ):
 	if len(filename_list) == 0:
 		return(False)
 	return(True)
-	
