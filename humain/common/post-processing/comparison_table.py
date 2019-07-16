@@ -9,14 +9,17 @@ import pandas as pd
 
 def create_table():
     new_dataset = np.column_stack(data_to_plot)
+    # if args.title:
+    #     plt.title(args.title)
     fig, ax = plt.subplots()
     fig.patch.set_visible(False)
     ax.axis('off')
     ax.axis('tight')
-
     df = pd.DataFrame(new_dataset, columns=data_objects)
     ax.table(cellText=df.values, colLabels=df.columns)
     # fig.tight_layout()
+    if args.title:
+        plt.title(args.title)
     fig.savefig('comparison_table.png')
     # plt.show()
 
