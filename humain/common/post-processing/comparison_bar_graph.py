@@ -13,7 +13,7 @@ def create_graph():
     ax.bar(x_pos, data_to_plot, color='green')
     if args.title:
         plt.title(args.title)
-    fig.savefig('bar_graph_fig.png', bbox_inches='tight')
+    fig.savefig('bar_graph_fig.png')
 
 
 if __name__ == '__main__':
