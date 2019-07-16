@@ -46,7 +46,7 @@ if __name__ == '__main__':
 	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the rejected specimens could not be created.', parser, 7 )
 	# Output files
 	accepted_file = args.output_dir + "/accepted/accepted.tsv"
-	rejected_file = args.output_dir + "/rejected/rejected.txt"
+	rejected_file = args.output_dir + "/rejected/rejected.tsv"
 	verify_create_file( accepted_file, 'The output file, for the extracted event dates, could not be created.', parser, 8 )
 	verify_create_file( rejected_file, 'The output file of rejected specimens, could not be created.', parser, 9 )
 	# Metric folders
@@ -54,7 +54,7 @@ if __name__ == '__main__':
 	verify_create_dir( args.output_dir + "/rejected/metrics", 'The output metrics directory for the rejected specimens could not be created.', parser, 11 )
 
 	################################################################################################################################
-	# LOAD IN A DATAFRAME THE EXTRACTED EVENT DATE VALUES USING REGULAR EXPRESIONS
+	# BUILD A DATAFRAME WITH THE EXTRACTED EVENT DATE VALUES USING REGULAR EXPRESIONS
 	df = pd.read_csv( args.regexp_file, sep='\t', names=['filename', 'value'] )
 	df = df.fillna('')
 

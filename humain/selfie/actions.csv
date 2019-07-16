@@ -1,4 +1,4 @@
 ocr_dataset, dataset:D_TXT, metric:LIST, out_dir:O_D_TXT
 reg_expr_dataset, fulltext_dir:D_TXT, regexp_file:TSV, metric:LIST, output_dir:O_D_AR
-crowd_event_date_dataset, specimens:TXT, crowd_data:TSV, metric:LIST, output_file:O_TSV
-consensus_dataset, 
+crowd_event_date_dataset, specimens:TSV, crowd_data:TSV, metric:LIST, output_file:O_TSV
+consensus_dataset, crowd_file:TSV, consensus_file:TSV, metric:LIST, output_dir:O_D_AR

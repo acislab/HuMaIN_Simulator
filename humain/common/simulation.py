@@ -285,13 +285,13 @@ class Simulation:
 					# Directory of Accepted and Rejected values
 					elif p_type in ['O_D_AR']:
 						accepted_dir = complete_value + "/accepted"
-						verify_dir( accepted_dir, "ERROR: The output accepted directory was not found (" + accepted_dir + ")", None, 27 )
+						verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 27 )
 						rejected_dir = complete_value + "/rejected"
-						verify_dir( accepted_dir, "ERROR: The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
+						verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
 						accepted_file = accepted_dir + "/accepted.tsv"
-						verify_file( accepted_file, "ERROR: The output accepted file was not found (" + accepted_file + ")", None, 29 )
-						rejected_file = rejected_dir + "/rejected.txt"
-						verify_file( rejected_file, "ERROR: The output rejected file was not found (" + rejected_file + ")", None, 30 )
+						verify_file( accepted_file, "The output accepted file was not found (" + accepted_file + ")", None, 29 )
+						rejected_file = rejected_dir + "/rejected.tsv"
+						verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 30 )
 		else:
 			print( "\nERROR: The Action " + act_name + " has not been defined in the Graph.\n" )
 			sys.exit( 27 )
