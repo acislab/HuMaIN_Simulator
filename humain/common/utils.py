@@ -74,3 +74,27 @@ def verify_dir_ext( dir_name, ext ):
 	if len(filename_list) == 0:
 		return(False)
 	return(True)
+
+#
+
+def read_section_lines( pathfilename, section_name ):
+	lines = ""
+	copy_started = False
+	with open( pathfilename, "r" ) as f:
+		for line in f:
+			line = line[:-1]
+			parts = line.split(' ')
+			if (len(parts) > 0):
+				if (parts[0] == section_name):
+					copy_started = True
+				else:
+					if copy_started == True:
+						if len(parts[0]) > 0:
+							if parts[0][0] == '[':
+								# Stop copying
+								break
+							elif parts[0][0] != '#':
+								# Copy line
+								lines += line + "\n"			
+	return( lines )
+
