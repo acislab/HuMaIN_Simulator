@@ -12,14 +12,13 @@ def create_new_folder(dirname):
     try:
         os.mkdir(dirname)
         print("Project: ", args.project, "created!")
-        os.mkdir(dirname+"/actions")
+        os.mkdir(dirname+"/tasks")
         os.mkdir(dirname+"/workflows")
         os.mkdir(dirname+"/simulations")
         os.mkdir(dirname+"/results")
-        create_file(dirname, "actions.csv")
-        create_file(dirname, "file_formats.csv")
+        create_file(dirname, "tasks.csv")
         create_file(dirname, "__init__.py")
-        create_file(dirname+"/actions", "__init__.py")
+        create_file(dirname+"/tasks", "__init__.py")
     except FileExistsError:
         print("ERROR: Project" , args.project ,  "already exists! Try a different Project Name!")
 

@@ -15,7 +15,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	
 	# Usage example
-	# python3 /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/actions/ocr.py -e ocropus -d aocr_insects -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results
+	# python3 ~/Summer2019/HuMaIN_Simulator/humain/selfie/tasks/ocr.py -e ocropus -d aocr_insects -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS

@@ -3,7 +3,7 @@
 # All the input and output directories and files are relative to the BASE_DIR
 #######################################################################################
 
-[ACTIONS]
+[TASKS]
 ocr_dataset, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = humain/selfie/results/event_date_001/ocr_dataset
 reg_expr_dataset, fulltext_dir = humain/selfie/results/event_date_001/ocr_dataset, regexp_file = datasets/aocr_mix100/reg_exp/gc-ocr/reg_expr.tsv, metric = duration, output_dir = humain/selfie/results/event_date_001/reg_expr_dataset
 crowd_event_date_dataset, specimens = humain/selfie/results/event_date_001/reg_expr_dataset/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/event_date.tsv, metric = duration, output_file = humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv
