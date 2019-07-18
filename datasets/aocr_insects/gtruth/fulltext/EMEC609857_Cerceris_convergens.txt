@@ -13,3 +13,5 @@ Cerceris
 convergens
 Det. by V. & C.
 H.A.Scullen '62
+
+Cerceris convergens
