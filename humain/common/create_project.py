@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import argparse, os, shutil, errno, csv
+import argparse
+import os, shutil, errno, csv
+from constants import *
 
 # Create files inside "path" folder
 def create_file(path, filename):
@@ -20,10 +22,11 @@ def create_new_folder(dirname):
         create_file(dirname, "__init__.py")
         create_file(dirname+"/tasks", "__init__.py")
     except FileExistsError:
-        print("ERROR: Project" , args.project ,  "already exists! Try a different Project Name!")
+        print("ERROR: Project", args.project,
+              "already exists! Try a different Project Name!")
 
 
-# Copy Folders and Files 
+# Copy Folders and Files
 def copyanything(src, dst):
     try:
         shutil.copytree(src, dst)
@@ -51,12 +54,13 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	print("New Project name: ", args.project)
-	dirname = os.path.pardir+"/"+args.project
+	dirname = BASE_DIR + "/humain/" + args.project
+	print(dirname)
 
 	if args.copy is not None:
 		try: 
 			print("Copying from: ", args.copy)
-			dircopy = os.path.pardir+"/"+args.copy
+			dircopy = os.path.pardir + "/" + args.copy
 			if os.path.isdir(dircopy): 
 				copyanything(dircopy, dirname)
 				# Remove the Result files
@@ -67,4 +71,7 @@ if __name__ == '__main__':
 		except FileExistsError:
 			print("ERROR: Project" , args.project ,  "already exists! Try a different name!")
 	else:
-		create_new_folder(dirname)
+	    create_new_folder(dirname)
+
+
+# usage: python3 common/create_project.py --project test
