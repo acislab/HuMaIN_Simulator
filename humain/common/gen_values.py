@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, argparse
-import random
-
+import os, sys, argparse, random, csv
 from utils import *
 
 # Assign a constant value to each file
@@ -57,17 +55,11 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	# Usage:
 	# python3 ./gen_values.py -d ~/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/ocr/ocropus -e txt -g 3,0.2 -o ~/test.csv
+	# File can take input of file or directory of files
+	# File input should be of the format filename, value where the delimiter used is ","
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
-
-	# args.directory 
-	verify_dir( args.directory, "The input directory was not found.", parser, 1 )
-
-	# args.extension
-	if not verify_dir_ext( args.directory, args.extension ):
-		print( "\nERROR: There are no files with extension " + args.extension + " in the source directory (" + args.directory + ").\n" )
-		sys.exit( 2 )
 
 	# args.constant, args.range, args.gauss
 	if (not (args.constant or args.range or args.gauss)):
@@ -78,11 +70,36 @@ if __name__ == '__main__':
 	verify_create_file( args.output_file, 'The output file could not be created.', parser, 4 )
 
 	################################################################################################################################
-	# Create the list of files to process
-	filenames = os.listdir(args.directory)
-	filename_list = list(f for f in filenames if f.endswith('.txt'))
+	# Verify and extract filenames from file/directory
+	filename_list = []
+
+	if os.path.isdir(args.directory):
+		print("it is directory")
+		# verify dir
+		verify_dir( args.directory, "The input directory was not found.", parser, 1 )
+		# verify ext
+		if not verify_dir_ext( args.directory, args.extension ):
+			print( "\nERROR: There are no files with extension " + args.extension + " in the source directory (" + args.directory + ").\n" )
+			sys.exit( 2 )
+
+		filenames = os.listdir(args.directory)
+		filename_list = list(f for f in filenames if f.endswith('.txt'))
+	else:
+		print("it is file")
+		# verify file
+		verify_file(args.directory, "The input file was not found.", parser, 1)
+		# verify extension
+		verify_file_ext(args.directory, args.extension)
+		#extract filename list
+		with open(args.directory, newline='') as csvfile:
+			spamreader = csv.reader(csvfile, delimiter=',')
+			for row in spamreader:
+				filename_list.append(row[0])
+	
 	# Number of files
 	n = len(filename_list)
+	print("Number of files found:", n)
+
 
 	################################################################################################################################
 	# Get the list of values
