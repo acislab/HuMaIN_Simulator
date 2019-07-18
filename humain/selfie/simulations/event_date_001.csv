@@ -11,7 +11,7 @@ consensus_dataset, crowd_file = humain/selfie/results/event_date_001/crowd_event
 
 # The base dir for the metrics' parameters is the project_results directory (/home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/)
 [METRICS]
-duration_event_date.py, mf = ocr_dataset/metrics/duration.csv, mf = reg_expr_dataset/accepted/metrics/duration.csv, mf = reg_expr_dataset/rejected/metrics/duration.csv, mf = crowd_event_date_dataset/metrics/duration.csv, mf = consensus_dataset/accepted/metrics/duration.csv, mf = consensus_dataset/rejected/metrics/duration.csv, -o duration.csv
+duration_event_date.py, mf = ocr_dataset/metrics/duration.csv, mf = reg_expr_dataset/accepted/metrics/duration.csv, mf = reg_expr_dataset/rejected/metrics/duration.csv, mf = crowd_event_date_dataset/metrics/duration.csv, mf = consensus_dataset/accepted/metrics/duration.csv, mf = consensus_dataset/rejected/metrics/duration.csv, output_file = duration.csv
 # quality_event_date.py, mf = 
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.

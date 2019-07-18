@@ -362,17 +362,41 @@ class Simulation:
 		# write_log(self.log_pathfilename, "Simulation finishes.")
 
 	######################################################################################################################################
-	# Save in the log file the project, workflow, and simulation parameters file used in the simulation
+	# Execute the metrics and post-processing scripts
 	def run_scripts(self, section_name):
-		scripts_list_text = read_section_lines( self.params_pathfilename, section_name )
 		base_path = ""
 		if section_name == "[METRICS]":
 			base_path = self.project_results + "/"
 		elif section_name == "[POST-PROCESSING]":
 			base_path = BASE_DIR + "/"
-	
-		print(scripts_list_text)
+		else:
+			print( "\nERROR: Unknown section name (" + section_name + ").\n" )
+			sys.exit(31)
 
+		scripts_list_text = read_section_lines( self.params_pathfilename, section_name )
+		for line in scripts_list_text.split('\n'):
+			parameters_list = []
+			line = line.replace(' ', '')
+			if line == "": 
+				continue
+
+			parameters = line.split(',')
+			if len(parameters) > 1:
+				# Verify the existence of the metric script
+				script_name = self.tasks_dir + "/metrics/" + parameters[0]
+				verify_file( script_name, "The metric script " + script_name + " was not found.", None, 32 )
+				i = 1
+				while (i < len(parameters)):
+					param_name, value = None, None
+					try:
+						param_name, value = parameters[i].split('=')
+						parameters_list.append( param_name )
+						parameters_list.append( base_path + value )
+					except ValueError:
+						print( "\nERROR: Script " + script_name + ". The parameter does not have the right syntax.\n" )
+						sys.exit(31)
+					i = i + 1
+			print(parameters_list)
 
 	######################################################################################################################################
 	# Save in the log file the project, workflow, and simulation parameters file used in the simulation
