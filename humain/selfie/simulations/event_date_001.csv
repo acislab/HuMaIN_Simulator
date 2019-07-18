@@ -9,12 +9,11 @@ reg_expr_dataset, fulltext_dir = humain/selfie/results/event_date_001/ocr_datase
 crowd_event_date_dataset, specimens = humain/selfie/results/event_date_001/reg_expr_dataset/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/event_date.tsv, metric = duration, output_file = humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv
 consensus_dataset, crowd_file = humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv, consensus_file = datasets/aocr_mix100/consensus/accepted.tsv, metric = duration, output_dir = humain/selfie/results/event_date_001/consensus_dataset
 
+# The base dir for the metrics' parameters is the project_results directory (/home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/)
 [METRICS]
-duration.py
-quality.py
+duration_event_date.py, mf = ocr_dataset/metrics/duration.csv, mf = reg_expr_dataset/accepted/metrics/duration.csv, mf = reg_expr_dataset/rejected/metrics/duration.csv, mf = crowd_event_date_dataset/metrics/duration.csv, mf = consensus_dataset/accepted/metrics/duration.csv, mf = consensus_dataset/rejected/metrics/duration.csv, -o duration.csv
+# quality_event_date.py, mf = 
 
+# The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
-box_whisker_table.py, duration_filename = , title = 
-box_whisker_table.py, quality_filename = , title =
-# comparison_table.py, metric_filename = quality_file1, metric_filename = quality_file2, metric_filename = quality_file3, title = Quality, aggregation = average
-# comparison_graph.py, metric_filename = duration_file1, metric_filename = duration_file2, metric_filename = duration_file3, title = Duration, aggregation = sum
+

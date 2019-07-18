@@ -32,7 +32,7 @@ if __name__ == '__main__':
     data_objects = []
 
     average = True
-    if args.aggr.lower() == "sum":
+    if args.aggr and args.aggr.lower() == "sum":
         average = False
 
     # Read in all the files and calucate sum or average
