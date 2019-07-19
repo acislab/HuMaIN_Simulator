@@ -40,7 +40,8 @@ if __name__ == '__main__':
 			new_sum = 0.0
 			i = 1 
 			while i < n:
-				new_sum += float( row[i] )
+				if row[i]:
+					new_sum += float( row[i] )
 				i = i + 1
 
 			# Add the (filename,value) to the dictionary or increment the duration

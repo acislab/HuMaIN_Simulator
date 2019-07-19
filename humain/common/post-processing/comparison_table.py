@@ -34,6 +34,7 @@ def read_files():
                 value = value + 1
         if average:
             sum = sum / value
+        print(ntpath.basename(f), sum)
         data_to_plot.append(str(sum))
     create_table()
 
