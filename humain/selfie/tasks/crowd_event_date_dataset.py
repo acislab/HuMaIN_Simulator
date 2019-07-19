@@ -36,7 +36,7 @@ if __name__ == '__main__':
 	# args.metric
 	for m_name in args.metric:
 		basename = args.crowd_data.split('/')[-1].split('.')[0]
-		metric_file = input_metrics_dir + "/" + basename + "_" + m_name + ".tsv"
+		metric_file = input_metrics_dir + "/" + basename + "_" + m_name + ".csv"
 		verify_file( metric_file, 'The metric file ' + metric_file + ' was not found in the metrics directory.', parser, 4 )
 
 	#### OUTPUTS
@@ -74,15 +74,15 @@ if __name__ == '__main__':
 	# Copy the metric values for each of the selected metrics of the specimens of interest
 	for m_name in args.metric:
 		basename = args.crowd_data.split('/')[-1].split('.')[0]
-		metric_file = input_metrics_dir + "/" + basename + "_" + m_name + ".tsv"
+		metric_file = input_metrics_dir + "/" + basename + "_" + m_name + ".csv"
 		# Dataframe of the metric file
-		df_in_me = pd.read_csv( metric_file, sep='\t' )
+		df_in_me = pd.read_csv( metric_file )
 		df_in_me = df_in_me.fillna('')
 
 		metric_string = ""
 		for index, row in df_in_me.iterrows():
 			if row['filename'] in specimens_list:
-				metric_string += row['filename'] + "\t" + str(row['sec1']) + "\t" + str(row['sec2']) + "\t" + str(row['sec3']) + "\n"
+				metric_string += row['filename'] + "," + str(row['sec1']) + "," + str(row['sec2']) + "," + str(row['sec3']) + "\n"
 
 		output_metric_filename = output_metrics_dir + "/" + m_name + ".csv"
 		with open( output_metric_filename, "w+" ) as f_m:

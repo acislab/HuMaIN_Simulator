@@ -76,7 +76,6 @@ def verify_dir_ext( dir_name, ext ):
 	return(True)
 
 #
-
 def read_section_lines( pathfilename, section_name ):
 	lines = ""
 	copy_started = False
