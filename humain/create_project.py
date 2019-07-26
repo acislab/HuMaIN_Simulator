@@ -1,19 +1,38 @@
 #!/usr/bin/env python3
-import argparse
-import os, shutil, errno, csv
+
+##########################################################################################
+# Developers: 	Aditi Malladi and Icaro Alzuru
+# Project: 		HuMaIN (http://humain.acis.ufl.edu)
+# Description: 	Create the structure of directories for a project, empty or copying the 
+# 				files from an existing project.
+##########################################################################################
+# Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
+#                   (https://www.acis.ufl.edu/)
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
+# except in compliance with the License. You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the 
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+# either express or implied. See the License for the specific language governing permissions 
+# and limitations under the License.
+##########################################################################################
+
+import argparse, csv
+
 from humain.constants import *
+from humain.utils import *
+
 
 # Create files inside "path" folder
 def create_file(path, filename):
     open(os.path.join(path, filename), 'wb')
-
+    
 
 # Create a new Project
-def create_new_folder(dirname):
-    print("Creating a new folder!")
+def create_project_structure(dirname, project):
     try:
         os.mkdir(dirname)
-        print("Project: ", args.project, "created!")
         os.mkdir(dirname+"/tasks")
         os.mkdir(dirname+"/workflows")
         os.mkdir(dirname+"/simulations")
@@ -22,56 +41,35 @@ def create_new_folder(dirname):
         create_file(dirname, "__init__.py")
         create_file(dirname+"/tasks", "__init__.py")
     except FileExistsError:
-        print("ERROR: Project", args.project,
-              "already exists! Try a different Project Name!")
-
-
-# Copy Folders and Files
-def copyanything(src, dst):
-    try:
-        shutil.copytree(src, dst)
-    except OSError as exc:
-        if exc.errno == errno.ENOTDIR:
-            shutil.copy(src, dst)
-        else: raise
-
-
-# Delete files and subdirectories of specified folders
-def delete_files_folders(folder):
-    for root, dirs, files in os.walk(folder):
-        for f in files:
-            os.unlink(os.path.join(root, f))
-        for d in dirs:
-            shutil.rmtree(os.path.join(root, d))
+        print("\nERROR: Project", project, "already exists! Try a different Project Name!\n")
 
 
 if __name__ == '__main__':
-	""" Creates a new file and copies into a new file if required.
+	""" Creates a new Simulation directory and its internal structure. Empty or from an existing project.
 	"""
-	parser = argparse.ArgumentParser("Creates a new project file.")
-	parser.add_argument('-n', '--project', action="store", required=True, help="New Project's name")
+	parser = argparse.ArgumentParser("Creates a new Simulation directory and its internal structure. Empty or from an existing project.")
+	parser.add_argument('-n', '--project', action="store", required=True, help="New project's name")
 	parser.add_argument('-c', '--copy', action="store", required=False, help="Copy from existing project")
 	args = parser.parse_args()
+	# usage: python3 common/create_project.py --project test
 
-	print("New Project name: ", args.project)
 	dirname = BASE_DIR + "/" + args.project
-	print(dirname)
 
 	if args.copy is not None:
 		try: 
-			print("Copying from: ", args.copy)
-			dircopy = os.path.pardir + "/" + args.copy
+			print("Copying from ", args.copy)
+			dircopy = BASE_DIR + "/" + args.copy
 			if os.path.isdir(dircopy): 
-				copyanything(dircopy, dirname)
+				copy_anything(dircopy, dirname)
 				# Remove the Result files
-				result_folder = dirname+"/results"
+				result_folder = dirname + "/results"
 				delete_files_folders(result_folder)
 			else: 
-				print("ERROR: Folder", args.copy, "does not exist!")
+				print("\nERROR: Folder", args.copy, "does not exist!\n")
 		except FileExistsError:
-			print("ERROR: Project" , args.project ,  "already exists! Try a different name!")
+			print("\nERROR: Project" , args.project,  "already exists! Try a different name!\n")
 	else:
-	    create_new_folder(dirname)
+	    create_project_structure(dirname, args.project)
 
+	print("Project", args.project , "was successfully created.")
 
-# usage: python3 common/create_project.py --project test
