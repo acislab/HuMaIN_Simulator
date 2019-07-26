@@ -7,9 +7,11 @@ import matplotlib.pyplot as plt
 # Create the bar graph
 def create_graph():
     x_pos = [i for i, _ in enumerate(data_objects)]
-    fig = plt.figure(1, figsize=(9, 6))
+    fig = plt.figure(1, figsize=(5, 4))
+    plt.style.use('ggplot')  
     ax = fig.add_subplot(111)
-    ax.bar(x_pos, data_to_plot, color='green')
+    ax.bar(x_pos, data_to_plot, color='#B159D5', width=0.25, align = 'center')
+    
     if args.title:
         plt.title(args.title)
     try:
@@ -55,4 +57,4 @@ if __name__ == '__main__':
 
 # Takes in single and multiple files
 # Generates Useful graph for multiple files, for single file not uselful data visualization
-# usage: python3 common/post-processing/comparison_bar_graph.py -f durationcopy.csv -f duration.csv -f duration.csv -a sum -o output_bar.png
+# usage: python3 post-processing/comparison_bar_graph.py -f duration.csv -f duration.csv -f duration.csv -t Duration!!!! -a sum -o output_bar.png
