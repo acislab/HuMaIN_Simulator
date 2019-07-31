@@ -1,7 +1,27 @@
 #!/usr/bin/env python3
+
+##########################################################################################
+# Developers: 	Aditi Malladi and Icaro Alzuru
+# Project: 		HuMaIN (http://humain.acis.ufl.edu)
+# Description: 	Create a new simulation file by using an existing simulation. Have the 
+# 				option of having multiple parameters in the same sim file. 
+##########################################################################################
+# Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
+#                   (https://www.acis.ufl.edu/)
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
+# except in compliance with the License. You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the 
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+# either express or implied. See the License for the specific language governing permissions 
+# and limitations under the License.
+##########################################################################################
+
+
 import os, sys, argparse, random, csv, re
-from humain.utils import *
-from humain.constants import *
+from utils import *
+from constants import *
 
 
 # function to find the task and replace with passed param
@@ -20,7 +40,7 @@ def read_sim_file(param):
 # function to write to a file
 def combine_and_write(iter_no, ele_list):
 	# write into file
-	temp_str = "[TASK" + str(iter_no).rjust(3, '0') + "]" + "\n"
+	temp_str = "[TASKS_" + str(iter_no).rjust(3, '0') + "]" + "\n"
 	f.write(temp_str)
 
 	# re-create task string in file
@@ -72,10 +92,7 @@ if __name__ == '__main__':
 	# verify the creation of the output file. 
 	verify_create_file( output_dir, 'The output file could not be created.', parser, 4 )
 
-	# Usage: ./create_sim_set.py -p selfie -w event_date -t ocr -a dataset -v datasets/aocr_mix100/ocr/ocropus -v datasets/aocr_mix100/ocr/tesseract -v datasets/aocr_mix100/ocr/gc-ocr -o sim_set_001
-	# usage: python3 common/create_sim_set.py -p selfie -w event_date -s event_date_001.csv -a ocr_dataset -d dataset -v datasets/aocr_mix100/ocr/tersseract -v datasets/aocr_mix100/ocr/g_ocr -o new_sim.csv
-	# usage: python3 common/create_sim_set.py -p selfie -w event_date -s event_date_001.csv -a ocr_dataset -d dataset -v datasets/aocr_mix100/ocr/tersseract -o new_sim.csv
-	# usage: python3 common/create_sim_set.py -p selfie -w event_date -s event_date_001.csv -a crowd_event_date_dataset -d crowd_data -v HELLOWORLD -o new_sim.csv
+	# usage: python3 create_sim_set.py -p selfie -s event_date_001.csv -t ocr_dataset -a dataset -v datasets/aocr_mix100/ocr/tersseract -o new_sim.csv
 
 	lines = read_section_lines(simulation_file, "[TASKS]")
 	data = lines.split("\n")
