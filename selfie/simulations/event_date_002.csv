@@ -9,12 +9,11 @@ reg_expr_ds, fulltext_dir = selfie/results/event_date_002/ocr_ds, regexp_file = 
 crowd_event_date_ds, specimens = selfie/results/event_date_002/reg_expr_ds/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/event_date.tsv, metric = duration, output_file = selfie/results/event_date_002/crowd_event_date_ds/crowd_event_date.tsv
 consensus_ds, crowd_file = selfie/results/event_date_002/crowd_event_date_ds/crowd_event_date.tsv, consensus_file = datasets/aocr_mix100/consensus/accepted.tsv, metric = duration, output_dir = selfie/results/event_date_002/consensus_ds
 
-# The base dir for the metrics' parameters is the project_results directory (/home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_002/)
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_002/)
 [METRICS]
 duration_event_date.py, mf = selfie/results/event_date_002/ocr_ds/metrics/duration.csv, mf = selfie/results/event_date_002/reg_expr_ds/accepted/metrics/duration.csv, mf = selfie/results/event_date_002/reg_expr_ds/rejected/metrics/duration.csv, mf = selfie/results/event_date_002/crowd_event_date_ds/metrics/duration.csv, mf = selfie/results/event_date_002/consensus_ds/accepted/metrics/duration.csv, mf = selfie/results/event_date_002/consensus_ds/rejected/metrics/duration.csv, output_file = selfie/results/event_date_002/duration.csv
 quality_event_date.py, accepted_file = selfie/results/event_date_002/reg_expr_ds/accepted/accepted.tsv, accepted_file = selfie/results/event_date_002/consensus_ds/accepted/accepted.tsv, ground_truth = datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv, output_file = selfie/results/event_date_002/quality.csv
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
-
 

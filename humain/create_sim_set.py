@@ -114,7 +114,7 @@ if __name__ == '__main__':
 	# verify the creation of the output file. 
 	verify_create_file( output_dir, 'The output file could not be created.', parser, 4 )
 
-	# usage: python3 create_sim_set.py -p selfie -s event_date_001.csv -t ocr_dataset -a dataset -v datasets/aocr_mix100/ocr/tersseract -o new_sim.csv
+	# usage: python3 create_sim_set.py -p selfie -s event_date_001.csv -t ocr_dataset -a dataset -v datasets/aocr_mix100/ocr/tesseract -o new_sim.csv
 
 	# has data for each Task
 	data_list = []

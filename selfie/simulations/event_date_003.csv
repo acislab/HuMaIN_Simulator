@@ -9,18 +9,11 @@ reg_expr_ds, fulltext_dir = selfie/results/event_date_003/ocr_ds, regexp_file = 
 crowd_event_date_ds, specimens = selfie/results/event_date_003/reg_expr_ds/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/event_date.tsv, metric = duration, output_file = selfie/results/event_date_003/crowd_event_date_ds/crowd_event_date.tsv
 consensus_ds, crowd_file = selfie/results/event_date_003/crowd_event_date_ds/crowd_event_date.tsv, consensus_file = datasets/aocr_mix100/consensus/accepted.tsv, metric = duration, output_dir = selfie/results/event_date_003/consensus_ds
 
-# The base dir for the metrics' parameters is the project_results directory (/home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_003/)
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_003/)
 [METRICS]
 duration_event_date.py, mf = selfie/results/event_date_003/ocr_ds/metrics/duration.csv, mf = selfie/results/event_date_003/reg_expr_ds/accepted/metrics/duration.csv, mf = selfie/results/event_date_003/reg_expr_ds/rejected/metrics/duration.csv, mf = selfie/results/event_date_003/crowd_event_date_ds/metrics/duration.csv, mf = selfie/results/event_date_003/consensus_ds/accepted/metrics/duration.csv, mf = selfie/results/event_date_003/consensus_ds/rejected/metrics/duration.csv, output_file = selfie/results/event_date_003/duration.csv
 quality_event_date.py, accepted_file = selfie/results/event_date_003/reg_expr_ds/accepted/accepted.tsv, accepted_file = selfie/results/event_date_003/consensus_ds/accepted/accepted.tsv, ground_truth = datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv, output_file = selfie/results/event_date_003/quality.csv
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
-
-
-# create_sim_set.py -p selfie -w event_date -s event_date_003 -a ocr_ds -p dataset -v datasets/aocr_mix100/ocr/ocropus -v datasets/aocr_mix100/ocr/tesseract -v datasets/aocr_mix100/ocr/gc-ocr -o event_group_001
-# results/event_date_003/ -> results/event_group_001/event_date_003_01/  n.zfill(2)
-# re.search( r'/results/.+/' ) -> event_date_003
-# create_sim_set.py -i -a reg_expr_ds -p threshold -v 0.7 -v 0.75 -v 0.8 -v 0.85 -v 0.9 -v 0.95 
-
 
