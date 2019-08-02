@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	# Usage:
-	# python3 ./consensus_dataset.py -cr /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv -co /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/consensus/accepted.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_dataset
+	# python3 ./consensus_ds.py -cr /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/crowd_event_date_ds/crowd_event_date.tsv -co /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/consensus/accepted.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_ds
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS

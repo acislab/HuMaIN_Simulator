@@ -1,4 +1,4 @@
-ocr_dataset
-reg_expr_dataset, ocr_dataset
-crowd_event_date_dataset, reg_expr_dataset
-consensus_dataset, crowd_event_date_dataset
+ocr_ds
+reg_expr_ds, ocr_ds
+crowd_event_date_ds, reg_expr_ds
+consensus_ds, crowd_event_date_ds

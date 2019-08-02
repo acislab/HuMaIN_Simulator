@@ -4,15 +4,15 @@
 #######################################################################################
 
 [TASKS]
-ocr_dataset, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = selfie/results/event_date_001_c90/ocr_dataset
-reg_expr_dataset, fulltext_dir = selfie/results/event_date_001_c90/ocr_dataset, regexp_file = datasets/aocr_mix100/reg_exp/ocropus/reg_expr.tsv, metric = duration, output_dir = selfie/results/event_date_001_c90/reg_expr_dataset
-crowd_event_date_dataset, specimens = selfie/results/event_date_001_c90/reg_expr_dataset/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/zooniverse/event_date.tsv, metric = duration, output_file = selfie/results/event_date_001_c90/crowd_event_date_dataset/crowd_event_date.tsv
-consensus_dataset, crowd_file = selfie/results/event_date_001_c90/crowd_event_date_dataset/crowd_event_date.tsv, consensus_file = datasets/aocr_mix100/consensus/consensus_90/accepted.tsv, metric = duration, output_dir = selfie/results/event_date_001_c90/consensus_dataset
+ocr_ds, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = selfie/results/event_date_001_c90/ocr_ds
+reg_expr_ds, fulltext_dir = selfie/results/event_date_001_c90/ocr_ds, regexp_file = datasets/aocr_mix100/reg_exp/ocropus/reg_expr.tsv, metric = duration, output_dir = selfie/results/event_date_001_c90/reg_expr_ds
+crowd_event_date_ds, specimens = selfie/results/event_date_001_c90/reg_expr_ds/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/zooniverse/event_date.tsv, metric = duration, output_file = selfie/results/event_date_001_c90/crowd_event_date_ds/crowd_event_date.tsv
+consensus_ds, crowd_file = selfie/results/event_date_001_c90/crowd_event_date_ds/crowd_event_date.tsv, consensus_file = datasets/aocr_mix100/consensus/consensus_90/accepted.tsv, metric = duration, output_dir = selfie/results/event_date_001_c90/consensus_ds
 
 # The base dir for the metrics' parameters is the project_results directory (/home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_001_c90/)
 [METRICS]
-duration_event_date.py, mf = selfie/results/event_date_001_c90/ocr_dataset/metrics/duration.csv, mf = selfie/results/event_date_001_c90/reg_expr_dataset/accepted/metrics/duration.csv, mf = selfie/results/event_date_001_c90/reg_expr_dataset/rejected/metrics/duration.csv, mf = selfie/results/event_date_001_c90/crowd_event_date_dataset/metrics/duration.csv, mf = selfie/results/event_date_001_c90/consensus_dataset/accepted/metrics/duration.csv, mf = selfie/results/event_date_001_c90/consensus_dataset/rejected/metrics/duration.csv, output_file = selfie/results/event_date_001_c90/duration.csv
-quality_event_date.py, accepted_file = selfie/results/event_date_001_c90/reg_expr_dataset/accepted/accepted.tsv, accepted_file = selfie/results/event_date_001_c90/consensus_dataset/accepted/accepted.tsv, ground_truth = datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv, output_file = selfie/results/event_date_001_c90/quality.csv
+duration_event_date.py, mf = selfie/results/event_date_001_c90/ocr_ds/metrics/duration.csv, mf = selfie/results/event_date_001_c90/reg_expr_ds/accepted/metrics/duration.csv, mf = selfie/results/event_date_001_c90/reg_expr_ds/rejected/metrics/duration.csv, mf = selfie/results/event_date_001_c90/crowd_event_date_ds/metrics/duration.csv, mf = selfie/results/event_date_001_c90/consensus_ds/accepted/metrics/duration.csv, mf = selfie/results/event_date_001_c90/consensus_ds/rejected/metrics/duration.csv, output_file = selfie/results/event_date_001_c90/duration.csv
+quality_event_date.py, accepted_file = selfie/results/event_date_001_c90/reg_expr_ds/accepted/accepted.tsv, accepted_file = selfie/results/event_date_001_c90/consensus_ds/accepted/accepted.tsv, ground_truth = datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv, output_file = selfie/results/event_date_001_c90/quality.csv
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
@@ -25,9 +25,9 @@ quality_event_date.py, accepted_file = selfie/results/event_date_001_c90/reg_exp
 #python3 ./post-processing/comparison_table.py -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_001_c90/quality.csv -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_002/quality.csv -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_003/quality.csv -t "Average Quality" -a average -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/table_quality.png
 #python3 ./post-processing/comparison_table.py -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_001_c90/duration.csv -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_002/duration.csv -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/event_date_003/duration.csv -t "Total Duration (sec)" -a sum -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/table_duration.png
 
-# create_sim_set.py -p selfie -w event_date -s event_date_001 -a ocr_dataset -p dataset -v datasets/aocr_mix100/ocr/ocropus -v datasets/aocr_mix100/ocr/tesseract -v datasets/aocr_mix100/ocr/gc-ocr -o event_group_001
+# create_sim_set.py -p selfie -w event_date -s event_date_001 -a ocr_ds -p dataset -v datasets/aocr_mix100/ocr/ocropus -v datasets/aocr_mix100/ocr/tesseract -v datasets/aocr_mix100/ocr/gc-ocr -o event_group_001
 # results/event_date_001_c90/ -> results/event_group_001/event_date_001_01/  n.zfill(2)
 # re.search( r'/results/.+/' ) -> event_date_001
-# create_sim_set.py -i -a reg_expr_dataset -p threshold -v 0.7 -v 0.90 -v 0.8 -v 0.90 -v 0.9 -v 0.95 
+# create_sim_set.py -i -a reg_expr_ds -p threshold -v 0.7 -v 0.90 -v 0.8 -v 0.90 -v 0.9 -v 0.95 
 
 

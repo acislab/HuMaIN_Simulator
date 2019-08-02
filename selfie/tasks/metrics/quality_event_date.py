@@ -15,7 +15,7 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="File with the Damerau-Levenshtein similarity to the ground truth data of the accepted values.")
 	args = parser.parse_args()
 
-	# Usage: python3 ./quality_event_date.py -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/accepted/accepted.tsv -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_dataset/accepted/accepted.tsv -g /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/quality.csv
+	# Usage: python3 ./quality_event_date.py -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/accepted/accepted.tsv -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_ds/accepted/accepted.tsv -g /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/quality.csv
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS

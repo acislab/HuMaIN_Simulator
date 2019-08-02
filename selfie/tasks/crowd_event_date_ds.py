@@ -14,12 +14,12 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected when executing the crowdsourcing.")
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="tsv with the transcription made by the volunteers for the specified list of specimens.")
 	args = parser.parse_args()
-	# Usage example: python3 crowd_event_date_dataset.py 
-	# -s /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/rejected/rejected.txt 
+	# Usage example: python3 crowd_event_date_ds.py 
+	# -s /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/rejected/rejected.txt 
 	# -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/crowd/terms/event_date.tsv 
 	# -m duration 
-	# -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv
-	# python3 crowd_event_date_dataset.py -s /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset/rejected/rejected.txt -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/crowd/terms/event_date.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/crowd_event_date_dataset/crowd_event_date.tsv
+	# -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/crowd_event_date_ds/crowd_event_date.tsv
+	# python3 crowd_event_date_ds.py -s /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/rejected/rejected.txt -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/crowd/terms/event_date.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/crowd_event_date_ds/crowd_event_date.tsv
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

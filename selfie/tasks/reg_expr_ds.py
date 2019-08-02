@@ -15,7 +15,7 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
 	args = parser.parse_args()	
-	# Usage example: python3 reg_expr_dataset.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_dataset -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_dataset
+	# Usage example: python3 reg_expr_ds.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_ds -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
