@@ -38,9 +38,9 @@ def read_sim_file(param):
 
 
 # function to write to a file
-def combine_and_write(iter_no, ele_list):
+def combine_and_write(iter_no, ele_list, string_section):
 	# write into file
-	temp_str = "[TASKS_" + str(iter_no).rjust(3, '0') + "]" + "\n"
+	temp_str = string_section + str(iter_no).rjust(3, '0') + "]" + "\n"
 	f.write(temp_str)
 
 	# re-create task string in file
@@ -60,7 +60,7 @@ def combine_and_write(iter_no, ele_list):
 	# find and replace results dir
 	result_find = "results/"+args.simulation_file.split(".")[0]+"/"
 	output_name = (args.output_file).split(".")
-	result_replace = "results/"+output_name[0]+"/"+output_name[0]+str(iter_no).rjust(3, '0')+"/"
+	result_replace = "results/"+output_name[0]+"/"+"TASKS_"+str(iter_no).rjust(3, '0')+"/"
 	task_str = re.sub(result_find, result_replace, task_str)
 	f.write(task_str+"\n")
 
@@ -72,6 +72,28 @@ def copy_remaining_file(part_to_copy):
 	f.write("\n")
 	f.write(lines)
 	f.write("\n")
+
+# reads the section lines from the file 
+# splits the lines
+# section variable is the part of the sim file that needs to be read
+def read_lines(section, bool_val):
+	lines = read_section_lines(simulation_file, section)
+	data = lines.split("\n")
+	f = open(output_dir, "w+")
+	
+	for var in data:
+		temp_list = var.split(",")
+		data_list.append(temp_list)
+
+	iter_no = 1
+	for param in args.value:
+		if bool_val:
+			read_sim_file(param)
+			combine_and_write(iter_no, data_list, "[TASKS_")
+		else:
+			combine_and_write(iter_no, data_list, "[METRICS_")
+		iter_no += 1
+
 
 
 if __name__ == '__main__':
@@ -94,21 +116,28 @@ if __name__ == '__main__':
 
 	# usage: python3 create_sim_set.py -p selfie -s event_date_001.csv -t ocr_dataset -a dataset -v datasets/aocr_mix100/ocr/tersseract -o new_sim.csv
 
-	lines = read_section_lines(simulation_file, "[TASKS]")
-	data = lines.split("\n")
-	# has data for each Task 
+	# has data for each Task
 	data_list = []
 	f = open(output_dir, "w+")
+	read_lines("[TASKS]", True)
 	
-	for var in data:
-		temp_list = var.split(",")
-		data_list.append(temp_list)
+	# copy_remaining_file("[METRICS]")
+	data_list = []
+	read_lines("[METRICS]", False)
 
-	iter_no = 1
+
+	task_no = 1
 	for param in args.value:
-		read_sim_file(param)
-		combine_and_write(iter_no, data_list)
-		iter_no += 1
+		f.write("\n")
+		temp_str = "[POST-PROCESSING_" + str(task_no).rjust(3, '0') + "] \n"
+		f.write(temp_str)
+		f.write("\n")
+		task_no += 1
 
-	copy_remaining_file("[METRICS]")
-	copy_remaining_file("[POST-PROCESSING]")
+# post processing examples
+f.write("\n")
+f.write("[POST-PROCESSING]	(Examples) \n")
+f.write("# python3 post-processing/box_whisker_plot.py -f <filename1>.csv -f <filename2>.csv \n")
+f.write("# python3 post-processing/comparison_bar_graph.py -f <filename1>.csv -f <filename2>.csv -t <Title> -a <sum/average> -o <output_file_name>.png \n")
+f.write("# python3 post-processing/comparison_table.py -f <filename1>.csv -f <filename2>.csv -c <column_name> -t <Title> -o <output_file_name>.png \n")
+f.write("\n")
