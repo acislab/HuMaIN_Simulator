@@ -1,0 +1,14 @@
+#######################################################################################
+# Execution value of the workflow's parameters 
+# All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+
+[TASKS]
+ocr_ds, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = selfie/results/scientific_name/ocr_ds
+
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/scientific_name/)
+[METRICS]
+
+# The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
+[POST-PROCESSING]
+

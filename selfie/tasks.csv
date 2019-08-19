@@ -2,3 +2,7 @@ ocr_ds, dataset:D_TXT, metric:LIST, out_dir:O_D_TXT
 reg_expr_ds, fulltext_dir:D_TXT, regexp_file:TSV, metric:LIST, output_dir:O_D_AR
 crowd_event_date_ds, specimens:TSV, crowd_data:TSV, metric:LIST, output_file:O_TSV
 consensus_ds, crowd_file:TSV, consensus_file:TSV, metric:LIST, output_dir:O_D_AR
+sn_suffix_ds, 
+dict_norm_ds, 
+dict_extract_ds, 
+crowd_sname_ds, 
