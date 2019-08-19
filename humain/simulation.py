@@ -3,7 +3,8 @@
 ##########################################################################################
 # Developers: 	Icaro Alzuru and Aditi Malladi
 # Project: 		HuMaIN (http://humain.acis.ufl.edu)
-# Description: 	Runs a simulation, which has been previously defined in a simulation file.
+# Description: 	Simulation class. Loads in memory all the simulation structure: Workflow, 
+# 				Tasks, Parameters, and Simulation.
 ##########################################################################################
 # Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
 #                   (https://www.acis.ufl.edu/)

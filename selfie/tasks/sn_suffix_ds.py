@@ -3,7 +3,7 @@
 ##########################################################################################
 # Developers: 	Icaro Alzuru and Aditi Malladi
 # Project: 		HuMaIN (http://humain.acis.ufl.edu)
-# Description: 	Simulated version of the regular expression Event Date extraction.
+# Description: 	Simulated version of the extraction of Scientific Name candidates by suffixes.
 ##########################################################################################
 # Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
 #                   (https://www.acis.ufl.edu/)
@@ -23,17 +23,16 @@ import pandas as pd
 from humain.constants import *
 from humain.utils import *
 
-
 if __name__ == '__main__':
-	""" Simulated version of the regular expression Event Date extraction
+	""" Simulated version of the extraction of Scientific Name candidates by suffixes
 	"""
-	parser = argparse.ArgumentParser("Run the simulated version of the regular expression Event Date extraction.")
+	parser = argparse.ArgumentParser("Simulated version of the extraction of Scientific Name candidates by suffixes.")
 	parser.add_argument('-d', '--fulltext_dir', action="store", required=True, help="Directory with the fulltext transcription files of the images.")
-	parser.add_argument('-f', '--regexp_file', action="store", required=True, help="File with the correspondent Event Date extracted using the regular expresion algorithm.")	
+	parser.add_argument('-f', '--sc_name_file', action="store", required=True, help="File with the Scientific Name candidates extracted using suffixes algorithm.")	
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
 	args = parser.parse_args()	
-	# Usage example: python3 reg_expr_ds.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_ds -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds
+	# Usage example: python3 sn_suffix_ds.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/ocr_ds -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_suffix/ocropus/sn_suffix_ocropus.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
@@ -42,11 +41,11 @@ if __name__ == '__main__':
 	# args.fulltext_dir
 	verify_dir( args.fulltext_dir, 'The fulltext transcription directory (' + args.fulltext_dir + ') was not found: ', parser, 1 )
 
-	# args.regexp_file
-	verify_file( args.regexp_file, 'The event dates file (' + args.regexp_file + ') was not found: ', parser, 2 )
+	# args.sc_name_file
+	verify_file( args.sc_name_file, 'The candidate Scientific Names file (' + args.sc_name_file + ') was not found: ', parser, 2 )
 
 	# args.metric
-	metrics_dir = os.path.dirname( args.regexp_file )
+	metrics_dir = os.path.dirname( args.sc_name_file )
 	if len(args.metric) > 0:
 		# Metric directory
 		metrics_dir = metrics_dir + "/metrics"
@@ -60,24 +59,24 @@ if __name__ == '__main__':
 	# Output directory: args.output_dir
 	verify_create_dir( args.output_dir, 'The output directory could not be created.', parser, 5 )
 	# Output subdirectories for the accepted values and rejected specimens
-	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the accepted event date values could not be created.', parser, 6 )
-	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the rejected specimens could not be created.', parser, 7 )
+	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the scientific name candidates could not be created.', parser, 6 )
+	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the (rejected) specimens with unknown scientific name could not be created.', parser, 7 )
 	# Output files
 	accepted_file = args.output_dir + "/accepted/accepted.tsv"
 	rejected_file = args.output_dir + "/rejected/rejected.tsv"
-	verify_create_file( accepted_file, 'The output file, for the extracted event dates, could not be created.', parser, 8 )
+	verify_create_file( accepted_file, 'The output file, for the extracted scientific names, could not be created.', parser, 8 )
 	verify_create_file( rejected_file, 'The output file of rejected specimens, could not be created.', parser, 9 )
 	# Metric folders
-	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted event date values could not be created.', parser, 10 )
+	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted scientific name values could not be created.', parser, 10 )
 	verify_create_dir( args.output_dir + "/rejected/metrics", 'The output metrics directory for the rejected specimens could not be created.', parser, 11 )
 
 	################################################################################################################################
-	# BUILD A DATAFRAME WITH THE EXTRACTED EVENT DATE VALUES USING REGULAR EXPRESIONS
-	df = pd.read_csv( args.regexp_file, sep='\t', names=['filename', 'value'] )
+	# BUILD A DATAFRAME WITH THE EXTRACTED SCIENTIFIC NAME VALUES USING SUFFIXES
+	df = pd.read_csv( args.sc_name_file, sep='\t', names=['filename', 'value'] )
 	df = df.fillna('')
 
 	################################################################################################################################
-	# LOAD IN DIFFERENT STRUCTURES THE ACCEPTED (WITH EVENT DATE) AND REJECTED SPECIMENS
+	# LOAD IN DIFFERENT STRUCTURES THE ACCEPTED (WITH SCIENTIFIC NAME) AND REJECTED SPECIMENS
 	accepted_dict = {}
 	rejected_list = []
 

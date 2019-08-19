@@ -5,6 +5,7 @@
 
 [TASKS]
 ocr_ds, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = selfie/results/scientific_name/ocr_ds
+sn_suffix_ds, fulltext_dir = selfie/results/scientific_name/ocr_ds, sc_name_file = datasets/aocr_mix100/sn_suffix/ocropus/sn_suffix_ocropus.tsv, metric = duration, output_dir = selfie/results/scientific_name/sn_suffix_ds
 
 # The base dir for the metrics' parameters is the project_results directory (selfie/results/scientific_name/)
 [METRICS]
