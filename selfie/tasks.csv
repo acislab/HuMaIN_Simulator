@@ -5,4 +5,9 @@ consensus_ds, crowd_file:TSV, consensus_file:TSV, metric:LIST, output_dir:O_D_AR
 sn_suffix_ds, fulltext_dir:D_TXT, sc_name_file:TSV, metric:LIST, output_dir:O_D_AR 
 dict_norm_ds, 
 dict_extract_ds, 
-crowd_sname_ds, 
+crowd_sname_ds,
+crowd_recorded_by, specimens:TXT, crowd_data:TXT, metric:LIST, output_file:O_TXT
+consensus_recorded_by, crowd_file:TXT, threshold:FLOAT , metric:LIST, metric_dir:TXT, output_dir:O_D_AR
+create_dict_recorded_by, accepted:TSV, output_file:O_TXT
+
+
