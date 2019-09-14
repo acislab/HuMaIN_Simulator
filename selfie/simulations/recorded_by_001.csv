@@ -5,10 +5,12 @@
 
 [TASKS]
 crowd_recorded_by,  specimens = datasets/files/recorded_by.txt, crowd_data = datasets/aocr_mix100/crowd/recorded_by/recorded_by_crowd.txt, metric = duration, output_file = selfie/results/recorded_by_001/crowd_recorded_by/crowd_recorded_by_res.txt
-consensus_recorded_by, crowd_file = selfie/results/recorded_by_001/crowd_recorded_by/crowd_recorded_by_res.txt, threshold = 0.7, metric = duration , metric_dir = datasets/aocr_mix100/consensus/directory_recorded_by.txt, output_dir = selfie/results/recorded_by_001/consensus_recorded_by
+consensus_recorded_by, crowd_file = selfie/results/recorded_by_001/crowd_recorded_by/crowd_recorded_by_res.txt, threshold = 0.8, metric = duration , metric_dir = datasets/aocr_mix100/consensus/directory_recorded_by.txt, output_dir = selfie/results/recorded_by_001/consensus_recorded_by
 create_dict_recorded_by, accepted = selfie/results/recorded_by_001/consensus_recorded_by/accepted/accepted.tsv, output_file = selfie/results/recorded_by_001/create_dict_recorded_by/output.txt
+ocr_recorded_by, dataset = datasets/aocr_mix100/ocr/ocropus, file = selfie/results/recorded_by_001/consensus_recorded_by/rejected/rejected.tsv, accepted = selfie/results/recorded_by_001/consensus_recorded_by/accepted/accepted.tsv, metric = duration, out_dir = selfie/results/event_date_001/ocr_recorded_by
 
-# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)
+
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)c
 [METRICS]
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.

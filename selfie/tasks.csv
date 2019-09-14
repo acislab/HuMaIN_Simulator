@@ -9,5 +9,4 @@ crowd_sname_ds,
 crowd_recorded_by, specimens:TXT, crowd_data:TXT, metric:LIST, output_file:O_TXT
 consensus_recorded_by, crowd_file:TXT, threshold:FLOAT , metric:LIST, metric_dir:TXT, output_dir:O_D_AR
 create_dict_recorded_by, accepted:TSV, output_file:O_TXT
-
-
+ocr_recorded_by, dataset:D_TXT, file:TSV, accepted:TSV, metric:LIST, out_dir:O_D_TXT

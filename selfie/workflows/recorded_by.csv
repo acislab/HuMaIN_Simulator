@@ -1,3 +1,4 @@
 crowd_recorded_by
 consensus_recorded_by, crowd_recorded_by
 create_dict_recorded_by, consensus_recorded_by
+ocr_recorded_by, create_dict_recorded_by
