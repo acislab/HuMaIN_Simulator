@@ -18,7 +18,7 @@
 # and limitations under the License.
 ##########################################################################################
 
-BASE_DIR = "/home/ialzuru/Summer2019/HuMaIN_Simulator"
+BASE_DIR = "/home/ialzuru/Fall2019/HuMaIN_Simulator"
 DATASETS_DIR = BASE_DIR + "/datasets"
 
 INPUT_TYPES = ['INT', 'FLOAT', 'STRING', 'LIST', 'JPG', 'TXT', 'TSV', 'D_JPG', 'D_TXT', 'D_AR']
