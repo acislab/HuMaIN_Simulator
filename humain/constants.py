@@ -18,10 +18,10 @@
 # and limitations under the License.
 ##########################################################################################
 
-BASE_DIR = "/home/ialzuru/Summer2019/HuMaIN_Simulator"
+BASE_DIR = "/home/ialzuru/Fall2019/HuMaIN_Simulator"
 DATASETS_DIR = BASE_DIR + "/datasets"
 
-INPUT_TYPES = ['INT', 'FLOAT', 'STRING', 'LIST', 'JPG', 'TXT', 'TSV', 'D_JPG', 'D_TXT']
+INPUT_TYPES = ['INT', 'FLOAT', 'STRING', 'LIST', 'JPG', 'TXT', 'TSV', 'D_JPG', 'D_TXT', 'D_AR']
 OUTPUT_TYPES = ['O_JPG', 'O_TXT', 'O_TSV', 'O_D_AR', 'O_D_JPG', 'O_D_TXT']
 DATATYPES = INPUT_TYPES + OUTPUT_TYPES
 # The Datatypes JPG, TXT, D_JPG, D_TXT will be checked before the Task starts

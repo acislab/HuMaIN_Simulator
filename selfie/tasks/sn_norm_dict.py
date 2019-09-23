@@ -3,7 +3,8 @@
 ##########################################################################################
 # Developers: 	Icaro Alzuru and Aditi Malladi
 # Project: 		HuMaIN (http://humain.acis.ufl.edu)
-# Description: 	Simulated version of the extraction of Scientific Name candidates by suffixes.
+# Description: 	Normalization of the scientific-names candidates, previously extracted using
+# 				suffixes, in a dictionary of scientific names.
 ##########################################################################################
 # Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
 #                   (https://www.acis.ufl.edu/)
@@ -18,45 +19,44 @@
 ##########################################################################################
 
 import argparse, shutil
-import pandas as pd
 from shutil import copyfile
 
 from humain.constants import *
 from humain.utils import *
 
 if __name__ == '__main__':
-	""" Simulated version of the extraction of Scientific Name candidates by suffixes
+	""" Normalization of the scientific-names candidates, previously extracted using suffixes, in a dictionary of scientific names.
 	"""
-	parser = argparse.ArgumentParser("Simulated version of the extraction of Scientific Name candidates by suffixes.")
-	parser.add_argument('-d', '--fulltext_dir', action="store", required=True, help="Directory with the fulltext transcription files of the images.")
-	parser.add_argument('-s', '--suffix_dir', action="store", required=True, help="File with the Scientific Name candidates extracted using suffixes algorithm.")	
-	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
+	parser = argparse.ArgumentParser("Normalization of the scientific-names candidates, previously extracted using suffixes, in a dictionary of scientific names.")
+	parser.add_argument('-f', '--candidates_file', action="store", required=True, help="File with the Scientific Name candidates extracted using suffixes algorithm.")
+	parser.add_argument('-n', '--norm_dir', action="store", required=True, help="Directory with the accepted and rejected candidate values and metrics.")
+	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when verifying the scientific name.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
 	args = parser.parse_args()	
-	# Usage example: python3 sn_suffix_ds.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/ocr_ds -s /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_suffix/ocropus -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds
+	# Usage example: python3 sn_norm_dict.py -f /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds/accepted/accepted.tsv -n /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_norm_dict/ocropus -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_norm_dict
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
 
 	#### INPUTS
-	# args.fulltext_dir
-	verify_dir( args.fulltext_dir, 'The fulltext transcription directory (' + args.fulltext_dir + ') was not found: ', parser, 1 )
+	# args.candidates_file
+	verify_file( args.candidates_file, 'The file with the candidate scientific name values (' + args.candidates_file + ') was not found: ', parser, 1 )
 
-	# args.suffix_dir
-	verify_dir( args.suffix_dir, 'The directory with the accepted and rejected values (' + args.suffix_dir + ') was not found: ', parser, 2 )
-	suff_accepted_dir = args.suffix_dir + "/accepted"
-	suff_rejected_dir = args.suffix_dir + "/rejected"
+	# args.norm_dir
+	verify_dir( args.norm_dir, 'The directory with the accepted and rejected values (' + args.norm_dir + ') was not found: ', parser, 2 )
+	norm_accepted_dir = args.norm_dir + "/accepted"
+	norm_rejected_dir = args.norm_dir + "/rejected"
 	# Input subdirectories for the accepted scientific name values and the rejected specimens
-	verify_dir( suff_accepted_dir, 'The directory of the accepted scientific names was not found (' + suff_accepted_dir + ').', parser, 3 )
-	verify_dir( suff_rejected_dir, 'The directory of the rejected scientific names was not found (' + suff_rejected_dir + ').', parser, 4 )
-	suff_accepted_file = suff_accepted_dir + "/accepted.tsv"
-	suff_rejected_file = suff_rejected_dir + "/rejected.tsv"
-	verify_file( suff_accepted_file, 'The file of accepted scientific names ' + suff_accepted_file + ' was not found.', parser, 5 )
-	verify_file( suff_rejected_file, 'The file of rejected specimens ' + suff_rejected_file + ' was not found.', parser, 6 )
+	verify_dir( norm_accepted_dir, 'The directory of the accepted scientific names was not found (' + norm_accepted_dir + ').', parser, 3 )
+	verify_dir( norm_rejected_dir, 'The directory of the rejected scientific names was not found (' + norm_rejected_dir + ').', parser, 4 )
+	norm_accepted_file = norm_accepted_dir + "/accepted.tsv"
+	norm_rejected_file = norm_rejected_dir + "/rejected.tsv"
+	verify_file( norm_accepted_file, 'The file of accepted scientific names ' + norm_accepted_file + ' was not found.', parser, 5 )
+	verify_file( norm_rejected_file, 'The file of rejected specimens ' + norm_rejected_file + ' was not found.', parser, 6 )
 	
 	# args.metric
-	metrics_dir_accepted = suff_accepted_dir + "/metrics"
-	metrics_dir_rejected = suff_rejected_dir + "/metrics"
+	metrics_dir_accepted = norm_accepted_dir + "/metrics"
+	metrics_dir_rejected = norm_rejected_dir + "/metrics"
 	if len(args.metric) > 0:
 		# Metric directory
 		verify_dir( metrics_dir_accepted, 'The metrics directory of the accepted scientific names was not found.', parser, 7 )
@@ -86,9 +86,9 @@ if __name__ == '__main__':
 	################################################################################################################################
 	# Copy the accepted values
 	try:
-		copyfile(suff_accepted_file, output_accepted_file)
+		copyfile(norm_accepted_file, output_accepted_file)
 	except IOError as e:
-		print("\nERROR: Unable to copy the accepted file. %s\n" % suff_accepted_file)
+		print("\nERROR: Unable to copy the accepted file. %s\n" % norm_accepted_file)
 		sys.exit( 18 )
 	except:
 		print("Unexpected error:", sys.exc_info())
@@ -96,9 +96,9 @@ if __name__ == '__main__':
 
 	# Copy the rejected specimens
 	try:
-		copyfile(suff_rejected_file, output_rejected_file)
+		copyfile(norm_rejected_file, output_rejected_file)
 	except IOError as e:
-		print("\nERROR: Unable to copy the rejected file. %s\n" % suff_rejected_file)
+		print("\nERROR: Unable to copy the rejected file. %s\n" % norm_rejected_file)
 		sys.exit( 19 )
 	except:
 		print("Unexpected error:", sys.exc_info())

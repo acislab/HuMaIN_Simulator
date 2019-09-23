@@ -5,7 +5,11 @@
 
 [TASKS]
 ocr_ds, dataset = datasets/aocr_mix100/ocr/ocropus, metric = duration, out_dir = selfie/results/scientific_name/ocr_ds
-sn_suffix_ds, fulltext_dir = selfie/results/scientific_name/ocr_ds, sc_name_file = datasets/aocr_mix100/sn_suffix/ocropus/sn_suffix_ocropus.tsv, metric = duration, output_dir = selfie/results/scientific_name/sn_suffix_ds
+sn_suffix_ds, fulltext_dir = selfie/results/scientific_name/ocr_ds, suffix_dir = datasets/aocr_mix100/sn_suffix/ocropus, metric = duration, output_dir = selfie/results/scientific_name/sn_suffix_ds
+sn_norm_dict, candidates_file = selfie/results/scientific_name/sn_suffix_ds/accepted/accepted.tsv, norm_dir = datasets/aocr_mix100/sn_norm_dict/ocropus, metric = duration, output_dir = selfie/results/scientific_name/sn_norm_dict
+sn_dict_extr, rej_suf_file = selfie/results/scientific_name/sn_suffix_ds/rejected/rejected.tsv, rej_nor_file = selfie/results/scientific_name/sn_norm_dict/rejected/rejected.tsv, dict_extr_dir = datasets/aocr_mix100/sn_dict_extr/ocropus, metric = duration, output_dir = selfie/results/scientific_name/sn_dict_extr
+sn_crowd, specimens = selfie/results/scientific_name/sn_dict_extr/rejected/rejected.tsv, crowd_data = datasets/aocr_mix100/crowd/terms/zooniverse/scientific_name.tsv, metric = duration, output_file = selfie/results/scientific_name/sn_crowd/sn_crowd.tsv
+sn_consensus, crowd_file = selfie/results/scientific_name/sn_crowd/sn_crowd.tsv, consensus_dir = datasets/aocr_mix100/sn_consensus, metric = duration, output_dir = selfie/results/scientific_name/sn_consensus
 
 # The base dir for the metrics' parameters is the project_results directory (selfie/results/scientific_name/)
 [METRICS]

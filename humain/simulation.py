@@ -174,7 +174,7 @@ class Simulation:
 					param_value_dict[ p_name ] = None
 
 				else:
-					print( "\nERROR: In definition of Task " + task_name + ", parameter " + p_name + " has a wrong type specification.\n" )
+					print( "\nERROR: In definition of Task " + task_name + ", a parameter has a wrong type specification.\n" )
 					sys.exit( 13 )
 
 			# The validated list of parameters is added as an attribute to the node
@@ -259,8 +259,7 @@ class Simulation:
 						sys.exit( 21 )
 					# 
 					args_list.append(p_value)
-				elif p_type in OUTPUT_TYPES:
-					# It is a file or a directory
+				elif (p_type in OUTPUT_TYPES) or (p_type in ['D_AR']):
 					args_list.append(BASE_DIR + "/" + p_value)
 				else:
 					args_list.append(p_value)
