@@ -14,17 +14,11 @@ if __name__ == '__main__':
     # here pass the folder with the rejected images only 
 	parser.add_argument('-d', '--dataset', action="store", required=True, help="Biocollection or dataset name.")
 	parser.add_argument('-f', '--file', action="store", required=True, help="Rejected images to process now")
-	parser.add_argument('-a', '--accepted', action="store", required=True, help="Accepted images to be removed from folder")
+	# parser.add_argument('-a', '--accepted', action="store", required=True, help="Accepted images to be removed from folder")
 	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected when executing the ocr.")
 	parser.add_argument('-o', '--out_dir', action="store", required=True, help="Directory where the ocr transcription of the image will be stored.")
 	args = parser.parse_args()
 	
-	# Usage example
-	# python3 ~/Summer2019/HuMaIN_Simulator/humain/selfie/tasks/ocr_ds.py -e ocropus -d aocr_insects -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results
-
-	# copy and create the dataset required
-	# TODO: Pass the project name as well
-	subprocess.call(BASE_DIR+"/selfie/tasks/move_files.sh " + args.dataset+ " "+ args.out_dir + " "+ args.accepted, shell = True)
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
@@ -52,21 +46,36 @@ if __name__ == '__main__':
 	################################################################################################################################
 	# Create the list of files to process
 	filenames = os.listdir(args.dataset)
-	filename_list = list(f for f in filenames if f.endswith('.txt'))
-	print(filename_list)
+	filename_list = []
+	for f in filenames:
+		if f.endswith('.txt'):
+			filename_list.append(f[:-4])
 
 	# rejected files 
 	rejected_images = []
 	with open(args.file, "r") as f_s:
 		for line in f_s:
-			rejected_images.append( line[:-1].strip() )
+			temp = line[:-1].strip()
+			index = temp.find(".jpg", 0, len(temp))
+			file_name = temp[0:index]
+			rejected_images.append(file_name)
+
+	# # accepted files - need not be processed again
+	# accepted_images = []
+	# with open(args.accepted, "r") as f_s:
+	# 	for line in f_s:
+	# 		# temp = accepted_images.append( line[:-1].strip())
+	# 		temp = line[:-1].strip()
+	# 		index = temp.find(".jpg", 0, len(temp))
+	# 		file_name = temp[0:index]
+	# 		accepted_images.append(file_name)
 
 	try:
 		pathfilename = ""
 		for filename in filename_list:
 			if filename in rejected_images:
-				pathfilename = args.dataset + "/" + filename
-				shutil.copy( pathfilename, args.out_dir)
+				pathfilename = args.dataset + "/" + filename + ".txt"
+				shutil.copy(pathfilename, args.out_dir)
 	except (OSError, IOError):
 		print('ERROR: The file ' + pathfilename + ' could not be copied to ' + args.out_dir + '.\n')
 		sys.exit(8)
@@ -75,6 +84,7 @@ if __name__ == '__main__':
 	################################################################################################################################
 	# INSERT THE LINES WITH THE METRIC'S VALUES - FOR EACH METRIC
 	################################################################################################################################	
+	output_metrics_dir = args.out_dir + "/metrics"
 	if len(args.metric) > 0:
 		# Metric files
 		for m_name in args.metric:
