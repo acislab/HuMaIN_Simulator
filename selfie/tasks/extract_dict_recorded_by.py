@@ -39,6 +39,9 @@ if __name__ == '__main__':
 				data += int(t_l[1])
 				D[t_l[0]] = data
 			else:
+				# to avoid the case where nothing has been detected in the original dict
+				if len(t_l) != 2:
+					continue
 				D[t_l[0]] = t_l[1]
 
 	# The dictionary is built
