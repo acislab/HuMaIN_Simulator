@@ -42,7 +42,7 @@ if __name__ == '__main__':
 	# WRITE DICT VALUES INTO OUTPUT FILE
 	output_file = open(args.output_file, "w+")
 	for key in accepted_rec_by.keys():
-		s = key + "," + str(accepted_rec_by[key]) + "\n"
+		s = key + "\t" + str(accepted_rec_by[key]) + "\n"
 		output_file.write(s)
 
 	sys.exit(0)
