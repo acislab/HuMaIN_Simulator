@@ -89,6 +89,8 @@ class Simulation:
 		with open( self.workflow_pathfilename, "r+" ) as wf:
 			for line in wf:
 				line = line[:-1].replace(' ', '')
+				if line == "":
+					continue
 				tasks = line.split(',')
 				n_a = len(tasks)
 				if n_a == 1:
@@ -374,7 +376,7 @@ class Simulation:
 		# Run the metrics scripts
 		self.run_scripts('[METRICS]')
 		# Run the post-processing scripts
-		#self.run_scripts('[POST-PROCESSING]')
+		self.run_scripts('[POST-PROCESSING]')
 
 		# Finish log
 		write_log(self.log_pathfilename, "Simulation finishes.")
@@ -385,7 +387,15 @@ class Simulation:
 		if not (section_name in ["[METRICS]", "[POST-PROCESSING]"]):
 			print( "\nERROR: Unknown section name (" + section_name + ").\n" )
 			sys.exit(31)
+		
+		# Directory where the scripts to be executed must be located
+		scripts_dir = BASE_DIR + "/humain/"
+		if section_name == "[METRICS]":
+			scripts_dir += "metrics/"
+		elif section_name == "[POST-PROCESSING]":
+			scripts_dir += "post-processing/"
 
+		# Reads the parameters of the script, creates the execution line, and runs the script
 		scripts_list_text = read_section_lines( self.params_pathfilename, section_name )
 		for line in scripts_list_text.split('\n'):
 			script_name = ""
@@ -397,9 +407,9 @@ class Simulation:
 			# Get the Execution parameters
 			parameters = line.split(',')
 			if len(parameters) > 1:
-				# Verify the existence of the metric script
-				script_name = self.tasks_dir + "/metrics/" + parameters[0]
-				verify_file( script_name, "The metric script " + script_name + " was not found.", None, 32 )
+				# Verify the existence of the script
+				script_name = scripts_dir + parameters[0]
+				verify_file( script_name, "The script " + script_name + " was not found.", None, 32 )
 				i = 1
 				while (i < len(parameters)):
 					param_name, value = None, None
@@ -417,10 +427,10 @@ class Simulation:
 			output = subprocess.run(args=cmd)
 
 			if output.returncode == 0: # Success
-				msg = "Metric Script: " + script_name + ". The script was sucessfully executed."
+				msg = "The script " + script_name + " was sucessfully executed."
 				write_log(self.log_pathfilename, msg)
 			else: # Error
-				msg = "ERROR: The " + script_name + " metric script generated an execution error:\n"
+				msg = "The script " + script_name + " generated an execution error:\n"
 				msg += "\t" + str(output.stderr) + "\n"
 				write_log(self.log_pathfilename, msg)
 				sys.exit(33)

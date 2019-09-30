@@ -1,4 +1,23 @@
 #!/usr/bin/env python3
+
+##########################################################################################
+# Developers: 	Aditi Malladi and Icaro Alzuru 
+# Project: 		HuMaIN (http://humain.acis.ufl.edu)
+# Description: 	Simulates the consensus (majority voting) and Damerau-Levenshtein comparison
+# 				made to find a final value from the crowdsourced data.
+##########################################################################################
+# Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
+#                   (https://www.acis.ufl.edu/)
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
+# except in compliance with the License. You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the 
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+# either express or implied. See the License for the specific language governing permissions 
+# and limitations under the License.
+##########################################################################################
+
 import argparse
 import pandas as pd
 from pyxdameraulevenshtein import normalized_damerau_levenshtein_distance
@@ -7,58 +26,63 @@ from humain.utils import *
 
 
 if __name__ == '__main__':
-	""" Consensus for the recorded by values
+	""" Simulates the consensus (majority voting) and Damerau-Levenshtein comparison made to find a final value from the crowdsourced data.
 	"""
-	parser = argparse.ArgumentParser("Consensus for the recorded by values")
+	parser = argparse.ArgumentParser("Simulates the consensus (majority voting) and Damerau-Levenshtein comparison made to find a final value from the crowdsourced data.")
 	parser.add_argument('-cr', '--crowd_file', action="store", required=True, help="Reference tsv file with the values transcribed by the volunteers.")
-	parser.add_argument('-th', '--threshold', action="store", required=True, help="Threshold to decide the distance for acceptance pr rejection.")
+	parser.add_argument('-th', '--threshold', action="store", required=True, help="Threshold to decide the distance for acceptance or rejection.")
 	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected during the consensus execution.")
-	parser.add_argument('-md', '--metric_dir', action="append", required=True, help="Metrics directory for the dataset")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected transcriptions will be stored.")
 	args = parser.parse_args()
+	# Usage Example:
+	# python3 consensus_recorded_by 
+	# -cr /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by_001/crowd_recorded_by/recorded_by.tsv
+	# -th 0.8
+	# -m duration
+	# -metric_dir = datasets/aocr_mix100/consensus/directory_recorded_by.txt, output_dir = selfie/results/recorded_by_001/consensus_recorded_by
 
-
+	python3 sn_consensus.py -c /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/crowd/terms/zooniverse/recorded_by.tsv -o /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/rb_consensus
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
-
 	#### INPUTS
 	# args.crowd_file
 	verify_file( args.crowd_file, 'The file with the referential crowdsourced values for Event Date (' + args.crowd_file + ') was not found: ', parser, 1 )
+	# args.threshold
+	threshold = 0.0
+	try:
+		threshold = float( args.threshold )
+		if threshold < 0.0 or threshold > 1.0:
+			print("\nERROR: The threshold value must be in the (0,1) range.\n")
+			sys.exit( 2 )
+	except ValueError:
+		print("\nERROR: The threshold value must be in the (0,1) range.\n")
+		sys.exit( 3 )
 
 	# args.metric
-	# input_metrics_dir = args.metric_dir + "/metrics"
-	# input_metrics_file = os.path.dirname(args.metric_dir) + "/metrics"
-	input_metrics_dir = open(args.metric_dir[0], 'r')
-	input_metrics_file  = input_metrics_dir.readlines()
-	input_metrics_dir.close()
-
-	input_metrics_file = BASE_DIR + "/" + input_metrics_file[0] 
-
-
+	input_metrics_file = os.path.dirname(args.crowd_file) + "/metrics"
 	if len(args.metric) > 0:
 		# Metric directory
-		verify_dir( input_metrics_file, 'The input metrics directory was not found.', parser, 3 )
+		verify_dir( input_metrics_file, 'The input metrics directory (' + input_metrics_file + ') was not found.', parser, 4 )
 		# Metric files
 		for m_name in args.metric:
 			metric_file = input_metrics_file + "/" + m_name + ".csv"
-			verify_file( metric_file, 'The metric file ' + metric_file + ' was not found in the metrics directory.', parser, 4 )
-
+			verify_file( metric_file, 'The metric file ' + metric_file + ' was not found in the metrics directory.', parser, 5 )
 	
 	#### OUTPUTS
 	# args.output_dir
-	verify_create_dir( args.output_dir, 'The output directory could not be created.', parser, 5 )
+	verify_create_dir( args.output_dir, 'The output directory could not be created.', parser, 6 )
 	# Output subdirectories for the accepted values and rejected specimens
-	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the accepted event date values could not be created.', parser, 6 )
-	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the rejected specimens could not be created.', parser, 7 )
+	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the accepted event date values could not be created.', parser, 7 )
+	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the rejected specimens could not be created.', parser, 8 )
 	# Output files
 	accepted_file = args.output_dir + "/accepted/accepted.tsv"
 	rejected_file = args.output_dir + "/rejected/rejected.tsv"
-	verify_create_file( accepted_file, 'The output file, for the extracted event dates, could not be created.', parser, 8 )
-	verify_create_file( rejected_file, 'The output file of rejected specimens, could not be created.', parser, 9 )
+	verify_create_file( accepted_file, 'The output file, for the extracted event dates, could not be created.', parser, 9 )
+	verify_create_file( rejected_file, 'The output file of rejected specimens, could not be created.', parser, 10 )
 	# Metric folders
-	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted event date values could not be created.', parser, 10 )
-	verify_create_dir( args.output_dir + "/rejected/metrics", 'The output metrics directory for the rejected specimens could not be created.', parser, 11 )
+	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted event date values could not be created.', parser, 11 )
+	verify_create_dir( args.output_dir + "/rejected/metrics", 'The output metrics directory for the rejected specimens could not be created.', parser, 12 )
 
 	################################################################################################################################
 	# LOAD IN A DATAFRAME THE CROWDSOURCED VALUES AND THE CORRESPONDENT SPECIMEN'S FILE

@@ -17,7 +17,3 @@ extract_dict_recorded_by, folder = selfie/results/recorded_by_001/ocr_recorded_b
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
 
-
-# create_sim_set.py -p selfie -w event_date -s event_date_001 -a ocr_ds -p dataset -v datasets/aocr_mix100/ocr/ocropus -v datasets/aocr_mix100/ocr/tesseract -v datasets/aocr_mix100/ocr/gc-ocr -o event_group_001
-# results/event_date_001/ -> results/event_group_001/event_date_001_01/  
-# create_sim_set.py -i -a reg_expr_ds -p threshold -v 0.7 -v 0.75 -v 0.8 -v 0.85 -v 0.9 -v 0.95 r

@@ -7,15 +7,15 @@ from humain.utils import *
 
 
 if __name__ == '__main__':
-	""" Compute the quality (similarity to the ground truth data) of the extracted Event Date values
+	""" Compute the quality (similarity to the ground truth data) of the extracted term values
 	"""
-	parser = argparse.ArgumentParser("Compute the quality (similarity to the ground truth data) of the extracted Event Date values.")
-	parser.add_argument('-a', '--accepted_file', action="append", required=True, help="One or more values files with accepted Event Date values.")
-	parser.add_argument('-g', '--ground_truth', action="store", required=True, help="Ground truth values for the Specimens' Event Date term.")
+	parser = argparse.ArgumentParser("Compute the quality (similarity to the ground truth data) of the extracted term values.")
+	parser.add_argument('-a', '--accepted_file', action="append", required=True, help="One or more values files with accepted term values.")
+	parser.add_argument('-g', '--ground_truth', action="store", required=True, help="Ground truth values for the Specimens' term term.")
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="File with the Damerau-Levenshtein similarity to the ground truth data of the accepted values.")
 	args = parser.parse_args()
 
-	# Usage: python3 ./quality_event_date.py -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/accepted/accepted.tsv -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_ds/accepted/accepted.tsv -g /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/quality.csv
+	# Usage: python3 ./quality_measure.py -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/accepted/accepted.tsv -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_ds/accepted/accepted.tsv -g /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/quality.csv
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
@@ -35,14 +35,14 @@ if __name__ == '__main__':
 		next(f_gt)
 		for line in f_gt:
 			line = line[:-1] 
-			filename, event_date_gt = "", ""
+			filename, value_gt = "", ""
 			try:
-				filename, event_date_gt = line.split("\t")
+				filename, value_gt = line.split("\t")
 				filename = filename[:-4]
 			except ValueError:
 				print("\nERROR: The ground truth file does not have the (filename, value) expected format.\n")
 				sys.exit(4)
-			specimen_gt_value[filename] = event_date_gt
+			specimen_gt_value[filename] = value_gt
 
 	################################################################################################################################
 	# READ THE CANDIDATE (ACCEPTED) VALUES AND LOAD THEM IN A DICTIONARY
@@ -57,6 +57,7 @@ if __name__ == '__main__':
 					filename = filename[:-4]
 				except ValueError:
 					print("\nERROR: The accepted values file (" + pathfilename + ") does not have the (filename, value) expected format.\n")
+					print("line: ", line)
 					sys.exit(5)
 				candidate_value[filename] = ed_value
 

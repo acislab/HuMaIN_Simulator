@@ -32,7 +32,7 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--out_dir', action="store", required=True, help="Directory where the ocr transcription of the image will be stored.")
 	args = parser.parse_args()
 	
-	# Usage example
+	# Usage example 
 	# python3 ~/Summer2019/HuMaIN_Simulator/humain/selfie/tasks/ocr_ds.py -e ocropus -d aocr_insects -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results
 
 	################################################################################################################################

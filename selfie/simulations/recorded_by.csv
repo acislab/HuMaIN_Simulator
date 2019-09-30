@@ -1,0 +1,16 @@
+#######################################################################################
+# Execution value of the workflow's parameters 
+# All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+
+[TASKS]
+crowdsource, specimens = datasets/aocr_mix100/specimen_list.txt, crowd_data = datasets/aocr_mix100/crowd/terms/zooniverse/recorded_by.tsv, metric = duration, output_file = selfie/results/recorded_by/crowdsource/recorded_by.tsv
+consensus, crowd_file = selfie/results/recorded_by/crowdsource/recorded_by.tsv, consensus_dir = datasets/aocr_mix100/consensus/recorded_by, metric = duration, output_dir = selfie/results/recorded_by/consensus
+rb_create_dict, accepted = selfie/results/recorded_by/consensus/accepted/accepted.tsv, dict_file = datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv, output_file = selfie/results/recorded_by/rb_create_dict/dictionary.tsv
+
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)c
+[METRICS]
+
+# The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
+[POST-PROCESSING]
+

@@ -1,0 +1,63 @@
+<!-- 
+#######################################################################################
+# Execution value of the workflow's parameters 
+# All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+-->
+<root>
+	<tasks>
+		<task name="ocr_ds">
+			<parameter name="dataset">datasets/aocr_mix100/ocr/ocropus</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="out_dir">selfie/results/event_date/ocr_ds</parameter>			
+		</task>
+		<task name="reg_expr_ds">
+			<parameter name="fulltext_dir">selfie/results/event_date/ocr_ds</parameter>
+			<parameter name="regexp_file">datasets/aocr_mix100/reg_exp/ocropus/reg_expr.tsv</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="out_dir">selfie/results/event_date/reg_expr_ds</parameter>
+		</task>
+		<task name="crowd_event_date_ds">
+			<parameter name="specimens">selfie/results/event_date/reg_expr_ds/rejected/rejected.tsv</parameter>
+			<parameter name="crowd_data">datasets/aocr_mix100/crowd/terms/zooniverse/event_date.tsv</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_file">selfie/results/event_date/crowd_event_date_ds/crowd_event_date.tsv</parameter>
+		</task>
+		<task name="consensus_ds">
+			<parameter name="crowd_file">selfie/results/event_date/crowd_event_date_ds/crowd_event_date.tsv</parameter>
+			<parameter name="consensus_file">datasets/aocr_mix100/consensus/accepted.tsv</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/event_date/consensus_ds</parameter>
+		</task>
+	</tasks>
+	<!-- The base dir for the metrics' parameters is BASE_DIR/humain/metrics -->
+	<metrics>
+		<script name="add.py">
+			<parameter name="mf">selfie/results/event_date/ocr_ds/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/reg_expr_ds/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/reg_expr_ds/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/crowd_event_date_ds/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/consensus_ds/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/consensus_ds/rejected/metrics/duration.csv</parameter>
+			<parameter name="output_file">selfie/results/event_date/duration.csv</parameter>
+		</script>
+		<script name="quality_measure.py">
+			<parameter name="accepted_file">selfie/results/event_date/reg_expr_ds/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/event_date/consensus_ds/accepted/accepted.tsv</parameter>
+			<parameter name="ground_truth">datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv</parameter>
+			<parameter name="output_file">selfie/results/event_date/quality.csv</parameter>
+		</script>
+	</metrics>
+	<!-- The base dir for the post-processing' parameters is BASE_DIR/humain/post-processing -->
+	<post-processing>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/event_date/quality.csv</parameter>
+			<parameter name="output_file">selfie/results/event_date/quality_stats.txt</parameter>
+		</script>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/event_date/duration.csv</parameter>
+			<parameter name="output_file">selfie/results/event_date/duration_stats.txt</parameter>
+		</script>
+	</post-processing>
+</root>
+
