@@ -144,7 +144,7 @@ class Simulation:
 				if len(list_segments) > 0:
 					params_dict[ list_segments[0] ] = list_segments[1:]
 
-		# Review, one by one, of all the tasks:		
+		# Review, one by one, of all the tasks:
 		for task_name in list(self.workflow):
 			# Python script for the task
 			script_name = self.tasks_dir + "/" + task_name + ".py"
@@ -213,7 +213,10 @@ class Simulation:
 						print( "\nERROR: Parameter " + p_name + " has not been defined in Task " + task_name + ".\n" )
 						sys.exit( 15 )
 					# We assign the value to the parameter
-					self.workflow.node[task_name]['param_values'][ p_name ] = p_value
+					if self.workflow.node[task_name]['param_values'][ p_name ]:
+						self.workflow.node[task_name]['param_values'][ p_name ] += [ p_value ]
+					else:
+						self.workflow.node[task_name]['param_values'][ p_name ] = [ p_value ]
 				else:
 					print( "\nERROR: In definition of Task " + task_name + ", parameter " + p_name + " has a wrong type specification.\n" )
 					sys.exit( 16 )
@@ -234,37 +237,37 @@ class Simulation:
 					print( "\nERROR: The parameter " + p_name + " has no assigned value for Task " + task_name + ".\n" )
 					sys.exit( 18 )
 
-				p_value = param_values[ p_name ]
-				args_list.append("--" + p_name)
-
-				# Directory
-				if p_type in ['D_JPG', 'D_TXT']:
-					dir_name = BASE_DIR + "/" + p_value
-					ext = p_type.split('_')[-1]
-					if not( verify_dir_ext( dir_name, ext ) ):
-						print( "\nERROR: Execution of " + task_name + ". Directory " + dir_name + " does not exist or does not contain " + ext + " files.\n" )
-						sys.exit( 19 )
-					#
-					args_list.append(dir_name)
-				# File
-				elif p_type in ['TXT', 'JPG', 'TSV']:
-					filename = BASE_DIR + "/" + p_value
-					ext = p_type.split('_')[-1]
-					if not( verify_file_ext( filename, ext ) ):
-						print( "\nERROR: Execution of " + task_name + ". File " + filename + " does not exist or does not have " + ext + " extension.\n" )
-						sys.exit( 20 )
-					# 
-					args_list.append(filename)
-				elif p_type in ['INT', 'FLOAT']:
-					if not (p_value.replace('.','',1).isdigit()):
-						print( "\nERROR: Execution of " + task_name + ". " + p_name + "'s value is not numeric: " + str(p_value) + ".\n" )
-						sys.exit( 21 )
-					# 
-					args_list.append(p_value)
-				elif (p_type in OUTPUT_TYPES) or (p_type in ['D_AR']):
-					args_list.append(BASE_DIR + "/" + p_value)
-				else:
-					args_list.append(p_value)
+				p_value_list = param_values[ p_name ]
+				for p_value in p_value_list:
+					args_list.append("--" + p_name)
+					# Directory
+					if p_type in ['D_JPG', 'D_TXT']:
+						dir_name = BASE_DIR + "/" + p_value
+						ext = p_type.split('_')[-1]
+						if not( verify_dir_ext( dir_name, ext ) ):
+							print( "\nERROR: Execution of " + task_name + ". Directory " + dir_name + " does not exist or does not contain " + ext + " files.\n" )
+							sys.exit( 19 )
+						#
+						args_list.append(dir_name)
+					# File
+					elif p_type in ['TXT', 'JPG', 'TSV']:
+						filename = BASE_DIR + "/" + p_value
+						ext = p_type.split('_')[-1]
+						if not( verify_file_ext( filename, ext ) ):
+							print( "\nERROR: Execution of " + task_name + ". File " + filename + " does not exist or does not have " + ext + " extension.\n" )
+							sys.exit( 20 )
+						# 
+						args_list.append(filename)
+					elif p_type in ['INT', 'FLOAT']:
+						if not (p_value.replace('.','',1).isdigit()):
+							print( "\nERROR: Execution of " + task_name + ". " + p_name + "'s value is not numeric: " + str(p_value) + ".\n" )
+							sys.exit( 21 )
+						# 
+						args_list.append(p_value)
+					elif (p_type in OUTPUT_TYPES) or (p_type in ['D_AR']):
+						args_list.append(BASE_DIR + "/" + p_value)
+					else:
+						args_list.append(p_value)
 		else:
 			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph.\n" )
 			sys.exit( 22 )
@@ -287,31 +290,31 @@ class Simulation:
 						print( "\nERROR: The parameter " + p_name + " has no assigned value for Task " + task_name + ".\n" )
 						sys.exit( 24)
 
-					p_value = param_values[ p_name ]
-					complete_value = BASE_DIR + "/" + p_value
-
-					# Directory
-					if p_type in ['O_D_JPG', 'O_D_TXT']:
-						ext = p_type.split('_')[-1]
-						if not( verify_dir_ext( complete_value, ext ) ):
-							print( "\nERROR: Verification of " + task_name + ". Output directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )
-							sys.exit( 25 )
-					# File
-					elif p_type in ['O_TXT', 'O_JPG']:
-						ext = p_type.split('_')[-1]
-						if not( verify_file_ext( complete_value, ext ) ):
-							print( "\nERROR: Verification of " + task_name + ". Output file " + p_value + " does not exist or does not have " + ext + " extension.\n" )
-							sys.exit( 26 )
-					# Directory of Accepted and Rejected values
-					elif p_type in ['O_D_AR']:
-						accepted_dir = complete_value + "/accepted"
-						verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 27 )
-						rejected_dir = complete_value + "/rejected"
-						verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
-						accepted_file = accepted_dir + "/accepted.tsv"
-						verify_file( accepted_file, "The output accepted file was not found (" + accepted_file + ")", None, 29 )
-						rejected_file = rejected_dir + "/rejected.tsv"
-						verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 30 )
+					p_value_list = param_values[ p_name ]
+					for p_value in p_value_list:
+						complete_value = BASE_DIR + "/" + p_value
+						# Directory
+						if p_type in ['O_D_JPG', 'O_D_TXT']:
+							ext = p_type.split('_')[-1]
+							if not( verify_dir_ext( complete_value, ext ) ):
+								print( "\nERROR: Verification of " + task_name + ". Output directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )
+								sys.exit( 25 )
+						# File
+						elif p_type in ['O_TXT', 'O_JPG']:
+							ext = p_type.split('_')[-1]
+							if not( verify_file_ext( complete_value, ext ) ):
+								print( "\nERROR: Verification of " + task_name + ". Output file " + p_value + " does not exist or does not have " + ext + " extension.\n" )
+								sys.exit( 26 )
+						# Directory of Accepted and Rejected values
+						elif p_type in ['O_D_AR']:
+							accepted_dir = complete_value + "/accepted"
+							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 27 )
+							rejected_dir = complete_value + "/rejected"
+							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
+							accepted_file = accepted_dir + "/accepted.tsv"
+							verify_file( accepted_file, "The output accepted file was not found (" + accepted_file + ")", None, 29 )
+							rejected_file = rejected_dir + "/rejected.tsv"
+							verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 30 )
 		else:
 			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph.\n" )
 			sys.exit( 27 )

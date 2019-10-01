@@ -9,7 +9,7 @@ consensus, crowd_file = selfie/results/recorded_by/crowdsource/recorded_by.tsv, 
 rb_create_dict, accepted = selfie/results/recorded_by/consensus/accepted/accepted.tsv, dict_file = datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv, output_file = selfie/results/recorded_by/rb_create_dict/dictionary.tsv
 ocr, ocr_input_dir = datasets/aocr_herbs/ocr/gc-ocr, ocr_input_dir = datasets/aocr_insects/ocr/gc-ocr, ocr_input_dir = datasets/aocr_lichens/ocr/gc-ocr, include = False, specimens_list = datasets/aocr_mix100/specimen_list.txt, metric = duration, output_dir = selfie/results/recorded_by/ocr
 
-# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)c
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)
 [METRICS]
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
