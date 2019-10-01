@@ -8,10 +8,13 @@ crowdsource, specimens = datasets/aocr_mix100/specimen_list.txt, crowd_data = da
 consensus, crowd_file = selfie/results/recorded_by/crowdsource/recorded_by.tsv, consensus_dir = datasets/aocr_mix100/consensus/recorded_by, metric = duration, output_dir = selfie/results/recorded_by/consensus
 rb_create_dict, accepted = selfie/results/recorded_by/consensus/accepted/accepted.tsv, dict_file = datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv, output_file = selfie/results/recorded_by/rb_create_dict/dictionary.tsv
 ocr, ocr_input_dir = datasets/aocr_herbs/ocr/gc-ocr, ocr_input_dir = datasets/aocr_insects/ocr/gc-ocr, ocr_input_dir = datasets/aocr_lichens/ocr/gc-ocr, include = False, specimens_list = datasets/aocr_mix100/specimen_list.txt, metric = duration, output_dir = selfie/results/recorded_by/ocr
+rb_dict_extr, input_dir = selfie/results/recorded_by/ocr, dict_file = selfie/results/recorded_by/rb_create_dict/dictionary.tsv, threshold = 1, output_dir = selfie/results/recorded_by/rb_dict_extr
 
 # The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)
 [METRICS]
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
+
+
 

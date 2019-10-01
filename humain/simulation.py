@@ -313,7 +313,7 @@ class Simulation:
 							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
 							accepted_file = accepted_dir + "/accepted.tsv"
 							verify_file( accepted_file, "The output accepted file was not found (" + accepted_file + ")", None, 29 )
-							rejected_file = rejected_dir + "/rejected.tsv"
+							rejected_file = rejected_dir + "/rejected.txt"
 							verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 30 )
 		else:
 			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph.\n" )

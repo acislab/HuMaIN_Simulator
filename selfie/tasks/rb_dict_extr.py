@@ -34,7 +34,7 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted values and rejected specimens will be saved")
 	args = parser.parse_args()
 	# Usage example:
-	# python3 ~/Summer2019/HuMaIN/rb_dict_extr_dir.py -i /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/ocr -d /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_dict_extr
+	# python3 ~/Summer2019/HuMaIN/rb_dict_extr.py -i /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/ocr -d /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_dict_extr
 	
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
@@ -83,7 +83,6 @@ if __name__ == '__main__':
 	# Read the specimens files that will be processed
 	filenames = os.listdir( args.input_dir )
 	filename_list = list(f for f in filenames if f.endswith('.txt'))
-	print(filename_list)
 
 	text_accept = ""
 	text_reject = ""

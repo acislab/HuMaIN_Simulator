@@ -4,7 +4,7 @@
 # Developers: 	Icaro Alzuru and Aditi Malladi
 # Project: 		HuMaIN (http://humain.acis.ufl.edu)
 # Description: 	Simulates the execution of the consensus algorithm to determine the final 
-# 				scientific name value among the crowdsourced values for each image.
+# 				value among the crowdsourced values for each image.
 ##########################################################################################
 # Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
 #                   (https://www.acis.ufl.edu/)
@@ -26,9 +26,9 @@ from humain.utils import *
 
 
 if __name__ == '__main__':
-	""" Simulates the execution of the consensus algorithm to determine the final scientific name value among the crowdsourced values for each image.
+	""" Simulates the execution of the consensus algorithm to determine the final value among the crowdsourced values for each image.
 	"""
-	parser = argparse.ArgumentParser("Simulates the execution of the consensus algorithm to determine the final scientific name value among the crowdsourced values for each image.")
+	parser = argparse.ArgumentParser("Simulates the execution of the consensus algorithm to determine the final value among the crowdsourced values for each image.")
 	parser.add_argument('-cr', '--crowd_file', action="store", required=True, help="Reference tsv file with the values transcribed by the volunteers.")
 	parser.add_argument('-co', '--consensus_dir', action="store", required=True, help="Directory where the accepted (consensus reached) and rejected specimens (unknown) are saved.")
 	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected during the consensus execution.")
@@ -46,25 +46,25 @@ if __name__ == '__main__':
 	################################################################################################################################
 	#### INPUTS
 	# args.crowd_file
-	verify_file( args.crowd_file, 'The file with the crowdsourced scientific names (' + args.crowd_file + ') was not found: ', parser, 1 )
+	verify_file( args.crowd_file, 'The file with the crowdsourced values (' + args.crowd_file + ') was not found: ', parser, 1 )
 
 	# args.consensus_dir
 	verify_dir( args.consensus_dir, 'The directory with the accepted and rejected values (' + args.consensus_dir + ') was not found: ', parser, 3 )
 	cons_accepted_dir = args.consensus_dir + "/accepted"
 	cons_rejected_dir = args.consensus_dir + "/rejected"
-	# Input subdirectories for the accepted scientific name values and the rejected specimens
-	verify_dir( cons_accepted_dir, 'The directory of the accepted scientific names was not found (' + cons_accepted_dir + ').', parser, 4 )
+	# Input subdirectories for the accepted values and the rejected specimens
+	verify_dir( cons_accepted_dir, 'The directory of the accepted values was not found (' + cons_accepted_dir + ').', parser, 4 )
 	verify_dir( cons_rejected_dir, 'The directory of the rejected specimens was not found (' + cons_rejected_dir + ').', parser, 5 )
 	cons_accepted_file = cons_accepted_dir + "/accepted.tsv"
-	cons_rejected_file = cons_rejected_dir + "/rejected.tsv"
-	verify_file( cons_accepted_file, 'The file of accepted scientific names ' + cons_accepted_file + ' was not found.', parser, 6 )
+	cons_rejected_file = cons_rejected_dir + "/rejected.txt"
+	verify_file( cons_accepted_file, 'The file of accepted values ' + cons_accepted_file + ' was not found.', parser, 6 )
 	verify_file( cons_rejected_file, 'The file of rejected specimens ' + cons_rejected_file + ' was not found.', parser, 7 )
 	# args.metric
 	metrics_dir_accepted = cons_accepted_dir + "/metrics"
 	metrics_dir_rejected = cons_rejected_dir + "/metrics"
 	if len(args.metric) > 0:
 		# Metric directory
-		verify_dir( metrics_dir_accepted, 'The metrics directory of the accepted scientific names was not found.', parser, 8 )
+		verify_dir( metrics_dir_accepted, 'The metrics directory of the accepted values was not found.', parser, 8 )
 		verify_dir( metrics_dir_rejected, 'The metrics directory of the rejected specimens was not found.', parser, 9 )
 		# Metric files
 		for m_name in args.metric:
@@ -77,15 +77,15 @@ if __name__ == '__main__':
 	# Output directory: args.output_dir
 	verify_create_dir( args.output_dir, 'The output directory could not be created.', parser, 12 )
 	# Output subdirectories for the accepted values and rejected specimens
-	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the accepted scientific names could not be created.', parser, 13 )
+	verify_create_dir( args.output_dir + "/accepted", 'The output directory for the accepted values could not be created.', parser, 13 )
 	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the specimens with rejected specimens could not be created.', parser, 14 )
 	# Output files
 	output_accepted_file = args.output_dir + "/accepted/accepted.tsv"
-	output_rejected_file = args.output_dir + "/rejected/rejected.tsv"
-	verify_create_file( output_accepted_file, 'The output file, for the extracted scientific names, could not be created.', parser, 15 )
+	output_rejected_file = args.output_dir + "/rejected/rejected.txt"
+	verify_create_file( output_accepted_file, 'The output file, for the extracted values, could not be created.', parser, 15 )
 	verify_create_file( output_rejected_file, 'The output file of rejected specimens, could not be created.', parser, 16 )
 	# Metric folders
-	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted scientific name values could not be created.', parser, 17 )
+	verify_create_dir( args.output_dir + "/accepted/metrics", 'The output metrics directory for the accepted values could not be created.', parser, 17 )
 	verify_create_dir( args.output_dir + "/rejected/metrics", 'The output metrics directory for the rejected specimens could not be created.', parser, 18 )
 
 	################################################################################################################################
@@ -96,14 +96,14 @@ if __name__ == '__main__':
 	df_files = df_s['filename']
 
 	################################################################################################################################
-	# Load the scientific name extracted through consensus
+	# Load the values extracted through consensus
 	df_a = pd.read_csv( cons_accepted_file, sep='\t', names=['filename', 'final_value'] )
 	df_a = df_a.fillna('')
 
 	df_accepted = pd.merge(df_files, df_a, on='filename')
 	df_accepted.to_csv(output_accepted_file, sep='\t', index=False, header=False)
 	################################################################################################################################
-	# Load the specimens (filenames) for which no scientific name could be extracted using consensus
+	# Load the specimens (filenames) for which no value could be extracted using consensus
 	df_r = pd.read_csv( cons_rejected_file, sep='\t', names=['filename'] )
 	df_r = df_r.fillna('')
 

@@ -1,6 +1,6 @@
-ocr_ds
-sn_suffix_ds, ocr_ds
-sn_norm_dict, sn_suffix_ds
-sn_dict_extr, sn_suffix_ds, sn_norm_dict
-sn_crowd, sn_dict_extr
-sn_consensus, sn_crowd
+ocr
+sn_suffix_id, ocr
+sn_dict_norm, sn_suffix_id
+sn_dict_extr, sn_suffix_id, sn_dict_norm
+crowdsource, sn_dict_extr
+consensus, crowdsource

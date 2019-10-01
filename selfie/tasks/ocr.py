@@ -37,6 +37,7 @@ if __name__ == '__main__':
 
 	# Usage:
 	# python3 ocr.py -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_herbs/ocr/gc-ocr -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_insects/ocr/gc-ocr -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_lichens/ocr/gc-ocr -i False -sl /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -m duration -od /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/ocr
+	# python3 ocr.py -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/ocr/ocropus -i True -sl /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -m duration -od /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/event_date/ocr
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
@@ -52,7 +53,7 @@ if __name__ == '__main__':
 			verify_file( metric_file, 'The metric file ' + metric_file + ' was not found in the metrics directory.', parser, 3 )
 	# args.include
 	arg_include = True
-	if not (args.include.lower() in ['true', 'false']):
+	if not ( args.include.lower() in ['true', 'false'] ):
 		print("\nERROR: Invalid value for the --include parameter. It must be True or False.\n")
 		parser.print_help()
 		sys.exit(4)
@@ -75,7 +76,6 @@ if __name__ == '__main__':
 		# List of OCR-ed files in the input directory
 		filenames = os.listdir( input_dir )
 		ocred_files_list = list(f for f in filenames if f.endswith('.txt'))
-
 		# List of files in the specimens list
 		included_list = []
 		with open(args.specimens_list, "r") as f:
@@ -84,13 +84,12 @@ if __name__ == '__main__':
 				line = line.strip().replace('.jpg', '.txt')
 				included_list += [line]
 				line = f.readline()
-
 		# Files to process
 		ocred_files_set = set( ocred_files_list )
 		included_set = set( included_list )
 		selected_files_set = set()
 		if arg_include:
-			selected_files_set = included_set - ocred_files_set
+			selected_files_set = included_set & ocred_files_set
 		else:
 			selected_files_set = ocred_files_set - included_set
 		selected_files_list = list( selected_files_set )

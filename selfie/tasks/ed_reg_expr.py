@@ -33,7 +33,7 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
 	args = parser.parse_args()	
-	# Usage example: python3 reg_expr_ds.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_ds -f /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds
+	# Usage example: python3 ed_reg_expr.py -d ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_ds -f ~/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the rejected specimens could not be created.', parser, 7 )
 	# Output files
 	accepted_file = args.output_dir + "/accepted/accepted.tsv"
-	rejected_file = args.output_dir + "/rejected/rejected.tsv"
+	rejected_file = args.output_dir + "/rejected/rejected.txt"
 	verify_create_file( accepted_file, 'The output file, for the extracted event dates, could not be created.', parser, 8 )
 	verify_create_file( rejected_file, 'The output file of rejected specimens, could not be created.', parser, 9 )
 	# Metric folders

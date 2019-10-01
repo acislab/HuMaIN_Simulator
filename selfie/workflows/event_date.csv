@@ -1,4 +1,4 @@
-ocr_ds
-reg_expr_ds, ocr_ds
-crowd_event_date_ds, reg_expr_ds
-consensus_ds, crowd_event_date_ds
+ocr
+ed_reg_expr, ocr
+crowdsource, ed_reg_expr
+consensus, crowdsource
