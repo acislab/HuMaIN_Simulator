@@ -28,8 +28,8 @@ if __name__ == '__main__':
 	""" Simulation of the extraction of scientific names by using a dictionary to scan the words of the text files.
 	"""
 	parser = argparse.ArgumentParser("Simulation of the extraction of scientific names by using a dictionary to scan the words of the text files.")
-	parser.add_argument('-s', '--rej_suf_file', action="store", required=True, help="tsv file with rejected specimens from the Extraction by Suffixes task.")
-	parser.add_argument('-n', '--rej_nor_file', action="store", required=True, help="tsv file with rejected specimens from the Dictionary Normalization task.")
+	parser.add_argument('-s', '--rej_suf_file', action="store", required=True, help="txt file with rejected specimens from the Extraction by Suffixes task.")
+	parser.add_argument('-n', '--rej_nor_file', action="store", required=True, help="txt file with rejected specimens from the Dictionary Normalization task.")
 	parser.add_argument('-d', '--dict_extr_dir', action="store", required=True, help="Directory with the result of the extraction of scientific names by using a dictionary.")
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when verifying the scientific name.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 	verify_dir( dict_accepted_dir, 'The directory of the accepted scientific names was not found (' + dict_accepted_dir + ').', parser, 4 )
 	verify_dir( dict_rejected_dir, 'The directory of the rejected specimens was not found (' + dict_rejected_dir + ').', parser, 5 )
 	dict_accepted_file = dict_accepted_dir + "/accepted.tsv"
-	dict_rejected_file = dict_rejected_dir + "/rejected.tsv"
+	dict_rejected_file = dict_rejected_dir + "/rejected.txt"
 	verify_file( dict_accepted_file, 'The file of accepted scientific names ' + dict_accepted_file + ' was not found.', parser, 6 )
 	verify_file( dict_rejected_file, 'The file of rejected specimens ' + dict_rejected_file + ' was not found.', parser, 7 )
 	# args.metric
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the specimens with rejected scientific name candidate could not be created.', parser, 14 )
 	# Output files
 	output_accepted_file = args.output_dir + "/accepted/accepted.tsv"
-	output_rejected_file = args.output_dir + "/rejected/rejected.tsv"
+	output_rejected_file = args.output_dir + "/rejected/rejected.txt"
 	verify_create_file( output_accepted_file, 'The output file, for the extracted scientific names, could not be created.', parser, 15 )
 	verify_create_file( output_rejected_file, 'The output file of rejected specimens, could not be created.', parser, 16 )
 	# Metric folders

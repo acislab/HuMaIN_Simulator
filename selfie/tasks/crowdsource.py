@@ -75,7 +75,7 @@ if __name__ == '__main__':
 	with open(args.specimens, "r") as f_s:
 		for line in f_s:
 			specimens_list.append( line[:-1].strip() )
-
+	
 	################################################################################################################################
 	# Load in a dataframe the crowdsourced data
 	df_crowd = pd.read_csv( args.crowd_data, sep='\t' )
@@ -85,7 +85,6 @@ if __name__ == '__main__':
 	# Copy the crowdsourced data for the selected specimens and create a tsv file with this data
 	crowd_data_string = ""
 	for index, row in df_crowd.iterrows():
-		#filename_txt = row['filename'].replace(".jpg", ".txt")
 		if row['filename'] in specimens_list:
 			crowd_data_string += row['filename'] + "\t" + row['value1'] + "\t" + row['value2'] + "\t" + row['value3'] + "\n"
 
@@ -103,7 +102,6 @@ if __name__ == '__main__':
 
 		metric_string = ""
 		for index, row in df_in_me.iterrows():
-			#filename_txt = row['filename'].replace(".jpg", ".txt")
 			if row['filename'] in specimens_list:
 				metric_string += row['filename'] + "," + str(row['sec1']) + "," + str(row['sec2']) + "," + str(row['sec3']) + "\n"
 

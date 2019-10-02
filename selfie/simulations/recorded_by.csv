@@ -7,14 +7,16 @@
 crowdsource, specimens = datasets/aocr_mix100/specimen_list.txt, crowd_data = datasets/aocr_mix100/crowd/terms/zooniverse/recorded_by.tsv, metric = duration, output_file = selfie/results/recorded_by/crowdsource/recorded_by.tsv
 consensus, crowd_file = selfie/results/recorded_by/crowdsource/recorded_by.tsv, consensus_dir = datasets/aocr_mix100/consensus/recorded_by, metric = duration, output_dir = selfie/results/recorded_by/consensus
 rb_create_dict, accepted = selfie/results/recorded_by/consensus/accepted/accepted.tsv, dict_file = datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv, output_file = selfie/results/recorded_by/rb_create_dict/dictionary.tsv
-ocr, ocr_input_dir = datasets/aocr_herbs/ocr/gc-ocr, ocr_input_dir = datasets/aocr_insects/ocr/gc-ocr, ocr_input_dir = datasets/aocr_lichens/ocr/gc-ocr, include = False, specimens_list = datasets/aocr_mix100/specimen_list.txt, metric = duration, output_dir = selfie/results/recorded_by/ocr
+ocr, ocr_input_dir = datasets/aocr_herbs/ocr/ocropus, ocr_input_dir = datasets/aocr_insects/ocr/ocropus, ocr_input_dir = datasets/aocr_lichens/ocr/ocropus, include = False, specimens_list = datasets/aocr_mix100/specimen_list.txt, metric = duration, output_dir = selfie/results/recorded_by/ocr
 rb_dict_extr, input_dir = selfie/results/recorded_by/ocr, dict_file = selfie/results/recorded_by/rb_create_dict/dictionary.tsv, threshold = 1, output_dir = selfie/results/recorded_by/rb_dict_extr
 
-# The base dir for the metrics' parameters is the project_results directory (selfie/results/event_date_001/)
+# The base dir for the metrics' parameters is the project_results directory (selfie/results/recorded_by/)
 [METRICS]
+add.py, mf = selfie/results/recorded_by/crowdsource/metrics/duration.csv, mf = selfie/results/recorded_by/consensus/accepted/metrics/duration.csv, mf = selfie/results/recorded_by/consensus/rejected/metrics/duration.csv, mf = selfie/results/recorded_by/ocr/metrics/duration.csv, mf = selfie/results/recorded_by/rb_dict_extr/accepted/metrics/duration.csv, mf = selfie/results/recorded_by/rb_dict_extr/rejected/metrics/duration.csv, output_file = selfie/results/recorded_by/duration.csv
+quality_measure.py, accepted_file = selfie/results/recorded_by/consensus/accepted/accepted.tsv, accepted_file = selfie/results/recorded_by/rb_dict_extr/accepted/accepted.tsv, ground_truth = datasets/aocr_mix100/gtruth/terms/recorded_by.tsv, output_file = selfie/results/recorded_by/quality.csv
 
 # The base dir for the post-processing' parameters is the HuMaIN_Simulator (BASE_DIR) directory.
 [POST-PROCESSING]
-
-
+basic_stats.py, metric_file = selfie/results/recorded_by/quality.csv, output_file = selfie/results/recorded_by/quality_stats.txt
+basic_stats.py, metric_file = selfie/results/recorded_by/duration.csv, output_file = selfie/results/recorded_by/duration_stats.txt
 

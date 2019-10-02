@@ -63,7 +63,7 @@ if __name__ == '__main__':
 	verify_create_dir( args.output_dir + "/rejected", 'The output directory for the specimens of unknown term value could not be created.', parser, 6 )
 	# Output files
 	output_accepted_file = args.output_dir + "/accepted/accepted.tsv"
-	output_rejected_file = args.output_dir + "/rejected/rejected.tsv"
+	output_rejected_file = args.output_dir + "/rejected/rejected.txt"
 	verify_create_file( output_accepted_file, 'The output file, for the extracted values, could not be created.', parser, 7 )
 	verify_create_file( output_rejected_file, 'The output file of rejected specimens, could not be created.', parser, 8 )
 	# Metric folders

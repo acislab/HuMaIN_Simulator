@@ -40,7 +40,7 @@ if __name__ == '__main__':
 	# -cr /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_crowd/sn_crowd.tsv 
 	# -co /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_consensus 
 	# -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_consensus
-	# python3 ./sn_consensus.py -cr /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_crowd/sn_crowd.tsv -co /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_consensus -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_consensus
+	# python3 ./consensus.py -cr /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_crowd/sn_crowd.tsv -co /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_consensus -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_consensus
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################
@@ -94,7 +94,6 @@ if __name__ == '__main__':
 	df_s = df_s.fillna('')
 
 	df_files = df_s['filename']
-
 	################################################################################################################################
 	# Load the values extracted through consensus
 	df_a = pd.read_csv( cons_accepted_file, sep='\t', names=['filename', 'final_value'] )

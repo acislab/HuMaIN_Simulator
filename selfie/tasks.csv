@@ -4,7 +4,7 @@ consensus, crowd_file:TSV, consensus_dir:D_AR, metric:STRING, output_dir:O_D_AR
 ed_reg_expr, fulltext_dir:D_TXT, regexp_file:TSV, metric:STRING, output_dir:O_D_AR
 sn_suffix_id, fulltext_dir:D_TXT, suffix_dir:D_AR, metric:STRING, output_dir:O_D_AR
 sn_dict_norm, candidates_file:TSV, norm_dir:D_AR, metric:STRING, output_dir:O_D_AR
-sn_dict_extr, rej_suf_file:TSV, rej_nor_file:TSV, dict_extr_dir:D_AR, metric:STRING, output_dir:O_D_AR
+sn_dict_extr, rej_suf_file:TXT, rej_nor_file:TXT, dict_extr_dir:D_AR, metric:STRING, output_dir:O_D_AR
 rb_create_dict, accepted:TSV, dict_file:TSV, output_file:O_TSV
 rb_dict_extr, input_dir:D_TXT, dict_file:TSV, threshold:INT, output_dir:O_D_AR
 subset, specimens:TXT, accepted:TSV, subset_size:INT, subset_file:O_TXT
