@@ -1,84 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	<task name="ocr_ds">
-		<parameter name="dataset" type="D_TXT"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="out_dir" type="O_D_TXT"></parameter>
+	<task name="ocr">
+		<parameter name="ocr_input_dir" type="D_TXT"></parameter>
+		<parameter name="include" type="STRING"></parameter>
+		<parameter name="specimens_list" type="TXT"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
+		<parameter name="output_dir" type="O_D_TXT"></parameter>
 	</task>
-	<task name="reg_expr_ds">
-		<parameter name="fulltext_dir" type="D_TXT"></parameter>
-		<parameter name="regexp_file" type="TSV"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="output_dir" type="O_D_AR"></parameter>
-	</task>
-	<task name="crowd_event_date_ds">
-		<parameter name="specimens" type="TSV"></parameter>
+	<task name="crowdsource">
+		<parameter name="specimens" type="TXT"></parameter>
 		<parameter name="crowd_data" type="TSV"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
 		<parameter name="output_file" type="O_TSV"></parameter>
 	</task>
-	<task name="consensus_ds">
+	<task name="consensus">
 		<parameter name="crowd_file" type="TSV"></parameter>
-		<parameter name="consensus_file" type="TSV"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="output_dir" type="O_D_AS"></parameter>
-	</task>
-	<task name="sn_suffix_ds">
-		<parameter name="fulltext_dir" type="D_TXT"></parameter>
-		<parameter name="suffix_dir" type="D_AR"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
+		<parameter name="consensus_dir" type="D_AR"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
 		<parameter name="output_dir" type="O_D_AR"></parameter>
 	</task>
-	<task name="sn_norm_dict">
+	<task name="ed_reg_expr">
+		<parameter name="fulltext_dir" type="D_TXT"></parameter>
+		<parameter name="regexp_file" type="TSV"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
+		<parameter name="output_dir" type="O_D_AR"></parameter>
+	</task>
+	<task name="sn_suffix_id">
+		<parameter name="fulltext_dir" type="D_TXT"></parameter>
+		<parameter name="suffix_dir" type="D_AR"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
+		<parameter name="output_dir" type="O_D_AR"></parameter>
+	</task>
+	<task name="sn_dict_norm">
 		<parameter name="candidates_file" type="TSV"></parameter>
 		<parameter name="norm_dir" type="D_AR"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
 		<parameter name="output_dir" type="O_D_AR"></parameter>
 	</task>
 	<task name="sn_dict_extr">
-		<parameter name="rej_suf_file" type="TSV"></parameter>
-		<parameter name="rej_nor_file" type="TSV"></parameter>
+		<parameter name="rej_suf_file" type="TXT"></parameter>
+		<parameter name="rej_nor_file" type="TXT"></parameter>
 		<parameter name="dict_extr_dir" type="D_AR"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
+		<parameter name="metric" type="STRING"></parameter>
 		<parameter name="output_dir" type="O_D_AR"></parameter>
 	</task>
-	<task name="sn_crowd">
-		<parameter name="specimens" type="TSV"></parameter>
-		<parameter name="crowd_data" type="TSV"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
+	<task name="rb_create_dict">
+		<parameter name="accepted" type="TSV"></parameter>
+		<parameter name="dict_file" type="TSV"></parameter>
 		<parameter name="output_file" type="O_TSV"></parameter>
 	</task>
-	<task name="sn_consensus">
-		<parameter name="crowd_file" type="TSV"></parameter>
-		<parameter name="consensus_dir" type="D_AR"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="output_dir" type="O_D_AR"></parameter>
+	<task name="rb_dict_extr">
+		<parameter name="input_dir" type="D_TXT"></parameter>
+		<parameter name="dict_file" type="TSV"></parameter>
+		<parameter name="threshold" type="INT"></parameter>
+		<parameter name="output_dir" type="O_D_AR"></parameter>		
 	</task>
-	<task name="crowd_recorded_by">
+	<task name="subset">
 		<parameter name="specimens" type="TXT"></parameter>
-		<parameter name="crowd_data" type="TXT"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="output_file" type="O_TXT"></parameter>
-	</task>
-	<task name="consensus_recorded_by">
-		<parameter name="crowd_file" type="TXT"></parameter>
-		<parameter name="threshold" type="FLOAT"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="metric_dir" type="TXT"></parameter>
-		<parameter name="output_dir" type="O_D_AR"></parameter>
-	</task>
-	<task name="create_dict_recorded_by">
 		<parameter name="accepted" type="TSV"></parameter>
-		<parameter name="output_file" type="O_TXT"></parameter>
-	</task>
-	<task name="ocr_recorded_by">
-		<parameter name="dataset" type="D_TXT"></parameter>
-		<parameter name="file" type="TSV"></parameter>
-		<parameter name="metric" type="LIST"></parameter>
-		<parameter name="out_dir" type="O_D_TXT"></parameter>
-	</task>
-	<task name="extract_dict_recorded_by">
-		<parameter name="folder" type="D_TXT"></parameter>
-		<parameter name="dictionary" type="TXT"></parameter>
+		<parameter name="subset_size" type="INT"></parameter>
+		<parameter name="subset_file" type="O_TXT"></parameter>
 	</task>
 </root>

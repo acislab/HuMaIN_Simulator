@@ -4,7 +4,8 @@
 # Developers: 	Icaro Alzuru and Aditi Malladi
 # Project: 		HuMaIN (http://humain.acis.ufl.edu)
 # Description: 	Simulation class. Loads in memory all the simulation structure: Workflow, 
-# 				Tasks, Parameters, and Simulation.
+# 				Tasks, Parameters, and Simulation. It permits to run pure- and HITL- 
+# 				simulations.
 ##########################################################################################
 # Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
 #                   (https://www.acis.ufl.edu/)
@@ -21,6 +22,7 @@
 import sys, networkx as nx
 import matplotlib.pyplot as plt
 import ntpath, subprocess, re
+import xml.etree.ElementTree as ET
 
 from humain.constants import *
 from humain.utils import *
@@ -53,7 +55,7 @@ class Simulation:
 		verify_dir( self.simulations_dir, 'The simulations directory (' + self.simulations_dir + ') was not found: ', None, 5 )
 
 		# File with the simulation parameters of the workflow
-		self.params_pathfilename = self.simulations_dir + "/" + ntpath.basename( sim_par_name ).replace('.csv', '') + ".csv"
+		self.params_pathfilename = self.simulations_dir + "/" + ntpath.basename( sim_par_name ).replace('.xml', '') + ".xml"
 		verify_file( self.params_pathfilename, 'The simulation parameters file (' + self.params_pathfilename + ') was not found.', None, 6 )
 
 		# Results directory: self.project_results
@@ -70,18 +72,20 @@ class Simulation:
 
 		# Workflow = Graph
 		self.workflow = nx.DiGraph()
+		self.iterative = False			# Yes -> HITL execution
+		self.stop_task = None			# Task that will decide when to stop the simulation
 
 		# Task(s) to be executed next
 		self.next_task = []
 
 		# Load the structure of tasks
-		self.load_tasks()
+		self.load_tasks( )
 
 		# Load the parameters of every tasks of the workflow
-		self.load_parameters()
+		self.load_parameters( )
 
 		# Load the values for each of the Tasks' parameters
-		self.load_values( self.params_pathfilename )
+		self.load_values( )
 
 	######################################################################################################################################
 	# Load the nodes (tasks) and structure of the IE workflow
@@ -119,107 +123,79 @@ class Simulation:
 	######################################################################################################################################
 	# Load inputs and outputs of every (tasks) and save them as nodes' attributes in the graph
 	def load_parameters(self):
-		# Load the content of the tasks.csv file
-		tasks_csv = self.project_dir + "/tasks.csv"
-		verify_file( tasks_csv, "The tasks' description file (" + tasks_csv + ") was not found.", None, 9 )
+		# Load the content of the tasks.xml file
+		tasks_xml = self.project_dir + "/tasks.xml"
+		verify_file( tasks_xml, "The tasks' description file (" + tasks_xml + ") was not found.", None, 9 )
 
-		# Create a dictionary with the list of parameters for each Task
-		params_dict = {}
-		tasks_csv_text = ""
-		with open(tasks_csv, "r+") as t_f:
-			for line in t_f:
-		# 		tasks_csv_text += line.replace('\n', '&&')
-		# print(tasks_csv_text)
-		# # The TASK section is loaded
-		# task_section = re.findall(r'\[TASKS\](.+?)\[.+\]', tasks_csv_text)
-		# if len(task_section) == 0:
-		# 	print( "\nERROR: The TASKS section could not be read from tasks.csv.\n" )
-		# 	sys.exit( 10 )
-		# lines = task_section.split('&&')
-		# print(lines)
-		# # Each line is processed and the parameters are extracted
-		# for line in lines:
-				line = line[:-1].replace(' ', '')
-				list_segments = line.split(',')
-				if len(list_segments) > 0:
-					params_dict[ list_segments[0] ] = list_segments[1:]
+		# Create element tree object and get the root
+		root = ET.parse( tasks_xml ).getroot()
 
-		# Review, one by one, of all the tasks:
-		for task_name in list(self.workflow):
-			# Python script for the task
-			script_name = self.tasks_dir + "/" + task_name + ".py"
-			verify_file( script_name, 'The Python script for the task (' + task_name + ') was not found.', None, 10 )
-			# The script is added as attribute for the node
-			self.workflow.node[task_name]['script'] = script_name
+		# Read the type of workflow and its parameters
+		# for s in root.findall('simulation'):
+		# 	iterative_value = s.find('iterative').text
 
-			# Veryfication of the list of parameters for the Task under study
-			if not(task_name in params_dict):
-				print( "\nERROR: There is not definition, in tasks.csv, for the parameters of the Task " + task_name + ".\n" )
-				sys.exit( 11 )
 
-			# Dictionaries of (parameter, datatype) and (parameter, value) pairs
-			param_datatype_dict = {}
-			param_value_dict = {}
-			# Processing of each of the parameters
-			params_line = params_dict[ task_name ]
-			for parameter_definition in params_line:
-				p_name, p_datatype = "", ""
+		workflow_tasks = list(self.workflow.node)
+		# Process every task
+		for task in root.findall('task'):
+			task_name = task.get('name')
+			if task_name in workflow_tasks:
+				# Python script for the task
+				script_name = self.tasks_dir + "/" + task_name + ".py"
+				verify_file( script_name, 'The Python script for the task (' + task_name + ') was not found.', None, 10 )
+				# The script is added as attribute for the node
+				self.workflow.node[task_name]['script'] = script_name
 
-				param_parts = parameter_definition.split(':')
-				if len(param_parts) == 2:
-					p_name, p_datatype = param_parts[0], param_parts[1]
-					if not(p_datatype in DATATYPES):
-						print( "\nERROR: In definition of Task " + task_name + ", datatype " + p_datatype + " does not exist.\n" )
-						sys.exit( 12 )
-					# We save the datatype, but we do not know yet the value
-					param_datatype_dict[ p_name ] = p_datatype
-					param_value_dict[ p_name ] = None
+				para_type_dict = {}
+				para_value_dict = {}
+				# Process every parameter
+				for parameter in task.findall('parameter'):
+					para_name = parameter.get('name')
+					para_type = parameter.get('type')
+					# Validate the datatype of the parameter
+					if not(para_type in DATATYPES):
+						print( "\nERROR: In definition of Task " + task_name + ", datatype " + para_type + " does not exist.\n" )
+						sys.exit( 11 )
+					para_type_dict[ para_name ] = para_type
+					para_value_dict[ para_name ] = None
 
-				else:
-					print( "\nERROR: In definition of Task " + task_name + ", a parameter has a wrong type specification.\n" )
-					sys.exit( 13 )
+				# The validated list of parameters is added as an attribute to the node
+				self.workflow.node[task_name]['param_types'] = para_type_dict
+				self.workflow.node[task_name]['param_values'] = para_value_dict
 
-			# The validated list of parameters is added as an attribute to the node
-			self.workflow.node[task_name]['param_types'] = param_datatype_dict
-			self.workflow.node[task_name]['param_values'] = param_value_dict
-	
 	######################################################################################################################################
 	# Load the values for each of the Tasks' parameters
-	def load_values(self, sim_fname):
-		# Create a dictionary with the list of parameters for each Task
-		params_dict = {}
-		with open(self.params_pathfilename, "r+") as par_f:
-			for line in par_f:
-				line = line[:-1].replace(' ', '')
-				list_segments = line.split(',')
-				if len(list_segments) > 0:
-					params_dict[ list_segments[0] ] = list_segments[1:]
-		
-		# Process, one by one, the tasks and their parameters:		
-		for task_name in list(self.workflow):
-			# Veryfication of the list of parameters for the Task under study
-			if not(task_name in params_dict):
-				print( "\nERROR: There is not definition, in " + self.params_pathfilename + ", for the parameters of the Task " + task_name + ".\n" )
-				sys.exit( 14 )
+	def load_values(self):
+		# Create element tree object and get the root
+		root = ET.parse( self.params_pathfilename ).getroot()
+		# Process every task
+		for task in root.findall('tasks/task'):
+			task_name = task.get('name')
+			# Check if the task was previously defined
+			if not(task_name in list(self.workflow)):
+				print( "\nERROR: The task " + task_name + " was not defined in the workflow.\n" )
+				sys.exit( 12 )
 
-			# Processing of each of the parameters
-			params_line = params_dict[ task_name ]
-			for parameter_definition in params_line:
-				p_name, p_value = "", ""
-				param_parts = parameter_definition.split('=')
-				if len(param_parts) == 2:
-					p_name, p_value = param_parts[0], param_parts[1]
-					if not( p_name in self.workflow.node[task_name]['param_values'] ):
-						print( "\nERROR: Parameter " + p_name + " has not been defined in Task " + task_name + ".\n" )
-						sys.exit( 15 )
-					# We assign the value to the parameter
-					if self.workflow.node[task_name]['param_values'][ p_name ]:
-						self.workflow.node[task_name]['param_values'][ p_name ] += [ p_value ]
-					else:
-						self.workflow.node[task_name]['param_values'][ p_name ] = [ p_value ]
+			# Process every parameter
+			for parameter in task.findall('parameter'):
+				para_name = parameter.get('name')
+				para_value = parameter.text
+				# Check if the parameter exist for the task
+				if not( para_name in self.workflow.node[task_name]['param_values'] ):
+					print( "\nERROR: Parameter " + para_name + " has not been defined in Task " + task_name + ".\n" )
+					sys.exit( 13 )
+				# We assign the value to the parameter
+				# Values are treated as lists because there may be multiple values
+				if self.workflow.node[task_name]['param_values'][ para_name ]:
+					self.workflow.node[task_name]['param_values'][ para_name ] += [ para_value ]
 				else:
-					print( "\nERROR: In definition of Task " + task_name + ", parameter " + p_name + " has a wrong type specification.\n" )
-					sys.exit( 16 )
+					self.workflow.node[task_name]['param_values'][ para_name ] = [ para_value ]
+
+			# Verification that all the parameters have an assigned value
+			for para_name in self.workflow.node[task_name]['param_values']:
+				if self.workflow.node[task_name]['param_values'][ para_name ] is None:
+					print( "\nERROR: No value was defined for parameter " + para_name + " of Task " + task_name + " in the simulation file.\n" )
+					sys.exit( 14 )
 
 	######################################################################################################################################
 	# Returns the parameters to run the especified Task
@@ -232,10 +208,10 @@ class Simulation:
 				# Validate existence of the parameter and its value
 				if not (p_name in param_values.keys()):
 					print( "\nERROR: The parameter " + p_name + " has not been defined for Task " + task_name + ".\n" )
-					sys.exit( 17 )
+					sys.exit( 15 )
 				if param_values[ p_name ] is None:
 					print( "\nERROR: The parameter " + p_name + " has no assigned value for Task " + task_name + ".\n" )
-					sys.exit( 18 )
+					sys.exit( 16 )
 
 				p_value_list = param_values[ p_name ]
 				for p_value in p_value_list:
@@ -246,7 +222,7 @@ class Simulation:
 						ext = p_type.split('_')[-1]
 						if not( verify_dir_ext( dir_name, ext ) ):
 							print( "\nERROR: Execution of " + task_name + ". Directory " + dir_name + " does not exist or does not contain " + ext + " files.\n" )
-							sys.exit( 19 )
+							sys.exit( 17 )
 						#
 						args_list.append(dir_name)
 					# File
@@ -255,13 +231,13 @@ class Simulation:
 						ext = p_type.split('_')[-1]
 						if not( verify_file_ext( filename, ext ) ):
 							print( "\nERROR: Execution of " + task_name + ". File " + filename + " does not exist or does not have " + ext + " extension.\n" )
-							sys.exit( 20 )
+							sys.exit( 18 )
 						# 
 						args_list.append(filename)
 					elif p_type in ['INT', 'FLOAT']:
 						if not (p_value.replace('.','',1).isdigit()):
 							print( "\nERROR: Execution of " + task_name + ". " + p_name + "'s value is not numeric: " + str(p_value) + ".\n" )
-							sys.exit( 21 )
+							sys.exit( 19 )
 						# 
 						args_list.append(p_value)
 					elif (p_type in OUTPUT_TYPES) or (p_type in ['D_AR']):
@@ -285,10 +261,10 @@ class Simulation:
 					# Validate existence of the parameter and its value
 					if not (p_name in param_values.keys()):
 						print( "\nERROR: The parameter " + p_name + " has not been defined for Task " + task_name + ".\n" )
-						sys.exit( 23 )
+						sys.exit( 20 )
 					if param_values[ p_name ] is None:
 						print( "\nERROR: The parameter " + p_name + " has no assigned value for Task " + task_name + ".\n" )
-						sys.exit( 24)
+						sys.exit( 21)
 
 					p_value_list = param_values[ p_name ]
 					for p_value in p_value_list:
@@ -298,26 +274,26 @@ class Simulation:
 							ext = p_type.split('_')[-1]
 							if not( verify_dir_ext( complete_value, ext ) ):
 								print( "\nERROR: Verification of " + task_name + ". Output directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )
-								sys.exit( 25 )
+								sys.exit( 22 )
 						# File
 						elif p_type in ['O_TXT', 'O_JPG']:
 							ext = p_type.split('_')[-1]
 							if not( verify_file_ext( complete_value, ext ) ):
 								print( "\nERROR: Verification of " + task_name + ". Output file " + p_value + " does not exist or does not have " + ext + " extension.\n" )
-								sys.exit( 26 )
+								sys.exit( 23 )
 						# Directory of Accepted and Rejected values
 						elif p_type in ['O_D_AR']:
 							accepted_dir = complete_value + "/accepted"
-							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 27 )
+							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 24 )
 							rejected_dir = complete_value + "/rejected"
-							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 28 )
+							verify_dir( accepted_dir, "The output accepted directory was not found (" + accepted_dir + ")", None, 25 )
 							accepted_file = accepted_dir + "/accepted.tsv"
-							verify_file( accepted_file, "The output accepted file was not found (" + accepted_file + ")", None, 29 )
+							verify_file( accepted_file, "The output accepted file was not found (" + accepted_file + ")", None, 26 )
 							rejected_file = rejected_dir + "/rejected.txt"
-							verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 30 )
+							verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 27 )
 		else:
 			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph.\n" )
-			sys.exit( 27 )
+			sys.exit( 28 )
 
 		return True
 
@@ -339,7 +315,7 @@ class Simulation:
 			del self.next_task[0]
 		else:
 			print( "\nERROR: The Task " + executed_task + " has not been defined in the Graph.\n" )
-			sys.exit( 28 )
+			sys.exit( 29 )
 
 	######################################################################################################################################
 	# Execution of the Simulation process
@@ -377,9 +353,9 @@ class Simulation:
 			self.updateGraphAfterExecution( current_task )
 
 		# Run the metrics scripts
-		self.run_scripts('[METRICS]')
+		self.run_scripts('metrics')
 		# Run the post-processing scripts
-		self.run_scripts('[POST-PROCESSING]')
+		self.run_scripts('post-processing')
 
 		# Finish log
 		write_log(self.log_pathfilename, "Simulation finishes.")
@@ -387,56 +363,40 @@ class Simulation:
 	######################################################################################################################################
 	# Execute the metrics and post-processing scripts
 	def run_scripts(self, section_name):
-		if not (section_name in ["[METRICS]", "[POST-PROCESSING]"]):
+		if not (section_name in ["metrics", "post-processing"]):
 			print( "\nERROR: Unknown section name (" + section_name + ").\n" )
-			sys.exit(31)
-		
+			sys.exit(30)
+
 		# Directory where the scripts to be executed must be located
-		scripts_dir = BASE_DIR + "/humain/"
-		if section_name == "[METRICS]":
-			scripts_dir += "metrics/"
-		elif section_name == "[POST-PROCESSING]":
-			scripts_dir += "post-processing/"
+		scripts_dir = BASE_DIR + "/humain/" + section_name + "/"
 
-		# Reads the parameters of the script, creates the execution line, and runs the script
-		scripts_list_text = read_section_lines( self.params_pathfilename, section_name )
-		for line in scripts_list_text.split('\n'):
-			script_name = ""
+		# Create element tree object and get the root
+		root = ET.parse( self.params_pathfilename ).getroot()
+		# Process every task
+		for script in root.findall( section_name + '/script'):
+			script_name = script.get('name')
+			# Verify the existence of the script
+			script_filename = scripts_dir + script_name
+			verify_file( script_filename, "The script " + script_filename + " was not found.", None, 31 )
+
 			parameters_list = []
-			line = line.replace(' ', '')
-			if line == "": 
-				continue
+			# Create the list of parameters for the script
+			for parameter in script.findall( 'parameter'):
+				parameters_list.append( "--" + parameter.get('name') )
+				parameters_list.append( BASE_DIR + "/" + parameter.text )
 
-			# Get the Execution parameters
-			parameters = line.split(',')
-			if len(parameters) > 1:
-				# Verify the existence of the script
-				script_name = scripts_dir + parameters[0]
-				verify_file( script_name, "The script " + script_name + " was not found.", None, 32 )
-				i = 1
-				while (i < len(parameters)):
-					param_name, value = None, None
-					try:
-						param_name, value = parameters[i].split('=')
-						parameters_list.append( "--" + param_name )
-						parameters_list.append( BASE_DIR + "/" + value )
-					except ValueError:
-						print( "\nERROR: Script " + script_name + ". The parameter does not have the right syntax.\n" )
-						sys.exit(31)
-					i = i + 1
-					
 			# Execution of the script
-			cmd = [script_name] + parameters_list
+			cmd = [script_filename] + parameters_list
 			output = subprocess.run(args=cmd)
 
 			if output.returncode == 0: # Success
-				msg = "The script " + script_name + " was sucessfully executed."
+				msg = "The script " + script_filename + " was sucessfully executed."
 				write_log(self.log_pathfilename, msg)
 			else: # Error
-				msg = "The script " + script_name + " generated an execution error:\n"
+				msg = "The script " + script_filename + " generated an execution error:\n"
 				msg += "\t" + str(output.stderr) + "\n"
 				write_log(self.log_pathfilename, msg)
-				sys.exit(33)
+				sys.exit(32)
 
 	######################################################################################################################################
 	# Save in the log file the project, workflow, and simulation parameters file used in the simulation
