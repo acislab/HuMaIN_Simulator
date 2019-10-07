@@ -61,7 +61,7 @@ class Simulation:
 		# Results directory: self.project_results
 		results_dir = self.project_dir + "/results"
 		verify_create_dir( results_dir, 'The results directory (' + results_dir + ') was not found and could not be created.', None, 7 )
-		self.project_results = results_dir + "/" + ntpath.basename(sim_par_name).replace('.csv', '')
+		self.project_results = results_dir + "/" + ntpath.basename(sim_par_name).replace('.xml', '')
 		verify_create_dir( self.project_results, 'The directory to store the execution results(' + self.project_results + ') and could not be created.', None, 8 )
 
 		# Execution Log 
@@ -123,28 +123,37 @@ class Simulation:
 	######################################################################################################################################
 	# Load inputs and outputs of every (tasks) and save them as nodes' attributes in the graph
 	def load_parameters(self):
+		# Load the content of the xml simulation file, creates element tree object, and get the root
+		root_sim = ET.parse( self.params_pathfilename ).getroot()
+		# Read the type of workflow and its parameters
+		for s in root_sim.findall('simulation'):
+			iterative_tag = s.find('iterative')
+			iterative_value = ""
+			# iterative Tag
+			if not (iterative_tag is None):
+				iterative_value = str(iterative_tag.text)
+			if iterative_value.lower() == "yes":
+				self.iterative = True
+				# stop_task tag
+				stop_task_tag = s.find('stop_task')
+				if not (stop_task_tag is None):
+					self.stop_task = str(stop_task_tag.text)
+
 		# Load the content of the tasks.xml file
 		tasks_xml = self.project_dir + "/tasks.xml"
 		verify_file( tasks_xml, "The tasks' description file (" + tasks_xml + ") was not found.", None, 9 )
 
-		# Create element tree object and get the root
-		root = ET.parse( tasks_xml ).getroot()
-
-		# Read the type of workflow and its parameters
-		# for s in root.findall('simulation'):
-		# 	iterative_value = s.find('iterative').text
-
-
+		root_tasks = ET.parse( tasks_xml ).getroot()
 		workflow_tasks = list(self.workflow.node)
 		# Process every task
-		for task in root.findall('task'):
+		for task in root_tasks.findall('task'):
 			task_name = task.get('name')
 			if task_name in workflow_tasks:
 				# Python script for the task
 				script_name = self.tasks_dir + "/" + task_name + ".py"
 				verify_file( script_name, 'The Python script for the task (' + task_name + ') was not found.', None, 10 )
 				# The script is added as attribute for the node
-				self.workflow.node[task_name]['script'] = script_name
+				self.workflow.node[ task_name ]['script'] = script_name
 
 				para_type_dict = {}
 				para_value_dict = {}
@@ -160,8 +169,8 @@ class Simulation:
 					para_value_dict[ para_name ] = None
 
 				# The validated list of parameters is added as an attribute to the node
-				self.workflow.node[task_name]['param_types'] = para_type_dict
-				self.workflow.node[task_name]['param_values'] = para_value_dict
+				self.workflow.node[ task_name ]['param_types'] = para_type_dict
+				self.workflow.node[ task_name ]['param_values'] = para_value_dict
 
 	######################################################################################################################################
 	# Load the values for each of the Tasks' parameters
@@ -179,21 +188,22 @@ class Simulation:
 			# Process every parameter
 			for parameter in task.findall('parameter'):
 				para_name = parameter.get('name')
-				para_value = parameter.text
+				para_value = str(parameter.text)
 				# Check if the parameter exist for the task
-				if not( para_name in self.workflow.node[task_name]['param_values'] ):
+				if not( para_name in self.workflow.node[ task_name ]['param_values'] ):
 					print( "\nERROR: Parameter " + para_name + " has not been defined in Task " + task_name + ".\n" )
 					sys.exit( 13 )
 				# We assign the value to the parameter
 				# Values are treated as lists because there may be multiple values
-				if self.workflow.node[task_name]['param_values'][ para_name ]:
-					self.workflow.node[task_name]['param_values'][ para_name ] += [ para_value ]
+				if self.workflow.node[ task_name ]['param_values'][ para_name ]:
+					#print([ para_value ])
+					self.workflow.node[ task_name ]['param_values'][ para_name ] += [ para_value ]
 				else:
-					self.workflow.node[task_name]['param_values'][ para_name ] = [ para_value ]
+					self.workflow.node[ task_name ]['param_values'][ para_name ] = [ para_value ]
 
 			# Verification that all the parameters have an assigned value
-			for para_name in self.workflow.node[task_name]['param_values']:
-				if self.workflow.node[task_name]['param_values'][ para_name ] is None:
+			for para_name in self.workflow.node[ task_name ]['param_values']:
+				if self.workflow.node[ task_name ]['param_values'][ para_name ] is None:
 					print( "\nERROR: No value was defined for parameter " + para_name + " of Task " + task_name + " in the simulation file.\n" )
 					sys.exit( 14 )
 
@@ -202,8 +212,11 @@ class Simulation:
 	def get_execution_parameters(self, task_name ):
 		args_list = []
 		if task_name in list(self.workflow):
-			param_types = self.workflow.node[task_name]['param_types']
-			param_values = self.workflow.node[task_name]['param_values']
+			param_types = self.workflow.node[ task_name ]['param_types']
+			param_values = self.workflow.node[ task_name ]['param_values']
+			if task_name == "subset":
+				print(param_types)
+				print(param_values)
 			for p_name, p_type in param_types.items():
 				# Validate existence of the parameter and its value
 				if not (p_name in param_values.keys()):
@@ -245,7 +258,7 @@ class Simulation:
 					else:
 						args_list.append(p_value)
 		else:
-			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph.\n" )
+			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph (get_execution_parameters).\n" )
 			sys.exit( 22 )
 
 		return(args_list)
@@ -254,8 +267,8 @@ class Simulation:
 	# Verify Output of an Task
 	def verifyTaskOutput( self, task_name ):
 		if task_name in list(self.workflow):
-			param_types = self.workflow.node[task_name]['param_types']
-			param_values = self.workflow.node[task_name]['param_values']
+			param_types = self.workflow.node[ task_name ]['param_types']
+			param_values = self.workflow.node[ task_name ]['param_values']
 			for p_name, p_type in param_types.items():
 				if p_type in OUTPUT_TYPES:
 					# Validate existence of the parameter and its value
@@ -292,7 +305,7 @@ class Simulation:
 							rejected_file = rejected_dir + "/rejected.txt"
 							verify_file( rejected_file, "The output rejected file was not found (" + rejected_file + ")", None, 27 )
 		else:
-			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph.\n" )
+			print( "\nERROR: The Task " + task_name + " has not been defined in the Graph (verifyTaskOutput).\n" )
 			sys.exit( 28 )
 
 		return True
@@ -314,8 +327,9 @@ class Simulation:
 			# The executed task is deleted from next_task
 			del self.next_task[0]
 		else:
-			print( "\nERROR: The Task " + executed_task + " has not been defined in the Graph.\n" )
+			print( "\nERROR: The Task " + executed_task + " has not been defined in the Graph (updateGraphAfterExecution).\n" )
 			sys.exit( 29 )
+		# When an iterative workflow is being run, the states are updated in every iteration
 
 	######################################################################################################################################
 	# Execution of the Simulation process
@@ -326,11 +340,60 @@ class Simulation:
 		# Write in the log the parameters of the simulation
 		self.save_basic_info()
 
+		#*********************************************************************
+		# Simulation path in case of an iterative execution
+		iteration_number = 0
+		iteration_subdir = "/".join(self.project_results.split('/')[-2:]) # e.g. results/recorded_by_hitl
+		#*********************************************************************
+
 		# Start To_Run Tasks (TODO: This can be parallelized)
 		while len(self.next_task) > 0:
 			current_task = self.next_task[0]
+
+			#*********************************************************************
+			# If iterative, update paths and study simulation process
+			if self.iterative and current_task == self.stop_task:
+				# Starts a new iteration
+				iteration_number += 1
+				iteration_dir = self.project_results + "/iteration_" + str(iteration_number)
+				# The new simulation directory is created
+				verify_create_dir( iteration_dir, 'The directory for the new iteration (' + iteration_dir + ') could not be created (run).', None, 30 )
+
+				# Set the state of the tasks as Not executed
+				for task_name in self.workflow:
+					self.workflow.node[ task_name ][ 'executed' ] = False
+
+				new_iteration_subdir = ""
+				if iteration_number == 1:
+					new_iteration_subdir = iteration_subdir + "/iteration_1"
+				else:
+					new_iteration_subdir = '_'.join(iteration_subdir.split('_')[:-1]) + "_" + str(iteration_number)
+
+				# The directory values of the parameters are updated accordingly
+				for task_name in self.workflow:
+					for para_name in self.workflow.node[ task_name ]['param_values']:
+						new_values_list = []
+						# Every value is a list (hence, we treat each possible value)
+						value_list = self.workflow.node[ task_name ]['param_values'][ para_name ]
+						for para_value in value_list:
+							if iteration_number == 1:
+								new_values_list += [ str(para_value).replace( iteration_subdir, new_iteration_subdir ) ]
+						#
+						self.workflow.node[ task_name ]['param_values'][ para_name ] = new_values_list
+
+				iteration_subdir = new_iteration_subdir
+
+				# A new iteration will start
+				msg = "STARTS ITERATION " + str(iteration_number) + ":"
+				write_log(self.log_pathfilename, msg)
+
+
+			#*********************************************************************
+
 			# Verify the required parameters and data sources of current_task
 			execution_parameters = self.get_execution_parameters( current_task )
+			print(current_task, execution_parameters )
+
 			# Run the Task
 			script_filename = self.workflow.node[ current_task ]['script']
 			cmd = [script_filename] + execution_parameters
@@ -339,19 +402,44 @@ class Simulation:
 			if output.returncode == 0: # Success
 				msg = "Task " + current_task + " was successfully executed."
 				write_log(self.log_pathfilename, msg)
-			else: # Error
-				msg = "ERROR: Task " + current_task + " generated an error:\n"
-				msg += "\t" + str(output.stderr) + "\n"
-				write_log(self.log_pathfilename, msg)
-				sys.exit(output.returncode)
+			else: # Error or Stop iterative execution
+				#*********************************************************************
+				# Stop the iterative execution
+				if self.iterative and (self.stop_task == current_task):
+					# Finish log
+					write_log(self.log_pathfilename, "Simulation finishes.")
+					return(0)
+				#*********************************************************************
+				# Error
+				else:
+					msg = "ERROR: Task " + current_task + " generated an error:\n"
+					msg += "\t" + str(output.stderr) + "\n"
+					write_log(self.log_pathfilename, msg)
+					sys.exit(output.returncode)
 
 			# Verify the output data sources generated by the current task
-			if self.verifyTaskOutput( current_task ):
-				write_log(self.log_pathfilename, "The output of the " + current_task  + " Task has been successfully verified.")
+			if not self.iterative:
+				if self.verifyTaskOutput( current_task ):
+					write_log(self.log_pathfilename, "The output of the " + current_task  + " Task has been successfully verified.")
 
 			# Update self.next_task
 			self.updateGraphAfterExecution( current_task )
 
+			#*********************************************************************
+			# Verify if a new iteration must be started (If iterative)
+			if self.iterative and (len(self.next_task) == 0):
+				# Run the metrics scripts
+				self.run_scripts('metrics')
+				# Run the post-processing scripts
+				self.run_scripts('post-processing')
+				# Ends the iteration
+				msg = "ENDS ITERATION " + str(iteration_number) + ".\n"
+				write_log(self.log_pathfilename, msg)
+				# We set the next task for the new iteration (The task that select the subset)
+				self.next_task.append( self.stop_task )
+			#*********************************************************************				
+
+		################################################################
 		# Run the metrics scripts
 		self.run_scripts('metrics')
 		# Run the post-processing scripts
@@ -407,7 +495,8 @@ class Simulation:
 
 		# Collect the information, one by one, of the tasks and their parameters:		
 		for task_name in list(self.workflow):
-			param_values = self.workflow.node[task_name]['param_values']
+			print(task_name)
+			param_values = self.workflow.node[ task_name ]['param_values']
 			basic_info += "\t\t\t" + task_name + ": " + str(param_values) + "\n"
 
 		# Write in the log

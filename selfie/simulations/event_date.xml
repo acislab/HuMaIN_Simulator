@@ -7,46 +7,46 @@
 -->
 <root>
 	<tasks>
-		<task name="ocr">
+		<task name="ocr_sim">
 			<parameter name="ocr_input_dir">datasets/aocr_mix100/ocr/ocropus</parameter>
 			<parameter name="include">True</parameter>
 			<parameter name="specimens_list">datasets/aocr_mix100/specimen_list.txt</parameter>
 			<parameter name="metric">duration</parameter>
-			<parameter name="output_dir">selfie/results/event_date/ocr</parameter>			
+			<parameter name="output_dir">selfie/results/event_date/ocr_sim</parameter>			
 		</task>
-		<task name="ed_reg_expr">
-			<parameter name="fulltext_dir">selfie/results/event_date/ocr</parameter>
+		<task name="ed_reg_expr_sim">
+			<parameter name="fulltext_dir">selfie/results/event_date/ocr_sim</parameter>
 			<parameter name="regexp_file">datasets/aocr_mix100/reg_exp/ocropus/reg_expr.tsv</parameter>
 			<parameter name="metric">duration</parameter>
-			<parameter name="output_dir">selfie/results/event_date/ed_reg_expr</parameter>
+			<parameter name="output_dir">selfie/results/event_date/ed_reg_expr_sim</parameter>
 		</task>
-		<task name="crowdsource">
-			<parameter name="specimens">selfie/results/event_date/ed_reg_expr/rejected/rejected.txt</parameter>
+		<task name="crowdsource_sim">
+			<parameter name="specimens">selfie/results/event_date/ed_reg_expr_sim/rejected/rejected.txt</parameter>
 			<parameter name="crowd_data">datasets/aocr_mix100/crowd/terms/zooniverse/event_date.tsv</parameter>
 			<parameter name="metric">duration</parameter>
-			<parameter name="output_file">selfie/results/event_date/crowdsource/crowd_event_date.tsv</parameter>
+			<parameter name="output_file">selfie/results/event_date/crowdsource_sim/crowd_event_date.tsv</parameter>
 		</task>		
-		<task name="consensus">
-			<parameter name="crowd_file">selfie/results/event_date/crowdsource/crowd_event_date.tsv</parameter>
+		<task name="consensus_sim">
+			<parameter name="crowd_file">selfie/results/event_date/crowdsource_sim/crowd_event_date.tsv</parameter>
 			<parameter name="consensus_dir">datasets/aocr_mix100/consensus/event_date</parameter>
 			<parameter name="metric">duration</parameter>
-			<parameter name="output_dir">selfie/results/event_date/consensus</parameter>
+			<parameter name="output_dir">selfie/results/event_date/consensus_sim</parameter>
 		</task>
 	</tasks>
 	<!-- The base dir for the metrics' parameters is BASE_DIR/humain/metrics -->
 	<metrics>
 		<script name="add.py">
-			<parameter name="mf">selfie/results/event_date/ocr/metrics/duration.csv</parameter>
-			<parameter name="mf">selfie/results/event_date/ed_reg_expr/accepted/metrics/duration.csv</parameter>
-			<parameter name="mf">selfie/results/event_date/ed_reg_expr/rejected/metrics/duration.csv</parameter>
-			<parameter name="mf">selfie/results/event_date/crowdsource/metrics/duration.csv</parameter>
-			<parameter name="mf">selfie/results/event_date/consensus/accepted/metrics/duration.csv</parameter>
-			<parameter name="mf">selfie/results/event_date/consensus/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/ocr_sim/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/ed_reg_expr_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/ed_reg_expr_sim/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/crowdsource_sim/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/consensus_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/event_date/consensus_sim/rejected/metrics/duration.csv</parameter>
 			<parameter name="output_file">selfie/results/event_date/duration.csv</parameter>
 		</script>
 		<script name="quality_measure.py">
-			<parameter name="accepted_file">selfie/results/event_date/ed_reg_expr/accepted/accepted.tsv</parameter>
-			<parameter name="accepted_file">selfie/results/event_date/consensus/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/event_date/ed_reg_expr_sim/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/event_date/consensus_sim/accepted/accepted.tsv</parameter>
 			<parameter name="ground_truth">datasets/aocr_mix100/gtruth/terms/event_date.tsv</parameter>
 			<parameter name="output_file">selfie/results/event_date/quality.csv</parameter>
 		</script>

@@ -34,6 +34,7 @@ if __name__ == '__main__':
 	# python3 run_simulation.py -p selfie -w event_date -s event_date
 	# python3 run_simulation.py -p selfie -w scientific_name -s scientific_name
 	# python3 run_simulation.py -p selfie -w recorded_by -s recorded_by
+	# python3 run_simulation.py -p selfie -w recorded_by_hitl -s recorded_by_hitl
 	
 	sim = Simulation( args.project, args.workflow, args.sim_file )
 	#sim.draw_workflow()

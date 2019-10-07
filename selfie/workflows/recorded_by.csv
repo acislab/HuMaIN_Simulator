@@ -1,5 +1,5 @@
-crowdsource
-consensus, crowdsource
-rb_create_dict, consensus
-ocr, rb_create_dict
-rb_dict_extr, ocr
+crowdsource_sim
+consensus_sim, crowdsource_sim
+create_dict_sim, consensus_sim
+ocr_sim, create_dict_sim
+rb_dict_extr, ocr_sim

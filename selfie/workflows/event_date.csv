@@ -1,4 +1,4 @@
-ocr
-ed_reg_expr, ocr
-crowdsource, ed_reg_expr
-consensus, crowdsource
+ocr_sim
+ed_reg_expr_sim, ocr_sim
+crowdsource_sim, ed_reg_expr_sim
+consensus_sim, crowdsource_sim

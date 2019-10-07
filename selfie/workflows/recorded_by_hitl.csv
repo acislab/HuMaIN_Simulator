@@ -1,6 +1,6 @@
-select_n
-crowdsource, select_n
-consensus, crowdsource
-rb_create_dict, consensus
-ocr, rb_create_dict
-rb_dict_extr, ocr
+subset
+crowdsource_sim, subset
+consensus_sim, crowdsource_sim
+create_dict, consensus_sim
+ocr_sim, create_dict
+rb_dict_extr, ocr_sim
