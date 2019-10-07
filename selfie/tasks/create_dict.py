@@ -72,7 +72,7 @@ if __name__ == '__main__':
 		previous_dict_file = args.dict_file.replace( "iteration_" + str(iteration_number-1), "iteration_" + str(iteration_number) )
 		verify_file( previous_dict_file, 'The previous dictionary file could not be read (' + previous_dict_file + ').', None, 7 )
 		df_dict = pd.read_csv( previous_dict_file, sep='\t', names = ['word', 'count'], encoding='utf8', dtype = {'word':str, 'count':int} )
-		df_dict = df.fillna('')
+		df_dict = df_dict.fillna('')
 		for index, row in df_dict.iterrows():
 			dictionary[ row['word'] ] = int(row['count'])
 

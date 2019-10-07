@@ -11,7 +11,7 @@ if __name__ == '__main__':
 	"""
 	parser = argparse.ArgumentParser("Compute the quality (similarity to the ground truth data) of the extracted term values.")
 	parser.add_argument('-a', '--accepted_file', action="append", required=True, help="One or more values files with accepted term values.")
-	parser.add_argument('-g', '--ground_truth', action="store", required=True, help="Ground truth values for the Specimens' term term.")
+	parser.add_argument('-g', '--ground_truth', action="store", required=True, help="Ground truth values for the Specimens' term.")
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="File with the Damerau-Levenshtein similarity to the ground truth data of the accepted values.")
 	args = parser.parse_args()
 
@@ -68,8 +68,8 @@ if __name__ == '__main__':
 		if specimen in candidate_value.keys():
 			sim = 1.0 - normalized_damerau_levenshtein_distance( specimen_gt_value[specimen], candidate_value[specimen] )
 			sim_text += specimen + "," + str(sim) + "\n"
-		else:
-			sim_text += specimen + ",0.0\n"
+		# else:
+		# 	sim_text += specimen + ",0.0\n"
 
 	################################################################################################################################
 	# COMPARISON RESULTS ARE WRITTEN TO THE OUTPUT FILE

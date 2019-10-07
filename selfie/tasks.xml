@@ -62,7 +62,6 @@
 	<task name="subset">
 		<parameter name="init_list_file" type="TXT"></parameter>
 		<parameter name="subset_size" type="INT"></parameter>
-		<parameter name="h_ar_task" type="STRING"></parameter>
 		<parameter name="m_ar_task" type="STRING"></parameter>
 		<parameter name="output_file" type="O_TXT"></parameter>
 	</task>

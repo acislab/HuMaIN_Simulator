@@ -50,8 +50,12 @@ if __name__ == '__main__':
 	specimen_metric_dict = {}
 	x = 1
 	for pathfilename in args.mf:
-		df_mf = pd.read_csv( pathfilename, header=None )
-		df_mf = df_mf.fillna('')
+		df_mf = pd.DataFrame()
+		try:
+			df_mf = pd.read_csv( pathfilename, header=None )
+			df_mf = df_mf.fillna('')
+		except pd.io.common.EmptyDataError:
+			continue
 
 		n = len(df_mf.columns)
 		for index, row in df_mf.iterrows():
