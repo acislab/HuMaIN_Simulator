@@ -1,0 +1,81 @@
+[2019-10-11 19:05:18] Simulation starts.
+[2019-10-11 19:05:18] Simulation Parameters:
+		Project Directory: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie
+		Workflow Definition File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/workflows/recorded_by_hitl.csv
+		Simulation Parameters File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/simulations/recorded_by_hitl.xml
+		Parameters per Task:
+			subset: {'init_list_file': ['datasets/aocr_mix100/specimen_list.txt'], 'subset_size': ['20'], 'm_ar_task': ['rb_dict_extr'], 'output_file': ['selfie/results/recorded_by_hitl/selected_specimens.txt']}
+			crowdsource_sim: {'specimens': ['selfie/results/recorded_by_hitl/selected_specimens.txt'], 'crowd_data': ['datasets/aocr_mix100/crowd/terms/zooniverse/recorded_by.tsv'], 'metric': ['duration'], 'output_file': ['selfie/results/recorded_by_hitl/crowdsource_sim/recorded_by.tsv']}
+			consensus_sim: {'crowd_file': ['selfie/results/recorded_by_hitl/crowdsource_sim/recorded_by.tsv'], 'consensus_dir': ['datasets/aocr_mix100/consensus/recorded_by'], 'metric': ['duration'], 'output_dir': ['selfie/results/recorded_by_hitl/consensus_sim']}
+			create_dict: {'data_file': ['selfie/results/recorded_by_hitl/consensus_sim/accepted/accepted.tsv'], 'dict_file': ['selfie/results/recorded_by_hitl/create_dict/dictionary.tsv']}
+			ocr_sim: {'ocr_input_dir': ['datasets/aocr_mix100/ocr/ocropus'], 'include': ['True'], 'specimens_list': ['selfie/results/recorded_by_hitl/remaining_specimens.txt'], 'metric': ['duration'], 'output_dir': ['selfie/results/recorded_by_hitl/ocr_sim']}
+			rb_dict_extr: {'input_dir': ['selfie/results/recorded_by_hitl/ocr_sim'], 'dict_file': ['selfie/results/recorded_by_hitl/create_dict/dictionary.tsv'], 'threshold': ['1'], 'output_dir': ['selfie/results/recorded_by_hitl/rb_dict_extr']}
+
+[2019-10-11 19:05:18] STARTS ITERATION 1:
+[2019-10-11 19:05:19] Task subset was successfully executed.
+[2019-10-11 19:05:19] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:05:19] Task consensus_sim was successfully executed.
+[2019-10-11 19:05:20] Task create_dict was successfully executed.
+[2019-10-11 19:05:20] Task ocr_sim was successfully executed.
+[2019-10-11 19:05:20] Task rb_dict_extr was successfully executed.
+[2019-10-11 19:05:21] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:05:21] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:05:21] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:22] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:22] ENDS ITERATION 1.
+
+[2019-10-11 19:05:22] STARTS ITERATION 2:
+[2019-10-11 19:05:22] Task subset was successfully executed.
+[2019-10-11 19:05:22] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:05:22] Task consensus_sim was successfully executed.
+[2019-10-11 19:05:23] Task create_dict was successfully executed.
+[2019-10-11 19:05:23] Task ocr_sim was successfully executed.
+[2019-10-11 19:05:23] Task rb_dict_extr was successfully executed.
+[2019-10-11 19:05:24] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:05:24] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:05:24] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:24] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:24] ENDS ITERATION 2.
+
+[2019-10-11 19:05:24] STARTS ITERATION 3:
+[2019-10-11 19:05:25] Task subset was successfully executed.
+[2019-10-11 19:05:25] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:05:25] Task consensus_sim was successfully executed.
+[2019-10-11 19:05:26] Task create_dict was successfully executed.
+[2019-10-11 19:05:26] Task ocr_sim was successfully executed.
+[2019-10-11 19:05:26] Task rb_dict_extr was successfully executed.
+[2019-10-11 19:05:27] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:05:27] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:05:27] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:27] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:27] ENDS ITERATION 3.
+
+[2019-10-11 19:05:27] STARTS ITERATION 4:
+[2019-10-11 19:05:28] Task subset was successfully executed.
+[2019-10-11 19:05:28] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:05:28] Task consensus_sim was successfully executed.
+[2019-10-11 19:05:29] Task create_dict was successfully executed.
+[2019-10-11 19:05:29] Task ocr_sim was successfully executed.
+[2019-10-11 19:05:29] Task rb_dict_extr was successfully executed.
+[2019-10-11 19:05:30] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:05:30] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:05:30] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:30] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:30] ENDS ITERATION 4.
+
+[2019-10-11 19:05:30] STARTS ITERATION 5:
+[2019-10-11 19:05:31] Task subset was successfully executed.
+[2019-10-11 19:05:31] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:05:31] Task consensus_sim was successfully executed.
+[2019-10-11 19:05:32] Task create_dict was successfully executed.
+[2019-10-11 19:05:32] Task ocr_sim was successfully executed.
+[2019-10-11 19:05:32] WARNING: Execution of rb_dict_extr. Directory /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by_hitl/iteration_5/ocr_sim does not exist or does not contain TXT files.
+[2019-10-11 19:05:32] Task rb_dict_extr was successfully executed.
+[2019-10-11 19:05:33] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:05:33] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:05:33] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:33] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:05:33] ENDS ITERATION 5.
+
+[2019-10-11 19:05:33] STARTS ITERATION 6:
+[2019-10-11 19:05:34] Simulation finishes.

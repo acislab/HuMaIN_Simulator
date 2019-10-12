@@ -1,0 +1,6 @@
+Number of lines: 93
+Mean: 0.5480133953994961
+Median: 0.5714285671710968
+Standard Deviation: 0.31480326264486835
+Minimum: 0.0
+Maximum: 1.0

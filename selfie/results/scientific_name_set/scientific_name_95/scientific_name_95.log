@@ -1,0 +1,30 @@
+[2019-10-11 19:34:23] Simulation starts.
+[2019-10-11 19:34:23] Simulation Parameters:
+		Project Directory: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie
+		Workflow Definition File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/workflows/scientific_name.csv
+		Simulation Parameters File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/simulations/scientific_name_95.xml
+		Parameters per Task:
+			ocr_sim: {'ocr_input_dir': ['datasets/aocr_mix100/ocr/gc-ocr'], 'include': ['True'], 'specimens_list': ['datasets/aocr_mix100/specimen_list.txt'], 'metric': ['duration'], 'output_dir': ['selfie/results/scientific_name_95/ocr_sim']}
+			sn_suffix_id_sim: {'fulltext_dir': ['selfie/results/scientific_name_95/ocr_sim'], 'suffix_dir': ['datasets/aocr_mix100/sn_suffix/gc-ocr'], 'metric': ['duration'], 'output_dir': ['selfie/results/scientific_name_95/sn_suffix_id_sim']}
+			sn_dict_norm_sim: {'candidates_file': ['selfie/results/scientific_name_95/sn_suffix_id_sim/accepted/accepted.tsv'], 'norm_dir': ['datasets/aocr_mix100/sn_dict_norm/gc-ocr'], 'metric': ['duration'], 'output_dir': ['selfie/results/scientific_name_95/sn_dict_norm_sim']}
+			sn_dict_extr_sim: {'rej_suf_file': ['selfie/results/scientific_name_95/sn_suffix_id_sim/rejected/rejected.txt'], 'rej_nor_file': ['selfie/results/scientific_name_95/sn_dict_norm_sim/rejected/rejected.txt'], 'dict_extr_dir': ['datasets/aocr_mix100/sn_dict_extr/gc-ocr_95'], 'metric': ['duration'], 'output_dir': ['selfie/results/scientific_name_95/sn_dict_extr_sim']}
+			crowdsource_sim: {'specimens': ['selfie/results/scientific_name_95/sn_dict_extr_sim/rejected/rejected.txt'], 'crowd_data': ['datasets/aocr_mix100/crowd/terms/zooniverse/scientific_name.tsv'], 'metric': ['duration'], 'output_file': ['selfie/results/scientific_name_95/crowdsource_sim/scientific_name.tsv']}
+			consensus_sim: {'crowd_file': ['selfie/results/scientific_name_95/crowdsource_sim/scientific_name.tsv'], 'consensus_dir': ['datasets/aocr_mix100/consensus/scientific_name'], 'metric': ['duration'], 'output_dir': ['selfie/results/scientific_name_95/consensus_sim']}
+
+[2019-10-11 19:34:24] Task ocr_sim was successfully executed.
+[2019-10-11 19:34:24] The output of the ocr_sim Task has been successfully verified.
+[2019-10-11 19:34:24] Task sn_suffix_id_sim was successfully executed.
+[2019-10-11 19:34:24] The output of the sn_suffix_id_sim Task has been successfully verified.
+[2019-10-11 19:34:24] Task sn_dict_norm_sim was successfully executed.
+[2019-10-11 19:34:24] The output of the sn_dict_norm_sim Task has been successfully verified.
+[2019-10-11 19:34:24] Task sn_dict_extr_sim was successfully executed.
+[2019-10-11 19:34:24] The output of the sn_dict_extr_sim Task has been successfully verified.
+[2019-10-11 19:34:25] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:34:25] The output of the crowdsource_sim Task has been successfully verified.
+[2019-10-11 19:34:25] Task consensus_sim was successfully executed.
+[2019-10-11 19:34:25] The output of the consensus_sim Task has been successfully verified.
+[2019-10-11 19:34:25] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:34:26] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:34:26] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:34:26] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:34:26] Simulation finishes.

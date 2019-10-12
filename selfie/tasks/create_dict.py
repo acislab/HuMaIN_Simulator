@@ -33,8 +33,9 @@ if __name__ == '__main__':
 	parser.add_argument('-i','--data_file',action="store", required=True, help="Input TSV file with the unnamed columns: 'specimen', 'value'.")
 	parser.add_argument('-o','--dict_file',action="store", required=True, help="Name of the TSV dictionary file to generate. Unnamed columns: 'value', 'frequency'.")	
 	args = parser.parse_args()
+	
 	# Usage example:
-	# python3 created_dict.py -i /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by_hitl/iteration_1/consensus/accepted/accepted.tsv -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by_hitl/iteration_1/create_dict/dictionary.tsv
+	# python3 created_dict.py -i ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by_hitl/iteration_1/consensus/accepted/accepted.tsv -o ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by_hitl/iteration_1/create_dict/dictionary.tsv
 
 	##########################################################################################
 	# PARAMETERS VERIFICATION

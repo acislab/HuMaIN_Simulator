@@ -31,11 +31,10 @@ if __name__ == '__main__':
 	parser.add_argument('-d', '--dict_file', action="store", required=True, help="Dictionary already created from the values in the accepted file.")
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="Output file where the values with their repetition count will be saved.")
 	args = parser.parse_args()
+
 	# Usage:
-	# python3 rb_create_dict.py -a /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/consensus/accepted/accepted.tsv 
-	# -d /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv
-	# -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv
-	# python3 rb_create_dict.py -a /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/consensus/accepted/accepted.tsv -d /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv
+	# python3 rb_create_dict.py -a ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/consensus/accepted/accepted.tsv -d ~/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/consensus/recorded_by/accepted/dict_recorded_by.tsv -o ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv
+
     ################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

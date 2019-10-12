@@ -1,0 +1,82 @@
+<!-- 
+#######################################################################################
+# Execution value of the workflow's parameters 
+# All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+-->
+<root>
+	<tasks>
+		<task name="ocr_sim">
+			<parameter name="ocr_input_dir">datasets/aocr_mix100/ocr/gc-ocr</parameter>
+			<parameter name="include">True</parameter>
+			<parameter name="specimens_list">datasets/aocr_mix100/specimen_list.txt</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/scientific_name_75/ocr_sim</parameter>			
+		</task>
+		<task name="sn_suffix_id_sim">
+			<parameter name="fulltext_dir">selfie/results/scientific_name_75/ocr_sim</parameter>
+			<parameter name="suffix_dir">datasets/aocr_mix100/sn_suffix/gc-ocr</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/scientific_name_75/sn_suffix_id_sim</parameter>
+		</task>
+		<task name="sn_dict_norm_sim">
+			<parameter name="candidates_file">selfie/results/scientific_name_75/sn_suffix_id_sim/accepted/accepted.tsv</parameter>
+			<parameter name="norm_dir">datasets/aocr_mix100/sn_dict_norm/gc-ocr</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/scientific_name_75/sn_dict_norm_sim</parameter>
+		</task>
+		<task name="sn_dict_extr_sim">
+			<parameter name="rej_suf_file">selfie/results/scientific_name_75/sn_suffix_id_sim/rejected/rejected.txt</parameter>
+			<parameter name="rej_nor_file">selfie/results/scientific_name_75/sn_dict_norm_sim/rejected/rejected.txt</parameter>
+			<parameter name="dict_extr_dir">datasets/aocr_mix100/sn_dict_extr/gc-ocr_75</parameter>			
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/scientific_name_75/sn_dict_extr_sim</parameter>
+		</task>
+		<task name="crowdsource_sim">
+			<parameter name="specimens">selfie/results/scientific_name_75/sn_dict_extr_sim/rejected/rejected.txt</parameter>
+			<parameter name="crowd_data">datasets/aocr_mix100/crowd/terms/zooniverse/scientific_name.tsv</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_file">selfie/results/scientific_name_75/crowdsource_sim/scientific_name.tsv</parameter>
+		</task>
+		<task name="consensus_sim">
+			<parameter name="crowd_file">selfie/results/scientific_name_75/crowdsource_sim/scientific_name.tsv</parameter>
+			<parameter name="consensus_dir">datasets/aocr_mix100/consensus/scientific_name</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/scientific_name_75/consensus_sim</parameter>
+		</task>
+	</tasks>
+	<!-- The base dir for the metrics' parameters is BASE_DIR/humain/metrics -->
+	<metrics>
+		<script name="add.py">
+			<parameter name="mf">selfie/results/scientific_name_75/ocr_sim/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/sn_suffix_id_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/sn_suffix_id_sim/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/sn_dict_norm_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/sn_dict_norm_sim/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/sn_dict_extr_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/sn_dict_extr_sim/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/crowdsource_sim/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/consensus_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/scientific_name_75/consensus_sim/rejected/metrics/duration.csv</parameter>
+			<parameter name="output_file">selfie/results/scientific_name_75/duration.csv</parameter>		
+		</script>
+		<script name="quality_measure.py">
+			<parameter name="accepted_file">selfie/results/scientific_name_75/sn_dict_norm_sim/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/scientific_name_75/sn_dict_extr_sim/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/scientific_name_75/consensus_sim/accepted/accepted.tsv</parameter>
+			<parameter name="ground_truth">datasets/aocr_mix100/gtruth/terms/scientific_name.tsv</parameter>
+			<parameter name="output_file">selfie/results/scientific_name_75/quality.csv</parameter>
+		</script>
+	</metrics>
+	<!-- The base dir for the post-processing' parameters is BASE_DIR/humain/post-processing -->
+	<post-processing>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/scientific_name_75/quality.csv</parameter>
+			<parameter name="output_file">selfie/results/scientific_name_75/quality_stats.txt</parameter>
+		</script>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/scientific_name_75/duration.csv</parameter>
+			<parameter name="output_file">selfie/results/scientific_name_75/duration_stats.txt</parameter>
+		</script>
+	</post-processing>
+</root>

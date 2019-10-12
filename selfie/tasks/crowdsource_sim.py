@@ -33,14 +33,10 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--metric', action="append", required=True, help="One or more metrics that will be collected when executing the crowdsourcing.")
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="TSV with the transcription made by the volunteers for the specified list of specimens.")
 	args = parser.parse_args()
-	# Usage example: python3 sn_crowd.py 
-	# -s /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_dict_extr/rejected/rejected.tsv 
-	# -f /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/crowd/terms/zooniverse/scientific_name.tsv
-	# -m duration 
-	# -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_crowd/sn_crowd.tsv
-	#
-	# python3 crowdsource.py -s /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_dict_extr/rejected/rejected.tsv -f /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/crowd/terms/zooniverse/scientific_name.tsv -m duration -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_crowd/sn_crowd.tsv
-	# python3 crowdsource.py -s /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -f /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/crowd/terms/zooniverse/recorded_by.tsv -m duration -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/crowdsource/recorded_by.tsv
+
+	# Usage example: 
+	# python3 crowdsource.py -s ~/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -f ~/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/crowd/terms/zooniverse/recorded_by.tsv -m duration -o ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/crowdsource/recorded_by.tsv
+
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

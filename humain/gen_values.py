@@ -74,6 +74,8 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	# Usage:
 	# python3 ./gen_values.py -d ~/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/ocr/ocropus -e txt -g 3,0.2 -o ~/test.csv
+	# python3 ~/Fall2019/HuMaIN_Simulator/humain/gen_values.py -d ~/Fall2019/HS_HITL/ocr/bio01 -e txt -g 20.3,19.7 -o ~/Fall2019/HuMaIN_Simulator/datasets/bioset10/crowd/metrics/bio01_1.csv
+	
 	# File can take input of file or directory of files
 	# File input should be of the format filename, value where the delimiter used is ","
 
@@ -93,7 +95,6 @@ if __name__ == '__main__':
 	filename_list = []
 
 	if os.path.isdir(args.directory):
-		print("it is directory")
 		# verify dir
 		verify_dir( args.directory, "The input directory was not found.", parser, 1 )
 		# verify ext
@@ -104,14 +105,13 @@ if __name__ == '__main__':
 		filenames = os.listdir(args.directory)
 		filename_list = list(f for f in filenames if f.endswith('.txt'))
 	else:
-		print("it is file")
 		# verify file
 		verify_file(args.directory, "The input file was not found.", parser, 1)
 		# verify extension
 		verify_file_ext(args.directory, args.extension)
 		#extract filename list
 		with open(args.directory, newline='') as csvfile:
-			spamreader = csv.reader(csvfile, delimiter=',')
+			spamreader = csv.reader(csvfile, delimiter='\t')
 			for row in spamreader:
 				filename_list.append(row[0])
 	

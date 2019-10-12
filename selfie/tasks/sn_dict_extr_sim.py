@@ -34,11 +34,10 @@ if __name__ == '__main__':
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when verifying the scientific name.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
 	args = parser.parse_args()	
-	# Usage example: python3 sn_dict_extr.py -s /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds/rejected/rejected.tsv 
-	# 	-n /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_norm_dict/rejected/rejected.tsv
-	# 	-d /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_dict_extr/ocropus 
-	# 	-m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_dict_extr
-	# python3 sn_dict_extr.py -s /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds/rejected/rejected.tsv -n /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_norm_dict/rejected/rejected.tsv -d /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_dict_extr/ocropus -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_dict_extr
+
+	# Usage example:
+	# python3 sn_dict_extr.py -s ~/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds/rejected/rejected.tsv -n ~/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_norm_dict/rejected/rejected.tsv -d ~/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_dict_extr/ocropus -m duration -o ~/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_dict_extr
+
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

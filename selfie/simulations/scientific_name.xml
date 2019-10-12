@@ -7,7 +7,7 @@
 <root>
 	<tasks>
 		<task name="ocr_sim">
-			<parameter name="ocr_input_dir">datasets/aocr_mix100/ocr/ocropus</parameter>
+			<parameter name="ocr_input_dir">datasets/aocr_mix100/ocr/gc-ocr</parameter>
 			<parameter name="include">True</parameter>
 			<parameter name="specimens_list">datasets/aocr_mix100/specimen_list.txt</parameter>
 			<parameter name="metric">duration</parameter>
@@ -15,20 +15,20 @@
 		</task>
 		<task name="sn_suffix_id_sim">
 			<parameter name="fulltext_dir">selfie/results/scientific_name/ocr_sim</parameter>
-			<parameter name="suffix_dir">datasets/aocr_mix100/sn_suffix/ocropus</parameter>
+			<parameter name="suffix_dir">datasets/aocr_mix100/sn_suffix/gc-ocr</parameter>
 			<parameter name="metric">duration</parameter>
 			<parameter name="output_dir">selfie/results/scientific_name/sn_suffix_id_sim</parameter>
 		</task>
 		<task name="sn_dict_norm_sim">
 			<parameter name="candidates_file">selfie/results/scientific_name/sn_suffix_id_sim/accepted/accepted.tsv</parameter>
-			<parameter name="norm_dir">datasets/aocr_mix100/sn_dict_norm/ocropus</parameter>
+			<parameter name="norm_dir">datasets/aocr_mix100/sn_dict_norm/gc-ocr</parameter>
 			<parameter name="metric">duration</parameter>
 			<parameter name="output_dir">selfie/results/scientific_name/sn_dict_norm_sim</parameter>
 		</task>
 		<task name="sn_dict_extr_sim">
 			<parameter name="rej_suf_file">selfie/results/scientific_name/sn_suffix_id_sim/rejected/rejected.txt</parameter>
 			<parameter name="rej_nor_file">selfie/results/scientific_name/sn_dict_norm_sim/rejected/rejected.txt</parameter>
-			<parameter name="dict_extr_dir">datasets/aocr_mix100/sn_dict_extr/ocropus</parameter>			
+			<parameter name="dict_extr_dir">datasets/aocr_mix100/sn_dict_extr/gc-ocr</parameter>			
 			<parameter name="metric">duration</parameter>
 			<parameter name="output_dir">selfie/results/scientific_name/sn_dict_extr_sim</parameter>
 		</task>

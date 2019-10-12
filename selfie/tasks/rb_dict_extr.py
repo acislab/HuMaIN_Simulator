@@ -22,7 +22,8 @@ import os, sys, argparse, re, codecs, time
 import pandas as pd
 
 from humain.constants import *
-from humain.utils import *
+from humain.utils import 
+*
 ##############################################################################################################################################################
 if __name__ == '__main__':
 	""" Extraction of the Recorded-by term using a dictionary. """
@@ -33,8 +34,9 @@ if __name__ == '__main__':
 	parser.add_argument('-t','--threshold',action="store", required=False, type=int, default=1, help="Minimum count registered in the dictionary for an entry to be accepted.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted values and rejected specimens will be saved")
 	args = parser.parse_args()
+	
 	# Usage example:
-	# python3 ~/Summer2019/HuMaIN/rb_dict_extr.py -i /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/ocr -d /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv -o /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_dict_extr
+	# python3 ~/Summer2019/HuMaIN/rb_dict_extr.py -i ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/ocr -d ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_create_dict/dictionary.tsv -o ~/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/rb_dict_extr
 	
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS

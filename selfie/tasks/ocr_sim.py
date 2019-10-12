@@ -36,8 +36,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	# Usage:
-	# python3 ocr.py -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_herbs/ocr/gc-ocr -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_insects/ocr/gc-ocr -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_lichens/ocr/gc-ocr -i False -sl /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -m duration -od /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/recorded_by/ocr
-	# python3 ocr.py -id /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/ocr/ocropus -i True -sl /home/ialzuru/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -m duration -od /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/results/event_date/ocr
+	# python3 ocr.py -id ~/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/ocr/ocropus -i True -sl ~/Fall2019/HuMaIN_Simulator/datasets/aocr_mix100/specimen_list.txt -m duration -od ~/Fall2019/HuMaIN_Simulator/selfie/results/event_date/ocr
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS

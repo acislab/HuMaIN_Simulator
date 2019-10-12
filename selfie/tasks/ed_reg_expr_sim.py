@@ -32,8 +32,11 @@ if __name__ == '__main__':
 	parser.add_argument('-f', '--regexp_file', action="store", required=True, help="File with the correspondent Event Date extracted using the regular expresion algorithm.")	
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
-	args = parser.parse_args()	
-	# Usage example: python3 ed_reg_expr.py -d ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_ds -f ~/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds
+	args = parser.parse_args()
+
+	# Usage example: 
+	# python3 ed_reg_expr.py -d ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/ocr_ds -f ~/Summer2019/HuMaIN_Simulator/datasets/aocr_insects/reg_exp/gc-ocr/reg_expr.tsv -m duration -o ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds
+	
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

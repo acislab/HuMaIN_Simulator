@@ -1,0 +1,11 @@
+TENN-L-0000089_lg.txt
+NY_00819601.txt
+EMEC609515_Cerceris_compacta.txt
+EMEC609826_Cerceris_convergens.txt
+NY_00413475.txt
+NY_01334326.txt
+NY_01334493.txt
+NY_00198993.txt
+TENN-L-0000035_lg.txt
+EMEC609828_Cerceris_convergens.txt
+NY_01334438.txt

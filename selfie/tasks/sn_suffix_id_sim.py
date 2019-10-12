@@ -32,8 +32,11 @@ if __name__ == '__main__':
 	parser.add_argument('-s', '--suffix_dir', action="store", required=True, help="File with the Scientific Name candidates extracted using suffixes algorithm.")	
 	parser.add_argument('-m', '--metric', action="append", required=False, help="One or more metrics that will be collected when running the regular expression extraction.")
 	parser.add_argument('-o', '--output_dir', action="store", required=True, help="Directory where the accepted and rejected extractions will be stored.")
-	args = parser.parse_args()	
-	# Usage example: python3 sn_suffix_ds.py -d /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/ocr_ds -s /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_suffix/ocropus -m duration -o /home/ialzuru/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds
+	args = parser.parse_args()
+
+	# Usage example: 
+	# python3 sn_suffix_ds.py -d ~/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/ocr_ds -s ~/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/sn_suffix/ocropus -m duration -o ~/Summer2019/HuMaIN_Simulator/selfie/results/scientific_name/sn_suffix_ds
+	
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
 	################################################################################################################################

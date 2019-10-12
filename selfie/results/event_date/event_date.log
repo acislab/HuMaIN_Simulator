@@ -1,0 +1,24 @@
+[2019-10-11 19:06:53] Simulation starts.
+[2019-10-11 19:06:53] Simulation Parameters:
+		Project Directory: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie
+		Workflow Definition File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/workflows/event_date.csv
+		Simulation Parameters File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/simulations/event_date.xml
+		Parameters per Task:
+			ocr_sim: {'ocr_input_dir': ['datasets/aocr_mix100/ocr/ocropus'], 'include': ['True'], 'specimens_list': ['datasets/aocr_mix100/specimen_list.txt'], 'metric': ['duration'], 'output_dir': ['selfie/results/event_date/ocr_sim']}
+			ed_reg_expr_sim: {'fulltext_dir': ['selfie/results/event_date/ocr_sim'], 'regexp_file': ['datasets/aocr_mix100/reg_exp/ocropus/reg_expr.tsv'], 'metric': ['duration'], 'output_dir': ['selfie/results/event_date/ed_reg_expr_sim']}
+			crowdsource_sim: {'specimens': ['selfie/results/event_date/ed_reg_expr_sim/rejected/rejected.txt'], 'crowd_data': ['datasets/aocr_mix100/crowd/terms/zooniverse/event_date.tsv'], 'metric': ['duration'], 'output_file': ['selfie/results/event_date/crowdsource_sim/crowd_event_date.tsv']}
+			consensus_sim: {'crowd_file': ['selfie/results/event_date/crowdsource_sim/crowd_event_date.tsv'], 'consensus_dir': ['datasets/aocr_mix100/consensus/event_date'], 'metric': ['duration'], 'output_dir': ['selfie/results/event_date/consensus_sim']}
+
+[2019-10-11 19:06:53] Task ocr_sim was successfully executed.
+[2019-10-11 19:06:53] The output of the ocr_sim Task has been successfully verified.
+[2019-10-11 19:06:53] Task ed_reg_expr_sim was successfully executed.
+[2019-10-11 19:06:53] The output of the ed_reg_expr_sim Task has been successfully verified.
+[2019-10-11 19:06:54] Task crowdsource_sim was successfully executed.
+[2019-10-11 19:06:54] The output of the crowdsource_sim Task has been successfully verified.
+[2019-10-11 19:06:54] Task consensus_sim was successfully executed.
+[2019-10-11 19:06:54] The output of the consensus_sim Task has been successfully verified.
+[2019-10-11 19:06:54] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/add.py was sucessfully executed.
+[2019-10-11 19:06:55] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-11 19:06:55] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:06:55] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-11 19:06:55] Simulation finishes.

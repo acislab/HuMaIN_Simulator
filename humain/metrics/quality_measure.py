@@ -1,5 +1,24 @@
 #!/usr/bin/env python3
-import os, sys, argparse
+
+##########################################################################################
+# Developers: 	Icaro Alzuru and Aditi Malladi
+# Project: 		HuMaIN (http://humain.acis.ufl.edu)
+# Description: 	Compute the quality (similarity to the ground truth data) of the extracted 
+# 				term values
+##########################################################################################
+# Copyright 2019    Advanced Computing and Information Systems (ACIS) Lab - UF
+#                   (https://www.acis.ufl.edu/)
+# Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
+# except in compliance with the License. You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the 
+# License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+# either express or implied. See the License for the specific language governing permissions 
+# and limitations under the License.
+##########################################################################################
+
+import os, sys, argparse, re
 import pandas as pd
 from pyxdameraulevenshtein import normalized_damerau_levenshtein_distance
 
@@ -15,7 +34,7 @@ if __name__ == '__main__':
 	parser.add_argument('-o', '--output_file', action="store", required=True, help="File with the Damerau-Levenshtein similarity to the ground truth data of the accepted values.")
 	args = parser.parse_args()
 
-	# Usage: python3 ./quality_measure.py -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/accepted/accepted.tsv -a /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_ds/accepted/accepted.tsv -g /home/ialzuru/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv -o /home/ialzuru/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/quality.csv
+	# Usage: python3 ./quality_measure.py -a ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/reg_expr_ds/accepted/accepted.tsv -a ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/consensus_ds/accepted/accepted.tsv -g ~/Summer2019/HuMaIN_Simulator/datasets/aocr_mix100/gtruth/terms/dwc_eventDate.tsv -o ~/Summer2019/HuMaIN_Simulator/humain/selfie/results/event_date_001/quality.csv
 
 	################################################################################################################################
 	# ARGUMENTS VALIDATIONS
@@ -64,9 +83,13 @@ if __name__ == '__main__':
 	################################################################################################################################
 	# COMPARISON: COMPUTATION OF THE DAMERAU-LEVENSTEIN SIMILARITY BETWEEN THE GROUND TRUTH VALUES AND THE ACCEPTED VALUES
 	sim_text = ""
+	pattern = re.compile('[\W_]+')
 	for specimen in specimen_gt_value.keys():
 		if specimen in candidate_value.keys():
-			sim = 1.0 - normalized_damerau_levenshtein_distance( specimen_gt_value[specimen], candidate_value[specimen] )
+			# Eliminate special characters
+			clean_gt_value = pattern.sub(' ', specimen_gt_value[specimen].lower()).replace('  ', ' ').replace('  ', ' ')
+			clean_candidate_value = pattern.sub(' ', candidate_value[specimen].lower()).replace('  ', ' ').replace('  ', ' ')
+			sim = 1.0 - normalized_damerau_levenshtein_distance( clean_gt_value, clean_candidate_value )
 			sim_text += specimen + "," + str(sim) + "\n"
 		# else:
 		# 	sim_text += specimen + ",0.0\n"

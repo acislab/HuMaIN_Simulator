@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+#######################################################################################
+# Execution value of the workflow's parameters 
+# All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+-->
+<root>
+	<simulation>
+		<iterative>yes</iterative>
+		<stop_task>subset</stop_task>
+	</simulation>
+	<tasks>
+		<task name="subset">
+			<parameter name="init_list_file">datasets/wedigbio/wdb_cotton.txt</parameter>
+			<parameter name="subset_size">50</parameter>
+			<parameter name="m_ar_task">rb_dict_extr</parameter>			
+			<parameter name="output_file">selfie/results/rb_hitl_cotton/selected_specimens.txt</parameter>
+		</task>
+		<task name="crowdsource_sim">
+			<parameter name="specimens">selfie/results/rb_hitl_cotton/selected_specimens.txt</parameter>
+			<parameter name="crowd_data">datasets/wedigbio/crowd/wdb_cotton.tsv</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_file">selfie/results/rb_hitl_cotton/crowdsource_sim/recorded_by.tsv</parameter>
+		</task>
+		<task name="consensus_sim">
+			<parameter name="crowd_file">selfie/results/rb_hitl_cotton/crowdsource_sim/recorded_by.tsv</parameter>
+			<parameter name="consensus_dir">datasets/wedigbio/consensus/wdb_cotton</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/rb_hitl_cotton/consensus_sim</parameter>
+		</task>
+		<task name="create_dict">
+			<parameter name="data_file">selfie/results/rb_hitl_cotton/consensus_sim/accepted/accepted.tsv</parameter>
+			<parameter name="dict_file">selfie/results/rb_hitl_cotton/create_dict/dictionary.tsv</parameter>
+		</task>
+ 		<task name="ocr_sim">
+			<parameter name="ocr_input_dir">datasets/wedigbio/ocr/wdb_cotton</parameter>
+			<parameter name="include">True</parameter>
+			<parameter name="specimens_list">selfie/results/rb_hitl_cotton/remaining_specimens.txt</parameter>	
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/rb_hitl_cotton/ocr_sim</parameter>		
+		</task>
+		<task name="rb_dict_extr">
+			<parameter name="input_dir">selfie/results/rb_hitl_cotton/ocr_sim</parameter>
+			<parameter name="dict_file">selfie/results/rb_hitl_cotton/create_dict/dictionary.tsv</parameter>
+			<parameter name="threshold">1</parameter>
+			<parameter name="output_dir">selfie/results/rb_hitl_cotton/rb_dict_extr</parameter>
+		</task>
+	</tasks>
+	<!-- The base dir for the metrics' parameters is BASE_DIR/humain/metrics -->
+	<metrics>		
+		<script name="add.py">
+			<parameter name="mf">selfie/results/rb_hitl_cotton/crowdsource_sim/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/rb_hitl_cotton/consensus_sim/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/rb_hitl_cotton/consensus_sim/rejected/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/rb_hitl_cotton/ocr_sim/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/rb_hitl_cotton/rb_dict_extr/accepted/metrics/duration.csv</parameter>
+			<parameter name="mf">selfie/results/rb_hitl_cotton/rb_dict_extr/rejected/metrics/duration.csv</parameter>
+			<parameter name="output_file">selfie/results/rb_hitl_cotton/duration.csv</parameter>
+		</script>
+		<script name="quality_measure.py">
+			<parameter name="accepted_file">selfie/results/rb_hitl_cotton/consensus_sim/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/rb_hitl_cotton/rb_dict_extr/accepted/accepted.tsv</parameter>
+			<parameter name="ground_truth">datasets/wedigbio/gtruth/recorded_by/wdb_cotton.tsv</parameter>
+			<parameter name="output_file">selfie/results/rb_hitl_cotton/quality.csv</parameter>
+		</script>
+	</metrics>
+	<!-- The base dir for the post-processing' parameters is BASE_DIR/humain/post-processing -->
+	<post-processing>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/rb_hitl_cotton/duration.csv</parameter>
+			<parameter name="output_file">selfie/results/rb_hitl_cotton/duration_stats.txt</parameter>
+		</script>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/rb_hitl_cotton/quality.csv</parameter>
+			<parameter name="output_file">selfie/results/rb_hitl_cotton/quality_stats.txt</parameter>
+		</script>
+	</post-processing>
+</root>
