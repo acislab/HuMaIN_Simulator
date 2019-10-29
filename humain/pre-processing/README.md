@@ -1,7 +1,7 @@
 # pre-processing
 
 #### consensus&#46;py 
-Consensus algorithm to get a final value from the crowdsourced data.
+  Consensus algorithm to get a final value from the crowdsourced data.
 
 #### convert_crowd_one_line.py
 Given the tsv file with the crowdsourced data from 3 users or more per image, generates a file with the three values in a single line.
