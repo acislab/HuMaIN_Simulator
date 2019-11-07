@@ -1,0 +1,6 @@
+Number of lines: 45
+Mean: 1.0
+Median: 1.0
+Standard Deviation: 0.0
+Minimum: 1.0
+Maximum: 1.0

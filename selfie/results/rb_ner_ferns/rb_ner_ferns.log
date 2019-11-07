@@ -1,0 +1,59 @@
+[2019-10-27 20:21:50] Simulation starts.
+[2019-10-27 20:21:50] Simulation Parameters:
+		Project Directory: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie
+		Workflow Definition File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/workflows/rb_ner.csv
+		Simulation Parameters File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/simulations/rb_ner_ferns.xml
+		Parameters per Task:
+			subset: {'init_list_file': ['datasets/wedigbio/wdb_ferns.txt'], 'subset_size': ['100'], 'm_ar_task': ['freq_lists', 'ner'], 'output_file': ['selfie/results/rb_ner_ferns/selected_specimens.txt']}
+			crowdsource_sim: {'specimens': ['selfie/results/rb_ner_ferns/selected_specimens.txt'], 'crowd_data': ['datasets/wedigbio/crowd/wdb_ferns.tsv'], 'metric': ['duration'], 'output_file': ['selfie/results/rb_ner_ferns/crowdsource_sim/recorded_by.tsv']}
+			consensus_sim: {'crowd_file': ['selfie/results/rb_ner_ferns/crowdsource_sim/recorded_by.tsv'], 'consensus_dir': ['datasets/wedigbio/consensus/wdb_ferns'], 'metric': ['duration'], 'output_dir': ['selfie/results/rb_ner_ferns/consensus_sim']}
+			learning: {'accepted_file': ['selfie/results/rb_ner_ferns/consensus_sim/accepted/accepted.tsv'], 'training_data_dir': ['datasets/wedigbio/trn_data_spacy_format/wdb_ferns'], 'term': ['RECORDEDBY'], 'iterations': ['50'], 'output_dir': ['selfie/results/rb_ner_ferns/learning']}
+			ner: {'input_file': ['selfie/results/rb_ner_ferns/remaining_specimens.txt'], 'data_dir': ['datasets/wedigbio/trn_data_spacy_format/wdb_ferns'], 'model_dir': ['selfie/results/rb_ner_ferns/learning/model'], 'term': ['RECORDEDBY'], 'output_file': ['selfie/results/rb_ner_ferns/ner/ner.tsv']}
+			freq_lists: {'input_file': ['selfie/results/rb_ner_ferns/ner/ner.tsv'], 'local_dict_file': ['selfie/results/rb_ner_ferns/learning/dictionary.tsv'], 'global_dict_file': ['datasets/idigbio/freq_table/recordedBy.tsv'], 'output_dir': ['selfie/results/rb_ner_ferns/freq_lists']}
+
+[2019-10-27 20:21:50] STARTS ITERATION 1:
+[2019-10-27 20:21:51] Task subset was successfully executed.
+[2019-10-27 20:21:51] Task crowdsource_sim was successfully executed.
+[2019-10-27 20:21:52] Task consensus_sim was successfully executed.
+[2019-10-27 20:22:09] Task learning was successfully executed.
+[2019-10-27 20:23:18] Task ner was successfully executed.
+[2019-10-27 20:26:24] Task freq_lists was successfully executed.
+[2019-10-27 20:26:25] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-27 20:26:25] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-27 20:26:25] ENDS ITERATION 1.
+
+[2019-10-27 20:26:25] STARTS ITERATION 2:
+[2019-10-27 20:26:25] Task subset was successfully executed.
+[2019-10-27 20:26:26] Task crowdsource_sim was successfully executed.
+[2019-10-27 20:26:26] Task consensus_sim was successfully executed.
+[2019-10-27 20:26:34] Task learning was successfully executed.
+[2019-10-27 20:26:42] Task ner was successfully executed.
+[2019-10-27 20:29:53] Task freq_lists was successfully executed.
+[2019-10-27 20:29:53] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-27 20:29:54] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-27 20:29:54] ENDS ITERATION 2.
+
+[2019-10-27 20:29:54] STARTS ITERATION 3:
+[2019-10-27 20:29:54] Task subset was successfully executed.
+[2019-10-27 20:29:55] Task crowdsource_sim was successfully executed.
+[2019-10-27 20:29:55] Task consensus_sim was successfully executed.
+[2019-10-27 20:29:58] Task learning was successfully executed.
+[2019-10-27 20:30:00] Task ner was successfully executed.
+[2019-10-27 20:33:14] Task freq_lists was successfully executed.
+[2019-10-27 20:33:14] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-27 20:33:15] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-27 20:33:15] ENDS ITERATION 3.
+
+[2019-10-27 20:33:15] STARTS ITERATION 4:
+[2019-10-27 20:33:15] Task subset was successfully executed.
+[2019-10-27 20:33:16] Task crowdsource_sim was successfully executed.
+[2019-10-27 20:33:16] Task consensus_sim was successfully executed.
+[2019-10-27 20:33:18] Task learning was successfully executed.
+[2019-10-27 20:33:19] Task ner was successfully executed.
+[2019-10-27 20:36:29] Task freq_lists was successfully executed.
+[2019-10-27 20:36:29] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/metrics/quality_measure.py was sucessfully executed.
+[2019-10-27 20:36:29] The script /home/ialzuru/Fall2019/HuMaIN_Simulator/humain/post-processing/basic_stats.py was sucessfully executed.
+[2019-10-27 20:36:29] ENDS ITERATION 4.
+
+[2019-10-27 20:36:29] STARTS ITERATION 5:
+[2019-10-27 20:36:30] Simulation finishes.

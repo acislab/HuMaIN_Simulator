@@ -22,8 +22,8 @@ import os, sys, argparse, re, codecs, time
 import pandas as pd
 
 from humain.constants import *
-from humain.utils import 
-*
+from humain.utils import *
+
 ##############################################################################################################################################################
 if __name__ == '__main__':
 	""" Extraction of the Recorded-by term using a dictionary. """

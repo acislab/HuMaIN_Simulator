@@ -63,16 +63,18 @@ if __name__ == '__main__':
 	try:
 		currect_iteration_dir = os.path.dirname( args.output_file )
 		current_iteration_number = int( currect_iteration_dir.split('_')[-1] )
-	except:
-		print('Error: The iteration directory does not have a number.\n')
-		sys.exit(4)
+	except: # If the current iteration directory does not have a number, then it is assumed a sequenctial execution (no iterative)
+		current_iteration_number = 0
+	
 	previous_iteration_number = current_iteration_number - 1
 	previous_results_dir = results_dir.replace("_" + str(current_iteration_number), "_" + str(previous_iteration_number) )
 
+	print("PREVIOUS:", previous_iteration_number)
+	print("CURRENT:", current_iteration_number)
 	##########################################################################################		
 	# GET THE LIST OF AVAILABLE SPECIMENS TO BE PROCESSED (FROM LAST ITERATION)
 	available_specimens = set()
-	if current_iteration_number == 1:
+	if current_iteration_number <= 1:
 		# all the specimens of the dataset
 		lines = []
 		with open(args.init_list_file) as f_orig:

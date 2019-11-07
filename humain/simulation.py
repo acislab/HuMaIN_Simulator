@@ -227,7 +227,7 @@ class Simulation:
 				for p_value in p_value_list:
 					args_list.append("--" + p_name)
 					# Directory
-					if p_type in ['D_JPG', 'D_TXT']:
+					if p_type in ['D_JPG', 'D_TXT', 'D_JSON']:
 						dir_name = BASE_DIR + "/" + p_value
 						ext = p_type.split('_')[-1]
 						if not( verify_dir_ext( dir_name, ext ) ):
@@ -281,7 +281,7 @@ class Simulation:
 					for p_value in p_value_list:
 						complete_value = BASE_DIR + "/" + p_value
 						# Directory
-						if p_type in ['O_D_JPG', 'O_D_TXT']:
+						if p_type in ['O_D_JPG', 'O_D_TXT', 'O_D_TSV']:
 							ext = p_type.split('_')[-1]
 							if not( verify_dir_ext( complete_value, ext ) ):
 								print( "\nERROR: Verification of " + task_name + ". Output directory " + p_value + " does not exist or does not contain " + ext + " files.\n" )

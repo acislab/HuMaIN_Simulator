@@ -35,6 +35,7 @@ if __name__ == '__main__':
 	# python3 run_simulation.py -p selfie -w scientific_name -s scientific_name
 	# python3 run_simulation.py -p selfie -w recorded_by -s recorded_by
 	# python3 run_simulation.py -p selfie -w recorded_by_hitl -s recorded_by_hitl
+	# python3 run_simulation.py -p selfie -w rb_classifier -s rb_class_comfort
 	
 	sim = Simulation( args.project, args.workflow, args.sim_file )
 	#sim.draw_workflow()

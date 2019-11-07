@@ -1,0 +1,26 @@
+[2019-10-26 20:19:02] Simulation starts.
+[2019-10-26 20:19:02] Simulation Parameters:
+		Project Directory: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie
+		Workflow Definition File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/workflows/rb_ner.csv
+		Simulation Parameters File: /home/ialzuru/Fall2019/HuMaIN_Simulator/selfie/simulations/rb_ner_comfort.xml
+		Parameters per Task:
+			subset: {'init_list_file': ['datasets/wedigbio/wdb_comfort.txt'], 'subset_size': ['100'], 'm_ar_task': ['freq_lists'], 'output_file': ['selfie/results/rb_ner_comfort/selected_specimens.txt']}
+			crowdsource_sim: {'specimens': ['selfie/results/rb_ner_comfort/selected_specimens.txt'], 'crowd_data': ['datasets/wedigbio/crowd/wdb_comfort.tsv'], 'metric': ['duration'], 'output_file': ['selfie/results/rb_ner_comfort/crowdsource_sim/recorded_by.tsv']}
+			consensus_sim: {'crowd_file': ['selfie/results/rb_ner_comfort/crowdsource_sim/recorded_by.tsv'], 'consensus_dir': ['datasets/wedigbio/consensus/wdb_comfort'], 'metric': ['duration'], 'output_dir': ['selfie/results/rb_ner_comfort/consensus_sim']}
+			learning: {'accepted_file': ['selfie/results/rb_ner_comfort/consensus_sim/accepted/accepted.tsv'], 'training_data_dir': ['datasets/wedigbio/trn_data_spacy_format/wdb_comfort'], 'term': ['RECORDEDBY'], 'iterations': ['50'], 'output_dir': ['selfie/results/rb_ner_comfort/learning']}
+			ner: {'input_file': ['selfie/results/rb_ner_comfort/remaining_specimens.txt'], 'data_dir': ['datasets/wedigbio/trn_data_spacy_format/wdb_comfort'], 'model_dir': ['selfie/results/rb_ner_comfort/learning/model'], 'term': ['RECORDEDBY'], 'output_file': ['selfie/results/rb_ner_comfort/ner/ner.tsv']}
+			freq_lists: {'input_file': ['selfie/results/rb_ner_comfort/ner/ner.tsv'], 'local_dict_file': ['selfie/results/rb_ner_comfort/learning/dictionary.tsv'], 'global_dict_file': ['datasets/idigbio/freq_table/recordedBy.tsv'], 'output_dir': ['selfie/results/rb_ner_comfort/ner/ner.tsv']}
+
+[2019-10-26 20:19:02] Task subset was successfully executed.
+[2019-10-26 20:19:02] The output of the subset Task has been successfully verified.
+[2019-10-26 20:19:03] Task crowdsource_sim was successfully executed.
+[2019-10-26 20:19:03] The output of the crowdsource_sim Task has been successfully verified.
+[2019-10-26 20:19:04] Task consensus_sim was successfully executed.
+[2019-10-26 20:19:04] The output of the consensus_sim Task has been successfully verified.
+[2019-10-26 20:19:24] Task learning was successfully executed.
+[2019-10-26 20:19:24] The output of the learning Task has been successfully verified.
+[2019-10-26 20:21:24] Task ner was successfully executed.
+[2019-10-26 20:21:24] The output of the ner Task has been successfully verified.
+[2019-10-26 20:21:24] ERROR: Task freq_lists generated an error:
+	None
+

@@ -1,6 +1,14 @@
 # HuMaIN_Simulator
 
 ## Description
+The digitization of biocollections is typically performed through crowdsourcing (volunteers) because of the errors that automated information extraction (IE) methods generate.<br/>
+More specifically, Optical Character Recognition technology still generates errors. The segmentation process and the AI recognition models for handwritten text are two of the most challenging cases.<br/>
+The HuMaIN simulator expects to promote and accelerate the research in semi-automated IE from biocollections.<br/>
+The simulated tasks are tasks for which the results have already been computed.<br/>
+The general recommendation is to simulate all the tasks, except that one that you are trying to improve. 
+
+
+
 
 ## Installation
 The HuMaIN Simulator requires Python 3 installed in your computer. Please refer to https://www.python.org/downloads/ for instructions about how to download and install Python 3 in your operating system.<br/>

@@ -65,4 +65,24 @@
 		<parameter name="m_ar_task" type="STRING"></parameter>
 		<parameter name="output_file" type="O_TXT"></parameter>
 	</task>
+	<task name="learning">
+		<parameter name="accepted_file" type="TSV"></parameter>
+		<parameter name="training_data_dir" type="D_TXT"></parameter>
+		<parameter name="term" type="STRING"></parameter>
+		<parameter name="iterations" type="INT"></parameter>
+		<parameter name="output_dir" type="O_D_TSV"></parameter>
+	</task>
+	<task name="ner">
+		<parameter name="input_file" type="TXT"></parameter>
+		<parameter name="data_dir" type="D_TXT"></parameter>
+		<parameter name="model_dir" type="D_JSON"></parameter>
+		<parameter name="term" type="STRING"></parameter>
+		<parameter name="output_file" type="O_TSV"></parameter>
+	</task>
+	<task name="freq_lists">
+		<parameter name="input_file" type="TSV"></parameter>
+		<parameter name="local_dict_file" type="TSV"></parameter>
+		<parameter name="global_dict_file" type="TSV"></parameter>
+		<parameter name="output_dir" type="O_D_AR"></parameter>
+	</task>		
 </root>

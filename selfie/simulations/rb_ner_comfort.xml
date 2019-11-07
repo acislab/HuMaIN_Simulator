@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+#######################################################################################
+# Execution value of the workflow's parameters 
+# All the input and output directories and files are relative to the BASE_DIR
+#######################################################################################
+-->
+<root>
+	<simulation>
+		<iterative>yes</iterative>
+		<stop_task>subset</stop_task>
+	</simulation>
+	<tasks>
+		<task name="subset">
+			<parameter name="init_list_file">datasets/wedigbio/wdb_comfort.txt</parameter>
+			<parameter name="subset_size">100</parameter>
+			<parameter name="m_ar_task">freq_lists</parameter>		
+			<parameter name="m_ar_task">ner</parameter>		
+			<parameter name="output_file">selfie/results/rb_ner_comfort/selected_specimens.txt</parameter>
+		</task>
+		<task name="crowdsource_sim">
+			<parameter name="specimens">selfie/results/rb_ner_comfort/selected_specimens.txt</parameter>
+			<parameter name="crowd_data">datasets/wedigbio/crowd/wdb_comfort.tsv</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_file">selfie/results/rb_ner_comfort/crowdsource_sim/recorded_by.tsv</parameter>
+		</task>
+		<task name="consensus_sim">
+			<parameter name="crowd_file">selfie/results/rb_ner_comfort/crowdsource_sim/recorded_by.tsv</parameter>
+			<parameter name="consensus_dir">datasets/wedigbio/consensus/wdb_comfort</parameter>
+			<parameter name="metric">duration</parameter>
+			<parameter name="output_dir">selfie/results/rb_ner_comfort/consensus_sim</parameter>
+		</task>
+		<task name="learning">
+			<parameter name="accepted_file">selfie/results/rb_ner_comfort/consensus_sim/accepted/accepted.tsv</parameter>
+			<parameter name="training_data_dir">datasets/wedigbio/trn_data_spacy_format/wdb_comfort</parameter>
+			<parameter name="term">RECORDEDBY</parameter>
+			<parameter name="iterations">50</parameter>
+			<parameter name="output_dir">selfie/results/rb_ner_comfort/learning</parameter>
+		</task>
+		<task name="ner">
+			<parameter name="input_file">selfie/results/rb_ner_comfort/remaining_specimens.txt</parameter>
+			<parameter name="data_dir">datasets/wedigbio/trn_data_spacy_format/wdb_comfort</parameter>
+			<parameter name="model_dir">selfie/results/rb_ner_comfort/learning/model</parameter>
+			<parameter name="term">RECORDEDBY</parameter>
+			<parameter name="output_file">selfie/results/rb_ner_comfort/ner/ner.tsv</parameter>
+		</task>
+		<task name="freq_lists">
+			<parameter name="input_file">selfie/results/rb_ner_comfort/ner/ner.tsv</parameter>
+			<parameter name="local_dict_file">selfie/results/rb_ner_comfort/learning/dictionary.tsv</parameter>
+			<parameter name="global_dict_file">datasets/idigbio/freq_table/recordedBy.tsv</parameter>
+			<parameter name="output_dir">selfie/results/rb_ner_comfort/freq_lists</parameter>
+		</task>	
+	</tasks>
+	<!-- The base dir for the metrics' parameters is BASE_DIR/humain/metrics -->
+	<metrics>
+		<script name="quality_measure.py">
+			<parameter name="accepted_file">selfie/results/rb_ner_comfort/consensus_sim/accepted/accepted.tsv</parameter>
+			<parameter name="accepted_file">selfie/results/rb_ner_comfort/freq_lists/accepted/accepted.tsv</parameter>
+			<parameter name="ground_truth">datasets/wedigbio/gtruth/recorded_by/wdb_comfort.tsv</parameter>
+			<parameter name="output_file">selfie/results/rb_ner_comfort/quality.csv</parameter>
+		</script>		
+	</metrics>
+	<!-- The base dir for the post-processing' parameters is BASE_DIR/humain/post-processing -->
+	<post-processing>
+		<script name="basic_stats.py">
+			<parameter name="metric_file">selfie/results/rb_ner_comfort/quality.csv</parameter>
+			<parameter name="output_file">selfie/results/rb_ner_comfort/quality_stats.txt</parameter>
+		</script>	
+	</post-processing>
+</root>
