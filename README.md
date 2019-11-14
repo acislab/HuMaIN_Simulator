@@ -1,4 +1,4 @@
-# HuMaIN_Simulator
+# HuMaIN Simulator
 
 ## Description
 The digitization of biocollections is typically performed through crowdsourcing (volunteers) because of the errors that automated information extraction (IE) methods generate.<br/>
