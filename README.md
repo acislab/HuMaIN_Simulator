@@ -7,7 +7,10 @@ The HuMaIN simulator expects to promote and accelerate the research in semi-auto
 The simulated tasks are tasks for which the results have already been computed.<br/>
 The general recommendation is to simulate all the tasks, except that one that you are trying to improve. 
 
-
+## Acknowledgment
+HuMaIN is funded by a grant from the National Science Foundation's ACI Division of Advanced Cyberinfrastructure (Award Number: 1535086).
+Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and
+do not necessarily reflect the views of the National Science Foundation.
 
 
 ## Installation
